@@ -5,6 +5,8 @@ import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
+
+import context.TestContextSetup;
 import driverFactorySetUp.DriverFactory;
 import io.cucumber.java.After;
 import io.cucumber.java.AfterStep;
@@ -49,6 +51,7 @@ public class Hooks {
 		logger.info("Executing scenario: " + scenario.getName());
 		System.out.println("Set browser type from before setup:" + DriverFactory.getBrowser());
 		DriverFactory.getDriver();
+	    TestContextSetup.setDriver(DriverFactory.getDriver());
 		DriverFactory.setupBrowser();
 		DriverFactory.getDriver().manage().deleteAllCookies();
 		// Default URL for ALL scenarios
@@ -74,11 +77,11 @@ public class Hooks {
 
 	@After
 	public void tearDown() {
-		if (driver != null) {
 			logger.info("Closing WebDriver instance...");
-			DriverFactory.quitDriver();
-			driver = null;
-		}
+			if (DriverFactory.getDriver() != null) {
+		        DriverFactory.quitDriver();
+		    }
+		    TestContextSetup.clear();
 	}
 
 }
