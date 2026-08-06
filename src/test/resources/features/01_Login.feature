@@ -1,4 +1,4 @@
-@ui
+@Login
 Feature: HerBalance Login Page UI Verification
 
   Background:

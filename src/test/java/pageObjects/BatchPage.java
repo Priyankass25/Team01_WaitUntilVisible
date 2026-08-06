@@ -151,9 +151,9 @@ public class BatchPage {
         String password = random + "@@123";
         String userName = random;
         
-        context.setScenarioData("EMAIL", email);
-        context.setScenarioData("PASSWORD", password);
-        context.setScenarioData("USERNAME", userName);
+//        context.setScenarioData("EMAIL", email);
+//        context.setScenarioData("PASSWORD", password);
+//        context.setScenarioData("USERNAME", userName);
 
         enterEmail(email);
         enterPassword(password);

@@ -11,7 +11,7 @@ import utilities.LoggerLoad;
 
 public class Batch {
 
-    HomePage loginPage = new HomePage();
+//    HomePage loginPage = new HomePage();
     ExcelUtils excel = new ExcelUtils(ConfigReader.getProperty("test_data_path"));
 
 
@@ -31,7 +31,7 @@ public class Batch {
   @When("user clicks login button after entering a {string} credential")
   public void user_clicks_login_button_after_entering_a_credential(String scenario) {
      LoggerLoad.info("Login attempt with scenario: " + scenario);
-      Map<String, String> data = excel.getRowDataByScenario("LoginData", scenario);      
+//      Map<String, String> data = excel.getRowDataByScenario("LoginData", scenario);      
 //      loginPage.enterEmail(data.get("Email"));
 //      loginPage.enterPassword(data.get("Password"));
 //      loginPage.clickLogin();
