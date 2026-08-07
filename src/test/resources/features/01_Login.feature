@@ -1,54 +1,62 @@
-@ui
-Feature: HerBalance Login Page UI Verification
 
-  Background:
-    Given User is on the HerBalance launch page
-    When User clicks log in button
+  	
+    When User enters the url "https://lms-frontend-hackathon-6dcccb9dd0fa.herokuapp.com/login"
+    Then LMS page should be launched
 
-  Scenario: HerBalance logo visibility
-    Then HerBalance logo should be visible on the top-left corner
+  	When: User enters Invalid URL "https://lms-frontend-hackatho"
+    Then LMS Page should not open
 
-  Scenario: Login and Sign Up tabs are displayed
-    Then Both "Login" and "Sign Up" tabs should be visible
+  	When: User enters Broken link "https://lms-frontend-hackathon-"
+    Then LMS Page should not open
 
-  Scenario: Default selected tab is “Login”
-   When User clicks loginTab button
-    Then Login tab should be active by default
+   	Scenario: User enters the url "https://lms-frontend-hackathon-6dcccb9dd0fa.herokuapp.com/login"
+    Then Admin should see  LMS - Learning Management System  
+   
+   	Scenario: User enters the url "https://lms-frontend-hackathon-6dcccb9dd0fa.herokuapp.com/login"
+    Then Application logo should be present 
 
-  Scenario: Email ID input field presence on loginPage
-    Then Email ID input field with placeholder "you@example.com" should be visible on loginPage
+		Scenario: User enters the url "https://lms-frontend-hackathon-6dcccb9dd0fa.herokuapp.com/login"
+    Then Company name "Numpy Ninja" is displayed below the Application title
+   
+   	Scenario: User enters the url "https://lms-frontend-hackathon-6dcccb9dd0fa.herokuapp.com/login"
+    Then Admin should see "Please login to LMS application"
 
-  Scenario: Password input field presence
-    Then Password input field with masked entry should be visible on LoginPage
+		Scenario: Input field presence
+    Then Admin should see two text field
 
-  Scenario: “Show Password” presence
-    Then “Show password” should be visible
+  	Scenario: Role dropdown is displayed
+    Then  One dropdown with values such as Admin, Staff, Student should be displayed
 
-  Scenario: “Login” button presence and state
-    Then “Login” button should be visible, enabled
+  	Scenario: Text presence on the first field
+    Then Admin should see "User" in the first text field
 
-  Scenario: “Forgot password?” link presence
-   When User clicks logIn button
-    Then “Forgot password?” link should be visible
+  	Scenario: Text presence on the second field
+    Then Admin should see "Password" in the second text field
 
-  Scenario: “Sign Up” link visibility
-    Then “Sign Up” link should be visible and navigates to the Sign-Up page
+ 		Scenario: Asterisk is displayed for user field
+    Then Admin should see asterisk mark(*) symbol next to text for user field
 
-  Scenario: Right panel content (Transform Your Weight Loss Journey)
-    Then The right section should display “Cycle-Synced Plans”, “Blood Work Analysis”, and “Personalized Dashboard” content
 
-  Scenario: Testimonial section presence
-    Then A testimonial with text and name (e.g., “Sarah, 34”) should be displayed
+ 		Scenario: Asterisk is displayed for password field
+    Then Admin should see asterisk mark(*) symbol next to text for pwd field
 
-  Scenario: Total number of tabs
-    Then There should be exactly 2 tabs — “Login” and “Sign Up”
+  	Scenario: Placeholder presence in dropdown
+    Then Admin should see "select the role " placeholder in dropdown
 
-  Scenario: Input field alignment and spacing
-    Then Email ID and Password fields should be properly aligned vertically with equal spacing
+  	Scenario: Dropdown options to select role
+    Then AAdmin should see "Admin", "staff" ,"student" options in dropdown
 
-  Scenario: Two input field
-    Then There should be exactly 2 input field
+  	Scenario: Alignment of the login form
+    Then Admin should see login form on the centre of the page
 
-  Scenario: Radio button for show password
-    Then Radio button for show password
+  	Scenario: Input field label alignment
+    Then Username , Password labels and select the role should be left-aligned above their respective input fields
 
+  	Scenario: Login button is displayed
+    Then Admin should see login button 
+
+  	Scenario: User field Placeholder text colour
+    Then Admin should see user text in gray color
+
+ 	  Scenario: Password field Placeholder text colour
+    Then Admin should see password text in gray color
