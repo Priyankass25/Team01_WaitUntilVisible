@@ -1,57 +1,62 @@
 package context;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.openqa.selenium.WebDriver;
+import driverFactorySetUp.PageObjectMgr;
 
-import driverFactorySetUp.DriverFactory;
-import pageObjects.LoginPage;
-import pageObjects.BatchPage;
-import utilities.CommonMethods;
 
 public class TestContextSetup {
 
-	private WebDriver driver;
-	private LoginPage dashboardPage;
+	private static ThreadLocal<WebDriver> driver = new ThreadLocal<>();
+	private static ThreadLocal<PageObjectMgr> pom = new ThreadLocal<>();
+
+	public static void setDriver(WebDriver driverInstance) {
+		driver.set(driverInstance);
+		pom.set(new PageObjectMgr(driverInstance));
+	}
 	
-	private CommonMethods commonMethods;
-	private Map<String, Object> sharedData;
-	public final String USERNAME = "firstName";
-	public final String EMAIL = "email";
-	public final String PASSWORD = "password";
-	public final String HC = "healthcondition"; // HC-HealthCondition
-	public final int AGE = 0;
-	public final String BPSTATUS = "bpstatus";
-	public final String MENSTRUAL_CYCLE_IFO = "menstrualCycleInfo";
-
-	public TestContextSetup() {
-		this.driver = DriverFactory.getDriver();
-
-		this.commonMethods = new CommonMethods(driver);
-		this.sharedData = new HashMap<>();
+	public static WebDriver getDriver() {
+		return driver.get();
+	}
+	
+	public static PageObjectMgr getPom() {
+	        return pom.get();
 	}
 
-	public WebDriver getDriver() {
-		return driver;
-	}
-
-	public LoginPage dashboardPage() {
-		return dashboardPage;
+	public static void clear() {
+	        driver.remove();
+	        pom.remove();
 	}
 
 
-	public CommonMethods commonMethods() {
-		return commonMethods;
-	}
-
-	public void setScenarioData(String key, Object value) {
-		sharedData.put(key, value);
-	}
-
-	public Object getScenarioData(String key) {
-		return sharedData.get(key);
-	}
-
-
+//	private WebDriver driver;
+//	
+//	private CommonMethods commonMethods;
+//
+//
+//	public TestContextSetup() {
+//		this.driver = DriverFactory.getDriver();
+//
+//		this.commonMethods = new CommonMethods(driver);
+//		
+//	}
+//	public WebDriver getDriver() {
+//		return driver;
+//	}
+//
+//	public LoginPage dashboardPage() {
+//		return dashboardPage;
+//	}
+//
+//
+//	public CommonMethods commonMethods() {
+//		return commonMethods;
+//	}
+//
+//	public void setScenarioData(String key, Object value) {
+//		sharedData.put(key, value);
+//	}
+//
+//	public Object getScenarioData(String key) {
+//		return sharedData.get(key);
+//	}
 }
