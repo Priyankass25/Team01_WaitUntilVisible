@@ -22,7 +22,7 @@ public class ProgramPage2 {
     By textp = By.xpath("//*[text()='Python']");
     By progde = By.xpath("//*[text()='Coding Details']");
     By progst = By.xpath("//tr[td[normalize-space()='Python']]/td[normalize-space()='Active']");
- 
+    By zeroent = By.xpath("//*[text()='1']");
 
     public void clickprogram() {
         wait.until(ExpectedConditions.elementToBeClickable(program)).click();
@@ -31,6 +31,19 @@ public class ProgramPage2 {
     public void searchbox() {
         wait.until(ExpectedConditions.visibilityOfElementLocated(search))
             .sendKeys("Python");
+    }
+
+    public void searchboxdes() {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(search))
+            .sendKeys("Coding Details");
+    }
+    public void searchboxnotex() {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(search))
+            .sendKeys("Java Script");
+    }
+    public void searchboxpar() {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(search))
+            .sendKeys("Py");
     }
 
     public String searchp() {
@@ -45,13 +58,29 @@ public class ProgramPage2 {
         return wait.until(ExpectedConditions.visibilityOfElementLocated(progst))
                    .getText();
     }
+    public String zeroentries() {
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(zeroent))
+                   .getText();
+    }
     public String searchtx() {
         return "Python";
     }
     public String progtxt() {
         return "Coding Details";
     }
+    public String entries() {
+        return "0";
+    }
     public String progsttxt() {
         return "Active";
+    }
+    public boolean progname() {
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(textp)).isDisplayed();
+    }
+    public boolean progdes() {
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(progde)).isDisplayed();
+    }
+    public boolean progstatus() {
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(progst)).isDisplayed();
     }
 }
