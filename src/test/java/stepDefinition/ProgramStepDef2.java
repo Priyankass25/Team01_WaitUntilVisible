@@ -19,11 +19,12 @@ public class ProgramStepDef2 {
 
 
 	@Given("Admin is on Program page")
-	public void admin_is_on_program_page() {
+	public void admin_is_on_program_page() throws InterruptedException {
 		TestContextSetup.getPom().getLoginPage().enterUser("Lmshackathon@gmail.com");
 		TestContextSetup.getPom().getLoginPage().enterPassword("lmsAug@2026");
 		TestContextSetup.getPom().getLoginPage().selectRole();
 		TestContextSetup.getPom().getLoginPage().clickLoginBtn();
+	
 		TestContextSetup.getPom().getProgramPage2().clickprogram();
 		
 	}
@@ -35,15 +36,7 @@ public class ProgramStepDef2 {
 
 	@Then("Admin should  see Program name, description, and status for searched program name")
 	public void admin_should_see_program_name_description_and_status_for_searched_program_name() {
-//         String expout=TestContextSetup.getPom().getProgramPage2().searchp();
-//         String actout=TestContextSetup.getPom().getProgramPage2().searchtx();
-//         String actout2=TestContextSetup.getPom().getProgramPage2().progdescriptxt();
-//         String expout2=TestContextSetup.getPom().getProgramPage2().progtxt();
-//         String actout3=TestContextSetup.getPom().getProgramPage2().progdestatustxt();
-//         String expout3=TestContextSetup.getPom().getProgramPage2().progsttxt();
-//	     Assert.assertEquals(actout,expout, "Program name is not matching");
-//	     Assert.assertEquals(actout2,expout2, "Program description is not matching");
-//	     Assert.assertEquals(actout3,expout3, "Program status is not matching");
+
 		boolean actout = TestContextSetup.getPom().getProgramPage2().progname();
 		boolean actout2 = TestContextSetup.getPom().getProgramPage2().progdes();
 		boolean actout3 = TestContextSetup.getPom().getProgramPage2(). progstatus();
@@ -59,15 +52,7 @@ public class ProgramStepDef2 {
 
 	@Then("Admin should  see Program name, description, and status for searched program description")
 	public void admin_should_see_program_name_description_and_status_for_searched_program_description() {
-//		 String expout=TestContextSetup.getPom().getProgramPage2().searchp();
-//         String actout=TestContextSetup.getPom().getProgramPage2().searchtx();
-//         String actout2=TestContextSetup.getPom().getProgramPage2().progdescriptxt();
-//         String expout2=TestContextSetup.getPom().getProgramPage2().progtxt();
-//         String actout3=TestContextSetup.getPom().getProgramPage2().progdestatustxt();
-//         String expout3=TestContextSetup.getPom().getProgramPage2().progsttxt();
-//	     Assert.assertEquals(actout,expout, "Program name is not matching");
-//	     Assert.assertEquals(actout2,expout2, "Program description is not matching");
-//	     Assert.assertEquals(actout3,expout3, "Program status is not matching");
+
 		boolean actout = TestContextSetup.getPom().getProgramPage2().progname();
 		boolean actout2 = TestContextSetup.getPom().getProgramPage2().progdes();
 		boolean actout3 = TestContextSetup.getPom().getProgramPage2(). progstatus();
@@ -100,7 +85,6 @@ public class ProgramStepDef2 {
 		Assert.assertTrue(actout3, "programdescription is not displayed");
 		Assert.assertTrue(actout, "program name is not displayed");
 	}
-
+	
+	
 	}
-
-
