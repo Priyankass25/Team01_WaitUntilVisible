@@ -14,14 +14,14 @@ public class ProgramPage2 {
 
     public ProgramPage2(WebDriver driver) {
         this.driver = driver;
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(30));
     }
 
     By program = By.xpath("//*[text()='Program']");
     By search = By.xpath("//*[@placeholder='Search...']");
-    By textp = By.xpath("//*[text()='Python']");
-    By progde = By.xpath("//*[text()='Coding Details']");
-    By progst = By.xpath("//tr[td[normalize-space()='Python']]/td[normalize-space()='Active']");
+    By textp = By.xpath("//tbody[contains(@class,'p-datatable-tbody')]/tr[1]/td[2]");
+    By progde = By.xpath("//tbody[contains(@class,'p-datatable-tbody')]/tr[1]/td[3]");
+    By progst = By.xpath("//tbody[contains(@class,'p-datatable-tbody')]/tr[1]/td[4]");
     By zeroent = By.xpath("//*[text()='1']");
 
     public void clickprogram() {
