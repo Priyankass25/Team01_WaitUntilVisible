@@ -9,7 +9,7 @@ import utilities.ConfigReader;
 import utilities.ExcelUtils;
 import utilities.LoggerLoad;
 
-public class Batch {
+public class BatchStepDef {
 
 //    HomePage loginPage = new HomePage();
     ExcelUtils excel = new ExcelUtils(ConfigReader.getProperty("test_data_path"));
