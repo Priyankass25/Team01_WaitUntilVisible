@@ -1,6 +1,6 @@
 package stepDefinition;
 
-public class Logout {
+public class LogoutStepDef {
 
 	
 }

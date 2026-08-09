@@ -45,8 +45,8 @@ public class CommonMethods {
 		return wait.until(ExpectedConditions.visibilityOf(webElement));
 	}
 
-	public WebElement waitForClickable(By activityInsightBtn) {
-		return wait.until(ExpectedConditions.elementToBeClickable(activityInsightBtn));
+	public WebElement waitForClickable(By locator) {
+	    return wait.until(ExpectedConditions.elementToBeClickable(locator));
 	}
 
 	public WebElement waitForClickable(WebElement element) {
@@ -112,9 +112,9 @@ public class CommonMethods {
 		}
 	}
   
-	public void waitForPopupToDisappear() {
+	public void waitForPopupToDisappear(By Locator) {
 		try {
-			wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//li[@role='status']")));
+			wait.until(ExpectedConditions.invisibilityOfElementLocated(Locator));
 		} catch (Exception e) {
 			LoggerLoad.info("Pop up cannot be closed");
 		}
@@ -235,4 +235,9 @@ public class CommonMethods {
     	    return ThreadLocalRandom.current().nextInt(120, 250);
     	}
 
+       public void scrollToBottomPage() {
+    	   JavascriptExecutor js = (JavascriptExecutor) driver;
+
+    	   js.executeScript("window.scrollTo(0, document.body.scrollHeight)");
+       }
 }
