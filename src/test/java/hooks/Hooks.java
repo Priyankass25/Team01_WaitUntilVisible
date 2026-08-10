@@ -44,23 +44,21 @@ public class Hooks {
 			}
 		}
 	}
+	
+	@Before 
+    public void setUp(Scenario scenario) {
 
-	@Before
-	public void setUp(Scenario scenario) {
-
-		logger.info("Executing scenario: " + scenario.getName());
-		logger.info("Set browser type from before setup:" + DriverFactory.getBrowser());
-	    TestContextSetup context = new TestContextSetup();
-
-	    TestContextSetup.setDriver(DriverFactory.getDriver(), context); 
-		DriverFactory.setupBrowser(); 
-		DriverFactory.getDriver().manage().deleteAllCookies(); 
-		String url = ConfigReader.getProperty("url"); 
-		
-		DriverFactory.getDriver().get(url);
-		
-	}
-
+        logger.info("Executing scenario: "+ scenario.getName());
+        String browser = DriverFactory.getBrowser();
+        logger.info("Browser for this scenario: " + browser);
+        WebDriver driver = DriverFactory.getDriver();
+        TestContextSetup context = new TestContextSetup();
+        TestContextSetup.setDriver( driver, context);
+        DriverFactory.setupBrowser();
+        String url = ConfigReader.getProperty("url");
+        driver.get(url);
+        logger.info("Navigated to URL: " + url);    }
+	
 	@AfterStep
 	public void afterStep(Scenario scenario) {
 		if (scenario.isFailed()) {

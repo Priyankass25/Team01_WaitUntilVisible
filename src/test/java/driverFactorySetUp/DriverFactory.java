@@ -20,7 +20,7 @@ public class DriverFactory {
 		if (browserName.equalsIgnoreCase("Edge")) {
 			EdgeOptions options = new EdgeOptions();
 			if (isHeadless) {
-				options.addArguments("--headless");
+				  options.addArguments("--headless=new");
 			}
 			driver.set(new EdgeDriver(options));
 
@@ -47,18 +47,19 @@ public class DriverFactory {
 
 	public static String getBrowser() {
 		String browser = browserName.get();
-		if (browser == null) {
+		if (browser == null || browser.trim().isEmpty()) {
 			browser = System.getProperty("browser");
 		}
-		if (browser == null) {
+		if (browser == null || browser.trim().isEmpty()) {
 			browser = ConfigReader.getProperty("browser");
 		}
+		
 		return browser;
 	}
 
 	public static WebDriver getDriver() {
 		if (driver.get() == null) {
-			DriverFactory.inItBrowser();
+			inItBrowser();
 		}
 		return driver.get();
 	}
@@ -83,17 +84,23 @@ public class DriverFactory {
 	public static void setupBrowser() {
 		WebDriver localDriver = driver.get();
 		localDriver.manage().deleteAllCookies();
-//		localDriver.get(ConfigReader.getProperty("url"));
 		localDriver.manage().window().maximize();
+		  if (!isHeadless()) {
+	            localDriver.manage()
+	                    .window()
+	                    .maximize();
+	        }
 		localDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 
 	}
 
 	public static String getBrowserName() {
+		
 		return browserName.get();
 	}
 
 	public static void setBrowserName(String browserName) {
+	      
 		DriverFactory.browserName.set(browserName);
 	}
 }
