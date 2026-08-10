@@ -174,11 +174,11 @@ public class ProgramPage {
 	}
 	
 	public boolean isNameTextBoxDisplayed() {
-		return driver.findElement(prgmNameid).isDisplayed();
+		return common.isDisplayed(prgmNameid);
 	}
 	
 	public boolean isDescriptionTextBoxDisplayed() {
-		return driver.findElement(prgmDesc).isDisplayed();
+		return common.isDisplayed(prgmDesc);
 	}
 	
 	public boolean isStatusRadioBtnsDisplayed() {
