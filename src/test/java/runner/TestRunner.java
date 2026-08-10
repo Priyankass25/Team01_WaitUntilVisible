@@ -35,7 +35,7 @@ public class TestRunner extends AbstractTestNGCucumberTests {
       }
 
     @Override
-    @DataProvider(name = "scenarios", parallel = true)//false- non parallel
+    @DataProvider(name = "scenarios", parallel = false)//false- non parallel
     public Object[][] scenarios() {
         return super.scenarios();
     }
