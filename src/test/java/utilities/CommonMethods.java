@@ -67,6 +67,14 @@ public class CommonMethods {
 			return false;
 		}
 	}
+	
+	public String getText(By locator) {
+		try {
+			return driver.findElement(locator).getText();
+		} catch (Exception e) {
+			return toString();
+		}
+	}
 
 
 	public boolean isEnabled(By locator) {
