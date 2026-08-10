@@ -1,11 +1,7 @@
 package pageObjects;
 
-import java.util.List;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.Select;
-
 
 public class LoginPage {
 
@@ -25,6 +21,9 @@ public class LoginPage {
 	    public By loginBtn = By.id("login");
 	    public By adminOption = By.xpath("//mat-option//span[normalize-space()='Admin']");
 
+	    public boolean isLoginPageLoaded() {
+	    	return driver.getCurrentUrl().contains("login");
+	    }
 	    
 	    public void enterUser(String username) {
 	    	driver.findElement(user).clear();

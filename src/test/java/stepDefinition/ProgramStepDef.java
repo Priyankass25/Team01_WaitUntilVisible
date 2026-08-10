@@ -3,12 +3,7 @@ package stepDefinition;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import utilities.ConfigReader;
-import utilities.ExcelUtils;
 import utilities.LoggerLoad;
-
-import java.util.List;
-import java.util.Map;
 
 import org.testng.Assert;
 
@@ -175,47 +170,93 @@ public class ProgramStepDef {
 
 	@Given("Admin is on Program details dialog box")
 	public void admin_is_on_program_details_dialog_box() {
-	    
+		TestContextSetup.getPom().getHomePage().prgmNavgationBarClick();
+		TestContextSetup.getPom().getProgramPage().addProgramBtnClick();  
+		   LoggerLoad.info("Admin is on Program details dialog box");
 	}
 
-	@When("Admin clicks save button without entering mandatory")
-	public void admin_clicks_save_button_without_entering_mandatory() {
-	    
+	@When("Admin clicks save button for scenario {string}")
+	public void admin_clicks_save_button_for_scenario(String string) {
+		
+		if(string.equalsIgnoreCase("EmptyMandatoryFields")) {
+        	TestContextSetup.getPom().getProgramPage().savePrgmBtnClick();
+        	LoggerLoad.info("Admin clicked on Program Save Button");
+        	
+		}else if (string.equalsIgnoreCase("ValidMandatoryFields")) {
+			TestContextSetup.getPom().getProgramPage().enterUniqueProgramNameSendKeys();
+			TestContextSetup.getPom().getProgramPage().selectActiveStatus();
+        	TestContextSetup.getPom().getProgramPage().savePrgmBtnClick();
+        	LoggerLoad.info("Admin clicked on Program Save Button");
+
+		}else if (string.equalsIgnoreCase("NumericProgramName")) {
+			TestContextSetup.getPom().getProgramPage().enterNumericProgramNameSendKeys();
+
+        }else {
+        	throw new IllegalArgumentException("Unknown scenario value.");}
+
 	}
 
 	@Then("Admin gets message {string}")
 	public void admin_gets_message(String string) {
-	    
+		if(string.equalsIgnoreCase("EmptyMandatoryFields")) {
+        	Assert.assertTrue(TestContextSetup.getPom().getProgramPage().areNameAndStatusErrMsgsDisplayed(),
+ 				   "Admin did not get error messages for empty program name and status");
+ 		   LoggerLoad.info("Admin get error messages for empty program name and status");
+        	
+		}else if (string.equalsIgnoreCase("ValidMandatoryFields")) {
+        	Assert.assertTrue(TestContextSetup.getPom().getProgramPage().isSuccessMsgDisplayed(),
+					"Admin unable to see the success message for add program name");
+        	LoggerLoad.info("Admin able to see the success message for add program name");
+
+		}else if (string.equalsIgnoreCase("NumericProgramName")) {
+			Assert.assertTrue(TestContextSetup.getPom().getProgramPage().isNumericErrMsgDisplayed(),
+					"Admin unable to see the numeric error message for program name");
+			LoggerLoad.info("Admin able to see the numeric error message for program name");
+
+        }else {
+        	throw new IllegalArgumentException("Unknown scenario value.");}
 	}
 
 	@When("Admin clicks Cancel button")
 	public void admin_clicks_cancel_button() {
-	    
+		TestContextSetup.getPom().getProgramPage().clickCancelBtn();
+    	LoggerLoad.info("Admin clicked cancel button ");
 	}
 
 	@Then("Admin can see Program Details form disappears")
 	public void admin_can_see_program_details_form_disappears() {
-	   
+		Assert.assertTrue(TestContextSetup.getPom().getProgramPage().isPrgmDetailsFormDisappers(),
+				"Admin unable to see the program details form disappers");
+		LoggerLoad.info("Admin able to see the program details form disappers");
 	}
 
 	@When("Admin clicks X button")
 	public void admin_clicks_x_button() {
-	  
+		TestContextSetup.getPom().getProgramPage().clickCloseBtn();
+    	LoggerLoad.info("Admin clicked close X button ");
 	}
 
-	@When("Admin searches with newly created {string}")
-	public void admin_searches_with_newly_created(String string) {
-	    
+	@When("Admin searches with newly created Program Name")
+	public void admin_searches_with_newly_created_program_name() {
+		TestContextSetup.getPom().getProgramPage().searchCreatedPrgm();
+    	LoggerLoad.info("Admin searchs for created program");
 	}
 
 	@Then("Admin should see the Records of the newly created Program details")
 	public void admin_should_see_the_records_of_the_newly_created_program_details() {
-	   
+		Assert.assertTrue(TestContextSetup.getPom().getProgramPage().searchedPrgmNameValidation(),
+				"Admin unable to see the created program in search");
+		LoggerLoad.info("Admin able to see the created program in search");
 	}
 
 	@When("Admin clicks on Edit option for particular program")
 	public void admin_clicks_on_edit_option_for_particular_program() {
 	    
+	}
+	
+	@Then("Admin should see Program details dialog box")
+	public void admin_should_see_program_details_box() {
+	   
 	}
 
 	@When("Admin clicks save button after editing the fields {string}")

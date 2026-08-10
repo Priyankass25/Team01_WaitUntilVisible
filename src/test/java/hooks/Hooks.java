@@ -49,21 +49,16 @@ public class Hooks {
 	public void setUp(Scenario scenario) {
 
 		logger.info("Executing scenario: " + scenario.getName());
-		System.out.println("Set browser type from before setup:" + DriverFactory.getBrowser());
-		DriverFactory.getDriver();
-	    TestContextSetup.setDriver(DriverFactory.getDriver());
-		DriverFactory.setupBrowser();
-		DriverFactory.getDriver().manage().deleteAllCookies();
-		// Default URL for ALL scenarios
-		String url = ConfigReader.getProperty("url");
-		// Override ONLY for UI login/signup validations
-		if (scenario.getSourceTagNames().contains("@ui")) {
-			url = ConfigReader.getProperty("ui_url");
-			logger.info("UI scenario detected → Navigating to UI URL");
-		} else {
-			logger.info("Functional scenario detected → Navigating to Functional URL");
-		}
+		logger.info("Set browser type from before setup:" + DriverFactory.getBrowser());
+	    TestContextSetup context = new TestContextSetup();
+
+	    TestContextSetup.setDriver(DriverFactory.getDriver(), context); 
+		DriverFactory.setupBrowser(); 
+		DriverFactory.getDriver().manage().deleteAllCookies(); 
+		String url = ConfigReader.getProperty("url"); 
+		
 		DriverFactory.getDriver().get(url);
+		
 	}
 
 	@AfterStep
