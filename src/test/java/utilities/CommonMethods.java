@@ -6,7 +6,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.concurrent.ThreadLocalRandom;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.*;
@@ -23,7 +22,7 @@ public class CommonMethods {
 		this.wait = new WebDriverWait(driver, Duration.ofSeconds(20));
 	}
 
-	public By usernameTextbox = By.xpath("//input[@name='username']");
+	/*public By usernameTextbox = By.xpath("//input[@name='username']");
 	public By passwordTextbox = By.xpath("//input[@name='password']");
 	public By loginButtonUI = By.xpath("//button[@type='submit']");
 
@@ -35,38 +34,32 @@ public class CommonMethods {
 		driver.findElement(usernameTextbox).sendKeys(username);
 		driver.findElement(passwordTextbox).sendKeys(password);
 		driver.findElement(loginButtonUI).click();
-	}
+	}*/
 
-	public static WebElement waitForVisibility(By locator) {
+	public WebElement waitForVisibility(By locator) {
 		return wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
 	}
 
-	public static WebElement waitForVisibility(WebElement webElement) {
-		return wait.until(ExpectedConditions.visibilityOf(webElement));
-	}
 
 	public WebElement waitForClickable(By locator) {
 	    return wait.until(ExpectedConditions.elementToBeClickable(locator));
-	}
-
-	public WebElement waitForClickable(WebElement element) {
-		return wait.until(ExpectedConditions.elementToBeClickable(element));
 	}
 
 	public WebElement waitForPresence(By locator) {
 		return wait.until(ExpectedConditions.presenceOfElementLocated(locator));
 	}
 
-	public static String generateRandomString() {
-		String CHARSET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+	public String generateRandomString() {
+		String CHARSET = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 		StringBuilder salt = new StringBuilder();
 		Random rnd = new Random();
-		while (salt.length() < 10) { 
+		while (salt.length() <10) { 
 			int index = rnd.nextInt(CHARSET.length());
 			salt.append(CHARSET.charAt(index));
 		}
 		return salt.toString();
 	}
+	
 	public boolean isDisplayed(By locator) {
 		try {
 			return waitForVisibility(locator).isDisplayed();
@@ -74,6 +67,7 @@ public class CommonMethods {
 			return false;
 		}
 	}
+
 
 	public boolean isEnabled(By locator) {
 		try {
@@ -83,15 +77,11 @@ public class CommonMethods {
 		}
 	}
 
-	public String getText(By locator) {
-		return waitForVisibility(locator).getText().trim();
-	}
-
 	public void click(By locator) {
 		waitForClickable(locator).click();
 	}
 
-	public static boolean webClickByLocator(By locator) {
+	/*public static boolean webClickByLocator(By locator) {
 		Wait<WebDriver> fluentWait = new FluentWait<>(driver).withTimeout(Duration.ofSeconds(15))
 				.pollingEvery(Duration.ofMillis(500)).ignoring(StaleElementReferenceException.class)
 				.ignoring(NoSuchElementException.class);
@@ -110,17 +100,17 @@ public class CommonMethods {
 			System.err.println("Failed to click element after Fluent Wait: " + locator);
 			return false;
 		}
-	}
+	}*/
   
-	public void waitForPopupToDisappear(By Locator) {
+	/*public void waitForPopupToDisappear(By Locator) {
 		try {
 			wait.until(ExpectedConditions.invisibilityOfElementLocated(Locator));
 		} catch (Exception e) {
 			LoggerLoad.info("Pop up cannot be closed");
 		}
-	}
+	}*/
 
-	public static String waitForDomAttribute(By locator, String attribute, int timeoutInSeconds) {
+	/*public static String waitForDomAttribute(By locator, String attribute, int timeoutInSeconds) {
 		try {
 			WebDriverWait wait = new WebDriverWait(DriverFactory.getDriver(), Duration.ofSeconds(timeoutInSeconds));
 			return wait.until(driver -> driver.findElement(locator).getDomAttribute(attribute));
@@ -129,13 +119,13 @@ public class CommonMethods {
 					+ e.getMessage());
 			return "";
 		}
-	}
+	}*/
        
-	public int getElementsCount(By locator) {
+	/*public int getElementsCount(By locator) {
 		return driver.findElements(locator).size();
-	}
+	}*/
 
-	public List<String> getElementsListText(By locator) {
+	/*public List<String> getElementsListText(By locator) {
 
 		List<WebElement> elements = driver.findElements(locator);
 		List<String> texts = new ArrayList<>();
@@ -148,16 +138,17 @@ public class CommonMethods {
 		}
 
 		return texts;
-	}
-	public static int generateRandomAge() {
-		return new Random().nextInt(83) + 18;
+	}*/
+	
+	public int generateRandomNumber() {
+		return new Random().nextInt(1000);
 	}
 
-	public static double extractNumber(String text) {
+	/*public static double extractNumber(String text) {
 		return Double.parseDouble(text.replaceAll("[^0-9.]", ""));
-	}
+	}*/
 
-	public String getAlertMsg(By locator) {
+	/*public String getAlertMsg(By locator) {
 		try {
 			WebElement element = driver.findElement(locator);
 
@@ -175,69 +166,79 @@ public class CommonMethods {
 			throw new RuntimeException("Failed to retrieve alert message: " + e.getMessage());
 		}
 
-	}
+	}*/
 
-	public WebElement randomCheckboxSelection(By locator) {
+	/*public WebElement randomCheckboxSelection(By locator) {
 		List<WebElement> checkboxesNew = driver.findElements(locator);
 
 		Random random = new Random();
 		int randomIndex = random.nextInt(checkboxesNew.size());
 		WebElement randomCheckbox = checkboxesNew.get(randomIndex);
 		return randomCheckbox;
-	}
+	}*/
 
-	public void scrollIntoView(WebElement element) {
+	/*public void scrollIntoView(WebElement element) {
 		((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", element);
 	}
 
 	public void scrollIntoView(By locator) {
 		WebElement element = wait.until(ExpectedConditions.presenceOfElementLocated(locator));
 		scrollIntoView(element);
+	}*/
+	
+	public void scrollIntoView(By locator) {
+
+	    WebElement element =
+	        wait.until(
+	            ExpectedConditions.visibilityOfElementLocated(locator)
+	        );
+
+	    ((JavascriptExecutor) driver).executeScript(
+	        "arguments[0].scrollIntoView({block:'center'});",
+	        element
+	    );
 	}
 
-	public String getAlertText() {
+	/*public String getAlertText() {
 		Alert alert = wait.until(ExpectedConditions.alertIsPresent());
 		return alert.getText();
-	}
+	}*/
 
-	public void enterTextAndAcceptAlert(String text) {
+	/*public void enterTextAndAcceptAlert(String text) {
 		Alert alert = wait.until(ExpectedConditions.alertIsPresent());
 		alert.sendKeys(text);
 		alert.accept();
-	}
+	}*/
 
-	public void dismissAlert() {
-		Alert alert = wait.until(ExpectedConditions.alertIsPresent());
-		alert.dismiss();
-	}
+//	public void dismissAlert() {
+//		Alert alert = wait.until(ExpectedConditions.alertIsPresent());
+//		alert.dismiss();
+//	}
 
-	public String getCurrentDate() {
+	/*public String getCurrentDate() {
 		return LocalDate.now().format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
-	}
+	}*/
 
-	public List<WebElement> getElements(By locator) {
-		return driver.findElements(locator);
-	}
+//	public List<WebElement> getElements(By locator) {
+//		return driver.findElements(locator);
+//	}
 
-	public static void sendKeys(By locator, String text) {
+	public void sendKeys(By locator, String text) {
 		WebElement element = waitForVisibility(locator);
 		element.clear();
 		element.sendKeys(text);
 	}
 
-	public void scrollIntoViewWait(WebElement element) {
+	/*public void scrollIntoViewWait(WebElement element) {
 		((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center', inline:'center'});",
 				element);
 		wait.until(ExpectedConditions.visibilityOf(element));
-	}
+	}*/
 
-       public static int generateRandomWeightHeight() {
-    	    return ThreadLocalRandom.current().nextInt(120, 250);
-    	}
-
-       public void scrollToBottomPage() {
-    	   JavascriptExecutor js = (JavascriptExecutor) driver;
-
-    	   js.executeScript("window.scrollTo(0, document.body.scrollHeight)");
-       }
+// 
+//       public void scrollToBottomPage() {
+//    	   JavascriptExecutor js = (JavascriptExecutor) driver;
+//
+//    	   js.executeScript("window.scrollTo(0, document.body.scrollHeight)");
+//       }
 }

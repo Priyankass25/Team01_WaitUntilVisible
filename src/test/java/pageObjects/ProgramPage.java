@@ -1,23 +1,30 @@
 package pageObjects;
 
-import java.awt.Dimension;
 import java.util.List;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import context.TestContextSetup;
 import utilities.CommonMethods;
+import utilities.LoggerLoad;
 
 public class ProgramPage {
 
 	WebDriver driver;
 	CommonMethods common;
+	TestContextSetup context;
 
-	public ProgramPage(WebDriver driver) {
+	public ProgramPage(WebDriver driver, TestContextSetup context) {
 		this.driver = driver;
 		this.common = new CommonMethods(driver);
+	    this.context = context;
+
 	}
+	
+//	private String programName ="RYLgBEgiLI";
+	private String programName;
 	
 	public By manageProgmHeading = By.xpath("//div[contains(text() ,'Manage Program')]");
 	public By formPosition = By.className("mat-card-title");
@@ -36,15 +43,26 @@ public class ProgramPage {
 	public By addProgramBtn = By.xpath("//div[@class = 'cdk-overlay-pane']//button[contains(@class,'mat-focus-indicator')]");
 	public By programDetailsTitle = By.xpath("//div[contains(@class, 'p-dialog-header')]//span");
 	public By asteriskName = By.xpath("//label[contains(text(), 'Name')]//span");
-	public By prgmName = By.xpath("//div//label[text()='Name']");
+//	public By prgmName = By.xpath("//div//label[text()='Name']");
+	public By prgmNameid = By.id("programName");
 	public By asteriskStatus = By.xpath("//lable[contains(text(), 'Status')]//span");
 	public By prgmDesc = By.xpath("//div//label[text()='Description']");
-	public By prgmStatus = By.xpath("//div//lable[text()='Status']");
+//	public By prgmStatus = By.xpath("//div//lable[text()='Status']");
 	public By statusRadioBtns = By.xpath("//div//p-radiobutton");
 	public By overlayBackdrop = By.cssSelector("div.cdk-overlay-backdrop.cdk-overlay-backdrop-showing");
-	
-	
+	public By savePrgmBtn = By.id("saveProgram");
+	public By prgmNameAlreadyExistError = By.xpath("//div//small");
+	public By activeStatusCheckbox = By.xpath("//p-radiobutton[@ng-reflect-input-id='Active']");
+	public By errMsgsEmptyPrgm = By.xpath("//small[contains(text(),'Program name is required.')]");
+	public By errMsgsEmptyStatus = By.xpath("//small[contains(text(),'Status is required.')]");
+	public By errMsgNumericPrgm = By.xpath("//small[contains(text(),'start with an alphabet')]");
+	public By successMsgAddPrgm = By.xpath("//div[contains(@class, 'p-toast-detail')]");
+	public By cancelBtn = By.xpath("//div//button[@ng-reflect-label='Cancel']");
+	public By prgmDetailsVisible = By.xpath("//p-dialog[@header='Program Details']");
+	public By prgmCloseBtn = By.xpath("//button//span[contains(@class,'p-dialog-header-close-icon')]");
+	public By searchedPrgmName = By.xpath("//tr//td[2]");
 
+	
 	public boolean isManageProgramHeadingDisplayed() {
 		return common.isDisplayed(manageProgmHeading);
 	}
@@ -156,7 +174,7 @@ public class ProgramPage {
 	}
 	
 	public boolean isNameTextBoxDisplayed() {
-		return driver.findElement(prgmName).isDisplayed();
+		return driver.findElement(prgmNameid).isDisplayed();
 	}
 	
 	public boolean isDescriptionTextBoxDisplayed() {
@@ -176,5 +194,83 @@ public class ProgramPage {
 		return false;
 	}
 	
+	public void savePrgmBtnClick() {
+		common.click(savePrgmBtn);
+		}
+	
+	public void enterUniqueProgramNameSendKeys() {
+//		String programName;	    
+//	    do {
+//	        programName = "LearnAI" + common.generateRandomString()+"WaitUntilVisible";
+//	        driver.findElement(prgmName).clear();
+//	        driver.findElement(prgmName).sendKeys(programName);
+//	        common.sendKeys(prgmName, programName);programName
+//	    } while (common.isDisplayed(prgmNameAlreadyExistError));
+		programName = common.generateRandomString();
+		common.sendKeys(prgmNameid, programName);
+//	    context.setScenarioData(TestContextSetup.PROGRAM_NAME, programName);
+	    LoggerLoad.info("programName is " + programName);
+	}
+	
+	public void selectActiveStatus() {
+		common.click(activeStatusCheckbox);
+//		driver.findElement(activeStatusCheckbox).click();
+	}
+	
+	public void enterNumericProgramNameSendKeys() {
+		String programName = String.valueOf(common.generateRandomNumber());
+		common.sendKeys(prgmNameid, programName);
+	}
+	
+	public boolean areNameAndStatusErrMsgsDisplayed() {
+	    return common.isDisplayed(errMsgsEmptyPrgm) && common.isDisplayed(errMsgsEmptyStatus);
+	}
+	
+	public boolean isSuccessMsgDisplayed() {
+		String actualResult = driver.findElement(successMsgAddPrgm).getText().trim();
+		if (actualResult.contains("Program Created Successfully")) {
+	    return true;}
+		return false;
+	}
+	
+	public boolean isNumericErrMsgDisplayed() {
+	    return common.isDisplayed(errMsgNumericPrgm);
+	}
 
+	public void clickCancelBtn() {
+		common.click(cancelBtn);
+	}
+	
+	public boolean isPrgmDetailsFormDisappers() {
+		String overlayVisible = driver.findElement(prgmDetailsVisible).getAttribute("ng-reflect-visible");
+		return overlayVisible.equalsIgnoreCase("false");
+	}
+	
+	public void clickCloseBtn() {
+		common.click(prgmCloseBtn);
+	}
+	
+	public void searchCreatedPrgm() {
+		dismissOverlay();
+//		String createdPrgm = (String) context.getScenarioData(TestContextSetup.PROGRAM_NAME);
+//		LoggerLoad.info("Create Program Name is " +createdPrgm);
+		LoggerLoad.info("Create Program Name is " +programName);
+
+//		common.sendKeys(searchTextBox, createdPrgm);
+		common.sendKeys(searchTextBox, programName);
+	}
+	
+	public boolean searchedPrgmNameValidation() {
+		common.waitForPresence(searchedPrgmName);
+
+//		String createdPrgm = (String) context.getScenarioData(TestContextSetup.PROGRAM_NAME);
+		String createdPrgm = programName;
+		List<WebElement>list = driver.findElements(searchedPrgmName);
+		for(WebElement e: list) {
+			if(e.getText().contains(createdPrgm)) {
+				return true;
+			}
+		}
+		return false;
+	}
 }

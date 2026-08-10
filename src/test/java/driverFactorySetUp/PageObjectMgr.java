@@ -2,19 +2,25 @@ package driverFactorySetUp;
 
 import org.openqa.selenium.WebDriver;
 
+import context.TestContextSetup;
 import pageObjects.HomePage;
 import pageObjects.LoginPage;
+import pageObjects.LogoutPage;
 import pageObjects.ProgramPage;
 
 public class PageObjectMgr {
-
+	
 	private WebDriver driver;
+	private TestContextSetup context;
+
 	private LoginPage loginPage;
 	private HomePage homePage;
 	private ProgramPage programPage;
+	private LogoutPage logoutPage;
 	
-	public PageObjectMgr(WebDriver driver) {
+	public PageObjectMgr(WebDriver driver, TestContextSetup context) {
 		this.driver = driver;
+		this.context = context;
 	}
 	
 	public LoginPage getLoginPage() {
@@ -32,8 +38,15 @@ public class PageObjectMgr {
 	}
 	public ProgramPage getProgramPage() {
 		if(programPage == null) {
-			programPage = new ProgramPage(driver);
+			programPage = new ProgramPage(driver, context);
 		}
 		return programPage;
+	}
+	
+	public LogoutPage getLogoutPage() {
+		if(logoutPage == null) {
+			logoutPage = new LogoutPage(driver);
+		}
+		return logoutPage;
 	}
 }

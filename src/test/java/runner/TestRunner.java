@@ -8,10 +8,10 @@ import driverFactorySetUp.DriverFactory;
 import io.cucumber.testng.AbstractTestNGCucumberTests;
 import io.cucumber.testng.CucumberOptions;
 
-@CucumberOptions(plugin = { "pretty", "html:target/cucumber-reports/WaitUntilVisible.html",
-		"json:target/cucumber-reports/WaitUntilVisible.json", "io.qameta.allure.cucumber7jvm.AllureCucumber7Jvm",
+@CucumberOptions(plugin = { "pretty", "html:target/cucumber-reports/Team01_WaitUntilVisible.html",
+		"json:target/cucumber-reports/Team01_WaitUntilVisible.json", "io.qameta.allure.cucumber7jvm.AllureCucumber7Jvm",
 		"rerun:target/failed_scenarios.txt" }, monochrome = false, publish = true, dryRun = false,
-		 tags = "@Program",
+		 tags = "@baga",
 		features = { "src/test/resources/features/03_Program.feature" }, glue = { "stepDefinition","hooks"})
 
 
