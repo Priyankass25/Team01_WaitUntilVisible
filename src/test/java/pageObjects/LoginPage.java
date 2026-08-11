@@ -5,15 +5,15 @@ import org.openqa.selenium.WebDriver;
 
 public class LoginPage {
 
-	  WebDriver driver;
-//	    CommonMethods common;
-//	    ExcelUtils excel;
+	WebDriver driver;
+	CommonMethods common;
+	TestContextSetup context;
 
-	    public LoginPage(WebDriver driver){
-	        this.driver = driver;
-//	        this.common = new CommonMethods(driver);
+	public LoginPage(WebDriver driver) {
+		this.driver = driver;
+		this.common = new CommonMethods(driver);
 //	        this.excel = new ExcelUtils(ConfigReader.getProperty("test_data_path"));
-	    }
+	}
 	    
 	    public By user = By.id("username");
 	    public By password = By.id("password");
