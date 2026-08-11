@@ -1,13 +1,23 @@
 package pageObjects;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
-
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
 import context.TestContextSetup;
 import utilities.CommonMethods;
 import utilities.ConfigReader;
-
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import java.time.Duration;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import context.TestContextSetup;
+import utilities.CommonMethods;
+import utilities.ConfigReader;
+import utilities.LoggerLoad;
 
 public class LoginPage {
 
@@ -18,7 +28,12 @@ public class LoginPage {
 	public LoginPage(WebDriver driver) {
 		this.driver = driver;
 		this.common = new CommonMethods(driver);
+
 	}
+
+
+
+	
 
 	public By user = By.id("username");
 	public By password = By.id("password");
@@ -36,6 +51,30 @@ public class LoginPage {
 	public By selecttext = By.xpath("//span[@class='ng-tns-c159-16 ng-star-inserted']");
 	public By Optionstaff = By.xpath("//mat-option//span[normalize-space()=' Staff ']");
 	public By Optionstu = By.xpath("//mat-option//span[normalize-space()=' Student ']");
+	public By errorMessageEMT = By.xpath("//mat-error[@role='alert' and normalize-space()='Please enter your user name']");
+	public By errorMessageEMTPASS =
+	        By.cssSelector("mat-error[role='alert']");
+	public By errorMessageRole =
+	        By.cssSelector("mat-error[role='alert']");
+	private final By roleDropdown = By.id("role");
+	public By selectTheRole=By.xpath("//span[text()='Select the role']");
+    public By staff=By.id("mat-option-1");
+    public By dropdownClose=By.tagName("body");
+    private final By dashboardText =
+	        By.xpath("//*[normalize-space()='Dashboard']");
+
+	public void selectRole1(String role) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+
+	    WebElement dropdown = wait.until(
+	            ExpectedConditions.visibilityOfElementLocated(roleDropdown)
+	    );
+
+	    Select select = new Select(dropdown);
+	    select.selectByVisibleText(role);
+	}
+
+
 
 	public boolean isLoginPageLoaded() {
 		return driver.getCurrentUrl().contains("login");
@@ -56,6 +95,7 @@ public class LoginPage {
 		driver.findElement(adminOption).click();
 	}
 
+
 	public void clickLoginBtn() {
 		driver.findElement(loginBtn).click();
 	}
@@ -67,7 +107,7 @@ public class LoginPage {
 	public void enterinvalidurl() {
 		String invalid_url = ConfigReader.getProperty("invalid_url");
 		driver.get(invalid_url);
-		// LoggerLoad.info("Create Program Name is " +programName);
+
 
 	}
 
@@ -137,4 +177,93 @@ public class LoginPage {
 		common.isDisplayed(Optionstu);
 
 	}
+
+	public void validLoginCredentials() {
+		common.validLogin();
+	}
+	public String getErrorMessage() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+
+
+	    String message = wait.until(
+	            ExpectedConditions.visibilityOfElementLocated(
+	                    By.id("errormessage")
+	            )
+	    ).getText().trim();
+
+	    System.out.println("Error Message: " + message);
+
+	    return message;
+	}
+	public void clearUsername() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+
+	}
+	public String getEmptyUsernameErrorMessage() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+
+	    return wait.until(
+	            ExpectedConditions.visibilityOfElementLocated(errorMessageEMT)
+	    ).getText().trim();
+	}
+	public String getErrorMessagepass() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+
+	    String message = wait.until(
+	            ExpectedConditions.visibilityOfElementLocated(errorMessageEMTPASS)
+	    ).getText().trim();
+
+	    System.out.println("Error Message: " + message);
+
+	    return message;
+	}
+	public void enterUserEMT() {
+		driver.findElement(user).clear();
+		
+	}
+	public void enterPassEMT() {
+		driver.findElement(password).clear();
+		//driver.findElement(password).sendKeys(pwd);
+	}
+	
+	public String getErrorMessageRole() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+
+	    String message = wait.until(
+	            ExpectedConditions.visibilityOfElementLocated(errorMessageRole)
+	    ).getText().trim();
+
+	    System.out.println("Error Message: " + message);
+
+	    return message;
+	}
+	public void selectRole2() {
+		
+		driver.findElement(selectTheRole).click();
+		driver.findElement(staff).click();
+		driver.findElement(dropdownClose).click();
+		
+	}
+	public void submitLoginUsingKeyboard() {
+		
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+
+	    WebElement loginButton = wait.until(
+	            ExpectedConditions.visibilityOfElementLocated(loginBtn)
+	    );
+
+	    loginButton.sendKeys(Keys.ENTER);
+	    
+	}
+	public boolean isDashboardTextDisplayed1() {
+		
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+
+	    return wait.until(
+	            ExpectedConditions.visibilityOfElementLocated(dashboardText)
+	    ).isDisplayed();
+	}
+		
+
+
 }

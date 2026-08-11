@@ -16,19 +16,18 @@ public class ExcelUtils {
 
 	private String filePath;
 
-	public ExcelUtils() {
+	public ExcelUtils(String filePath) {
 		this.filePath = ConfigReader.getProperty("test_data_path");
 	}
 
 	public List<Map<String, String>> getDataAll(String sheetName) {
 		List<Map<String, String>> sheetData = new ArrayList<>();
 
-		try (FileInputStream fis = new FileInputStream(filePath); 
-				Workbook workbook = WorkbookFactory.create(fis)) {
-				Sheet sheet = workbook.getSheet(sheetName);
-				Row headerRow = sheet.getRow(0);
+		try (FileInputStream fis = new FileInputStream(filePath); Workbook workbook = WorkbookFactory.create(fis)) {
+			Sheet sheet = workbook.getSheet(sheetName);
+			Row headerRow = sheet.getRow(0);
 
-			for (int i = 1; i <= sheet.getLastRowNum(); i++) {
+			for (int i = 1; i <= sheet.getLastRowNum(); i++) {// git
 				Map<String, String> rowData = new LinkedHashMap<>();
 				Row row = sheet.getRow(i);
 				if (row == null)
@@ -50,8 +49,6 @@ public class ExcelUtils {
 		return sheetData;
 	}
 
-	
-	
 	/*
 	 * public Map<String, String> getRowDataByScenario(String sheetName, String
 	 * scenarioName) {

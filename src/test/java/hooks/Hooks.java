@@ -45,10 +45,12 @@ public class Hooks {
 		}
 	}
 
-	@Before 
-    public void setUp(Scenario scenario) {
 
-        logger.info("Executing scenario: "+ scenario.getName());
+	@Before
+	public void setUp(Scenario scenario) {
+
+		logger.info("Executing scenario: "+ scenario.getName());
+
         String browser = DriverFactory.getBrowser();
         logger.info("Browser for this scenario: " + browser);
         WebDriver driver = DriverFactory.getDriver();
@@ -57,9 +59,11 @@ public class Hooks {
         DriverFactory.setupBrowser();
         String url = ConfigReader.getProperty("url");
         driver.get(url);
+
         logger.info("Navigated to URL: " + url);    
         
 	}
+
 
 	@AfterStep
 	public void afterStep(Scenario scenario) {

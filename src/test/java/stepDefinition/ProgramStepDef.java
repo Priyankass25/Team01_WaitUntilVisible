@@ -5,22 +5,25 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import utilities.LoggerLoad;
 
+import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 
 import context.TestContextSetup;
 
 
 public class ProgramStepDef {
-
+	String CreatedPrgmName;
+	String deletedPrgmName;
+	String deletedPrgmName1;
+	
 	@Given("Admin is on home page after Login")
-	public void admin_is_on_home_page_after_login() {
-		TestContextSetup.getPom().getLoginPage().enterUser("Lmshackathon@gmail.com");
-		TestContextSetup.getPom().getLoginPage().enterPassword("lmsAug@2026");
-		TestContextSetup.getPom().getLoginPage().selectRole();
-		TestContextSetup.getPom().getLoginPage().clickLoginBtn();
+	public void admin_is_on_home_page_after_login() {		
+		TestContextSetup.getPom().getCommon().validLogin();
 		LoggerLoad.info("Admin is on home page after login");
 	}
-
+	
+	//---Navigation Feature---
+	
 	@When("Admin clicks {string} on the navigation bar")
 	public void admin_clicks_on_the_navigation_bar(String string) {
 	    TestContextSetup.getPom().getHomePage().prgmNavgationBarClick();
@@ -34,6 +37,7 @@ public class ProgramStepDef {
 	    LoggerLoad.info("Admin is on Program page");
 	}
 
+	//---Menu bar Feature---
 	@Then("Admin should see the heading Manage Program")
 	public void admin_should_see_the_heading_manage_program(){
 		boolean actual = TestContextSetup.getPom().getProgramPage().isManageProgramHeadingDisplayed();
@@ -41,6 +45,7 @@ public class ProgramStepDef {
 	    LoggerLoad.info("Admin able to see the heading Manage Program");
 	}
 
+	//---Manage Program - UI validation Feature---
 	@Then("Admin should see manage program heading aligned on the left side")
 	public void admin_should_see_manage_program_heading_aligned_on_the_left_side() {
 		boolean actualPosition = TestContextSetup.getPom().getProgramPage().isManageProgramHeadingLeftAligned();
@@ -114,12 +119,13 @@ public class ProgramStepDef {
 	    
 	}
 
+	//---Add New Program - UI Validation Feature---
 	@Given("Admin is on Program page")
-	public void admin_is_on_program_page() {
+	public void admin_is_on_program_page(){
 		 TestContextSetup.getPom().getHomePage().prgmNavgationBarClick();
 		    LoggerLoad.info("Admin clicked on program navigation bar");
 	}
-
+	
 	@When("Admin clicks on Add New Program under the Program menu bar")
 	public void admin_clicks_on_add_new_program_under_the_program_menu_bar() {
 	    TestContextSetup.getPom().getProgramPage().addProgramBtnClick();
@@ -168,6 +174,7 @@ public class ProgramStepDef {
 		   LoggerLoad.info("Admin able to see the active and inactive status radio buttons");
 	}
 
+	//---Add New Program - Functional Validation Feature---
 	@Given("Admin is on Program details dialog box")
 	public void admin_is_on_program_details_dialog_box() {
 		TestContextSetup.getPom().getHomePage().prgmNavgationBarClick();
@@ -238,115 +245,409 @@ public class ProgramStepDef {
 
 	@When("Admin searches with newly created Program Name")
 	public void admin_searches_with_newly_created_program_name() {
-		TestContextSetup.getPom().getProgramPage().searchCreatedPrgm();
+	TestContextSetup.getPom().getProgramPage().addProgramBtnClick();
+	CreatedPrgmName = TestContextSetup.getPom().getProgramPage().generateRandomPrgmName();
+	TestContextSetup.getPom().getProgramPage().prgmNameEnter(CreatedPrgmName);
+	TestContextSetup.getPom().getProgramPage().selectActiveStatus();
+	TestContextSetup.getPom().getProgramPage().savePrgmBtnClick();
+	TestContextSetup.getPom().getProgramPage().searchPrgm(CreatedPrgmName);	
     	LoggerLoad.info("Admin searchs for created program");
 	}
 
 	@Then("Admin should see the Records of the newly created Program details")
 	public void admin_should_see_the_records_of_the_newly_created_program_details() {
-		Assert.assertTrue(TestContextSetup.getPom().getProgramPage().searchedPrgmNameValidation(),
+//		TestContextSetup.getPom().getProgramPage().dismissOverlay();
+		Assert.assertTrue(TestContextSetup.getPom().getProgramPage().isCreatedProgramVisible(),
 				"Admin unable to see the created program in search");
 		LoggerLoad.info("Admin able to see the created program in search");
 	}
 
+		//--- Edit Program - Functional validation Feature ---
 	@When("Admin clicks on Edit option for particular program")
 	public void admin_clicks_on_edit_option_for_particular_program() {
-	    
+		TestContextSetup.getPom().getProgramPage().dismissOverlay();
+		TestContextSetup.getPom().getProgramPage().editBtnClick();
+		LoggerLoad.info("Admin clicked on edit button");
 	}
 	
 	@Then("Admin should see Program details dialog box")
 	public void admin_should_see_program_details_box() {
-	   
+		Assert.assertTrue(TestContextSetup.getPom().getProgramPage().isProgramDetailsTitleDisplayed(),
+				"Admin unable to see Program details dialog box");
+		LoggerLoad.info("Admin unable to see Program details dialog box");
+	}
+	
+	
+	@Given ("Admin is on Program details dialog box for edit")
+	public void admin_is_on_program_details_dialog_box_for_edit() {
+		TestContextSetup.getPom().getHomePage().prgmNavgationBarClick();
+		TestContextSetup.getPom().getProgramPage().dismissOverlay();
+		TestContextSetup.getPom().getProgramPage().editBtnClick();
+		LoggerLoad.info("Admin is on Program details dialog box after edit program click");
 	}
 
 	@When("Admin clicks save button after editing the fields {string}")
 	public void admin_clicks_save_button_after_editing_the_fields(String string) {
-	    
+		TestContextSetup.getPom().getProgramPage().editProgramSave(string);
+		LoggerLoad.info("Admin save program after edit for " + string);
 	}
 
-	@Then("Admin should see {string} message")
-	public void admin_should_see_message(String string) {
-	   
+
+	@Then("Admin should see success message {string}")
+	public void admin_should_see_success_message(String string) {
+		Assert.assertTrue(TestContextSetup.getPom().getProgramPage().isSuccessMsgDisplayedForEdit(),
+				"Admin unable to see program edit success message" + string);
+		LoggerLoad.info("Admin unable to see Program edit success message" + string);
 	}
 
+	//---Delete Program Feature ---
 	@When("Admin clicks on delete icon for a program")
 	public void admin_clicks_on_delete_icon_for_a_program() {
-	   
+		TestContextSetup.getPom().getProgramPage().dismissOverlay();
+		TestContextSetup.getPom().getProgramPage().deleteBtnClick();
+		LoggerLoad.info("Admin clicked on delete button for a program");
 	}
 
 	@Then("Admin will get confirm deletion dialog box")
 	public void admin_will_get_confirm_deletion_dialog_box() {
-	    
+		Assert.assertTrue(TestContextSetup.getPom().getProgramPage().isDeleteConfirmPopupDisplayed(),
+				"Admin unable to see confirm deletion dialog box");
+		LoggerLoad.info("Admin unable to see confirm deletion dialog box");
 	}
 
 	@Given("Admin is on Program Confirm Deletion Page after selecting a program to delete")
 	public void admin_is_on_program_confirm_deletion_page_after_selecting_a_program_to_delete() {
-	 
+		TestContextSetup.getPom().getHomePage().prgmNavgationBarClick();
+		TestContextSetup.getPom().getProgramPage().dismissOverlay();
+		TestContextSetup.getPom().getProgramPage().deleteBtnClick();
+		LoggerLoad.info("Admin is on delete program confirmation page");
 	}
 
-	@When("Admin clicks on {string} button")
-	public void admin_clicks_on_button(String string) {
-	   
+	@When("Admin clicks on Yes button")
+	public void admin_clicks_on_yes_button() {
+		TestContextSetup.getPom().getProgramPage().yesBtnClick();
+		LoggerLoad.info("Admin click on yes button for delete confirmation");
 	}
 
-	@Then("Admin can see {string} message")
-	public void admin_can_see_message(String string) {
-	   
+	@Then("Admin can see success delete message")
+	public void admin_can_see_success_delete_message() {
+		Assert.assertTrue(TestContextSetup.getPom().getProgramPage().isDeleteMsgDisplayed(),
+				"Admin unable to see the success message for delet program");
+    	LoggerLoad.info("Admin able to see the success message for delete program ");
 	}
 
-	@When("Admin Searches for {string}")
-	public void admin_searches_for(String string) {
-	   
+	@When("Admin Searches for Deleted Program name")
+	public void admin_searches_for_deleted_program_name(){
+		TestContextSetup.getPom().getProgramPage().dismissOverlay();	
+		deletedPrgmName = TestContextSetup.getPom().getProgramPage().selectedPrgmNameForDelete();
+		LoggerLoad.info("Selected program for delete is " + deletedPrgmName);
+		TestContextSetup.getPom().getProgramPage().deleteBtnClick();
+	    TestContextSetup.getPom().getProgramPage().yesBtnClick();
+		TestContextSetup.getPom().getProgramPage().searchPrgm(deletedPrgmName);
+		LoggerLoad.info("Admin searches for deleted program");
 	}
 
 	@Then("There should be zero results")
 	public void there_should_be_zero_results() {
-	  
+		Assert.assertTrue(TestContextSetup.getPom().getProgramPage().isDeletedProgramVisible(),
+				"Search result of deleted program is not zero");
+		LoggerLoad.info("Search result of deleted program is zero");
+	}
+	
+	@When("Admin clicks on No button")
+	public void admin_clicks_on_no_button() {
+	    TestContextSetup.getPom().getProgramPage().noBtnClick();
+	    LoggerLoad.info("Admin clicks on No button for delete confirmation");
 	}
 
 	@Then("Admin can see Confirmation form disappears")
 	public void admin_can_see_confirmation_form_disappears() {
-	   
+		Assert.assertFalse(TestContextSetup.getPom().getProgramPage().isDeleteConfirmPopupDisappears(),
+				"Delete confirmation form not disappears after admin clicks on No button");
+		LoggerLoad.info("Delete confirmation form disappears after admin clicks on No button");
+	    
 	}
 
-	@When("Admin Click on {string} button")
-	public void admin_click_on_button(String string) {
-	  
+	@When("Admin Click on X button")
+	public void admin_click_on_x_button() {
+		TestContextSetup.getPom().getProgramPage().deletePrgmConfirmCrossMarkBtnClick();
+	    LoggerLoad.info("Admin clicks on CrossMark button for delete confirmation");
 	}
 
 	@Then("Admin can see Confirm Deletion form disappear")
 	public void admin_can_see_confirm_deletion_form_disappear() {
-	    
+		Assert.assertFalse(TestContextSetup.getPom().getProgramPage().isDeleteConfirmPopupDisappears(),
+				"Delete confirmation form not disappears after admin clicks on X button");
+		LoggerLoad.info("Delete confirmation form disappears after admin clicks on X button");
 	}
 
+	//--- Delete Multiple Program Feature ---
 	@When("Admin selects more than one program by clicking on the checkbox")
-	public void admin_selects_more_than_one_program_by_clicking_on_the_checkbox() {
-	    
+	public void admin_selects_more_than_one_program_by_clicking_on_the_checkbox(){
+		TestContextSetup.getPom().getProgramPage().dismissOverlay();
+		TestContextSetup.getPom().getProgramPage().selectMultipleProgramCheckboxes();
+	    LoggerLoad.info("Admin selected more than one program using checkboxes.");	    
 	}
 
 	@Then("Mulitple delete box under manage program must be enabled")
 	public void mulitple_delete_box_under_manage_program_must_be_enabled() {
-	   
+		Assert.assertTrue(TestContextSetup.getPom().getProgramPage().isTopDeleteButtonEnabled(),
+		        "Delete button should be enabled after selecting multiple programs.");
+	    LoggerLoad.info("Multiple delete button is enabled.");
 	}
 
 	@When("Admin clicks on the delete button on the left top of the program page")
 	public void admin_clicks_on_the_delete_button_on_the_left_top_of_the_program_page() {
-	  
+		TestContextSetup.getPom().getProgramPage().dismissOverlay();
+		TestContextSetup.getPom().getProgramPage().selectMultipleProgramCheckboxes();
+		TestContextSetup.getPom().getProgramPage().topDeleteButtonClick();		
+	    LoggerLoad.info("Admin clicks on header delete button");
 	}
-
-	@Then("Admin lands on Confirmation form")
-	public void admin_lands_on_confirmation_form() {
-
+	
+	@When("Admin Searches for Deleted Program names")
+	public void admin_searches_for_deleted_program_names(){
+		TestContextSetup.getPom().getProgramPage().dismissOverlay();	
+		deletedPrgmName = TestContextSetup.getPom().getProgramPage().selectedPrgmNameForDelete();
+		LoggerLoad.info("Selected program for delete is " + deletedPrgmName);
+		TestContextSetup.getPom().getProgramPage().deleteBtnClick();
+	    TestContextSetup.getPom().getProgramPage().yesBtnClick();
+		TestContextSetup.getPom().getProgramPage().searchPrgm(deletedPrgmName);
+		LoggerLoad.info("Admin searches for deleted program");
 	}
 
 	@Given("Admin is on Confirmation form")
-	public void admin_is_on_confirmation_form() {
-
+	public void admin_is_on_confirmation_form() throws InterruptedException {
+		TestContextSetup.getPom().getHomePage().prgmNavgationBarClick();
+		TestContextSetup.getPom().getProgramPage().dismissOverlay();	
+		TestContextSetup.getPom().getProgramPage().selectMultipleProgramCheckboxes();
+		TestContextSetup.getPom().getProgramPage().topDeleteButtonClick();	
+		Thread.sleep(1000);
+		LoggerLoad.info("Admin is on multiple delete confirmation page");
 	}
 
 	@Then("Admin can see Programs are still selected and not deleted")
 	public void admin_can_see_programs_are_still_selected_and_not_deleted() {
 
 	}
+ 
+	@When("Admin enters the program name in search box")
+	public void admin_enters_the_program_name_in_search_box() {
+	
+			TestContextSetup.getPom().getProgramPage().searchboxenter();
+			
+		}
+	
+	
+	@Then("Admin should see {string} for searched program name")
+	public void admin_should_see_for_searched_program_name(String field) {
+     switch (field.toLowerCase()) {
+     case "program name":Assert.assertTrue(TestContextSetup.getPom().getProgramPage().progname(),"Program name is not displayed");
+	 break;
+     case "description":Assert.assertTrue(TestContextSetup.getPom().getProgramPage().progdes(),"Program description is not displayed");
+	 break;
+     case "status":Assert.assertTrue(TestContextSetup.getPom().getProgramPage().progstatus(),"Program status is not displayed");
+	 break;
+     default:
+	 Assert.fail("Invalid field: " + field);}
+	}
+	
+	@When("Admin enters the program description in search box")
+	public void admin_enters_the_program_description_in_search_box() {
+		TestContextSetup.getPom().getProgramPage().dismissOverlay();
+		TestContextSetup.getPom().getProgramPage().searchboxdes();
+	}
+
+	@Then("Admin should see {string} for searched program description")
+	public void admin_should_see_for_searched_program_description(String field) {
+    switch (field.toLowerCase()) {
+    case "program name":Assert.assertTrue(TestContextSetup.getPom().getProgramPage().progname(),"Program name is not displayed");
+	break;
+    case "description":Assert.assertTrue(TestContextSetup.getPom().getProgramPage().progdes(),"Program description is not displayed");
+	break;
+    case "status":Assert.assertTrue(TestContextSetup.getPom().getProgramPage().progstatus(),"Program status is not displayed");
+	break;
+	default:Assert.fail("Invalid field: " + field);
+	    }
+	}
+	
+	@When("Admin enters the program that does not exist in search box")
+	public void admin_enters_the_program_that_does_not_exist_in_search_box() {
+		TestContextSetup.getPom().getProgramPage().searchboxnotex();
+	}
+
+	@Then("There should be zero results .")
+	public void there_should_be_zero_results_() {
+		String expout=TestContextSetup.getPom().getProgramPage().entries();
+        String actout=TestContextSetup.getPom().getProgramPage().zeroentries();
+        Assert.assertEquals(actout,expout, "entries not showing 0");
+
+
+}
+	@When("Admin enters the partial name of program in search box")
+	public void admin_enters_the_partial_name_of_program_in_search_box() {
+		TestContextSetup.getPom().getProgramPage().searchboxpar();
+	}
+
+	@Then("Admin should be able to see {string} for searched program name")
+	public void admin_should_be_able_to_see_for_searched_program_name(String field) {
+    switch (field.toLowerCase()) {  
+    case "program name":
+    Assert.assertTrue(TestContextSetup.getPom().getProgramPage().progname(),"Program name is not displayed");
+	break;
+    case "description":
+    Assert.assertTrue(TestContextSetup.getPom().getProgramPage().progdes(),"Program description is not displayed");
+	break;
+	case "status":
+    Assert.assertTrue(TestContextSetup.getPom().getProgramPage().progstatus(),"Program status is not displayed");
+	break;
+    default:Assert.fail("Invalid field: " + field);
+	    }
+	}
+	
+	@When("Admin clicks on Arrow next to program Name")
+	public void admin_clicks_on_arrow_next_to_program_name() {
+		TestContextSetup.getPom().getProgramPage().dismissOverlay();
+		TestContextSetup.getPom().getProgramPage().clickprogramname();
+	}
+	
+	@Then("Admin should  See the Program Name is sorted in Ascending order")
+	public void admin_should_see_the_program_name_is_sorted_in_ascending_order() {
+      boolean actual = TestContextSetup.getPom().getProgramPage().isProgramNameSortedAscending();
+   Assert.assertTrue(actual,"Program names are not sorted in ascending order");
+   }
+
+	@Given("Admin is in program page where Program names are sorted in ascending order")
+	public void admin_is_in_program_page_where_program_names_are_sorted_in_ascending_order() {
+		TestContextSetup.getPom().getHomePage().prgmNavgationBarClick();
+	    LoggerLoad.info("Admin clicked on program navigation bar");
+	    TestContextSetup.getPom().getProgramPage().dismissOverlay();
+		TestContextSetup.getPom().getProgramPage().clickprogramname();
+		
+	}
+	
+	@When("Admin clicks on Arrow next to program Name.")
+	public void admin_clicks_on_arrow_next_to_program_name_() {
+		TestContextSetup.getPom().getProgramPage().clickprogramname();	
+	}
+	@When("Admin clicks on Arrow next to Program Description")
+		 public void admin_clicks_on_arrow_next_to_program_description() {
+		TestContextSetup.getPom().getProgramPage().dismissOverlay();
+			 TestContextSetup.getPom().getProgramPage().programdescriptionclick();
+		 }
+		 @Then("Admin should See the program Description is sorted in Ascending order")
+		 public void admin_should_see_the_program_description_is_sorted_in_ascending_order() {
+			 boolean actual = TestContextSetup.getPom().getProgramPage().isProgramDescriptionSortedAscending();
+			    Assert.assertTrue(actual,"Program Description is not sorted in ascending order");
+		 }	
+	
+	@Then("Admin should See the Program Name is sorted in Descending order")
+	public void admin_should_see_the_program_name_is_sorted_in_descending_order() {
+		boolean actual = TestContextSetup.getPom().getProgramPage().isProgramNameSortedDescending();
+     Assert.assertTrue(actual,"Program names are not sorted in descending order");
+	}
+	@Given("Admin is in program page where Program description are sorted in ascending order")
+	public void admin_is_in_program_page_where_program_description_are_sorted_in_ascending_order() {
+		TestContextSetup.getPom().getHomePage().prgmNavgationBarClick();
+	    LoggerLoad.info("Admin clicked on program navigation bar");
+	    TestContextSetup.getPom().getProgramPage().dismissOverlay();
+	    TestContextSetup.getPom().getProgramPage().programdescriptionclick();
+	}
+	@When("Admin clicks on Arrow next to Program Description.")
+	public void admin_clicks_on_arrow_next_to_program_description_() {
+		 TestContextSetup.getPom().getProgramPage().programdescriptionclick();
+	 }
+	@Then("Admin  should See the program Description is sorted in Descending order")
+	public void admin_should_see_the_program_description_is_sorted_in_descending_order() {
+		 boolean actual = TestContextSetup.getPom().getProgramPage().isProgramDescriptionSortedDescending();
+		 Assert.assertTrue(actual,"Program Description is not sorted in descending order");
+	}
+	@When("Admin clicks on Arrow next to Program status")
+	public void admin_clicks_on_arrow_next_to_program_status() {
+		TestContextSetup.getPom().getProgramPage().dismissOverlay();
+		 TestContextSetup.getPom().getProgramPage().programstatusclick();
+	}
+	@Then("Admin should see the Program status sorted in Ascending order")
+	public void admin_should_see_the_program_status_sorted_in_ascending_order() {
+		 boolean actual = TestContextSetup.getPom().getProgramPage().isProgramstatusSortedAscending();
+        Assert.assertTrue(actual,"Program status is not sorted in descending order");
+	}
+	@Given("Admin is in program page where Program status are sorted in ascending order")
+	public void admin_is_in_program_page_where_program_status_are_sorted_in_ascending_order() {
+		 TestContextSetup.getPom().getHomePage().prgmNavgationBarClick();
+	}
+	@Then("Admin should see the Program status sorted in Descending order")
+	public void admin_should_see_the_program_status_sorted_in_descending_order() {
+		 boolean actual = TestContextSetup.getPom().getProgramPage().isProgramstatusSortedAscending();
+		    Assert.assertTrue(actual,"Program status is not sorted in descending order");
+	}
+	@Given("Admin is on Program page with multiple program records")
+	public void admin_is_on_program_page_with_multiple_program_records() {
+		 TestContextSetup.getPom().getHomePage().prgmNavgationBarClick();
+	}
+	@When("Admin clicks the next page option \\(>) in the pagination control")
+	public void admin_clicks_the_next_page_option_in_the_pagination_control() {
+		TestContextSetup.getPom().getProgramPage().dismissOverlay();
+		TestContextSetup.getPom().getProgramPage().nextarrowclick();
+	}
+	@Then("Admin should navigate to the next page and see the next set of program records")
+	public void admin_should_navigate_to_the_next_page_and_see_the_next_set_of_program_records() {
+		  String selectedPage = TestContextSetup.getPom().getProgramPage().getslectednum();
+         int expectedPage = Integer.parseInt(selectedPage) + 1;
+		    String actualPage = TestContextSetup.getPom().getProgramPage().getafterarrowclk();
+         Assert.assertEquals(Integer.parseInt(actualPage),expectedPage,"Page is not navigated to next page");
+	}
+	@Given("Admin is on any page except the last page of Program table")
+	public void admin_is_on_any_page_except_the_last_page_of_program_table() {
+		TestContextSetup.getPom().getHomePage().prgmNavgationBarClick();
+	}
+	@When("Admin clicks the last page option \\(>>) in the pagination control")
+	public void admin_clicks_the_last_page_option_in_the_pagination_control() {
+		TestContextSetup.getPom().getProgramPage().dismissOverlay();
+		TestContextSetup.getPom().getProgramPage().lastarrowclick();
+	}
+	@Then("Admin should see the last page record on the table")
+	public void admin_should_see_the_last_page_record_on_the_table() {
+		int actualTotalPrograms = TestContextSetup.getPom().getProgramPage().getTotalPrograms();
+		int actualDisplayedEntries = TestContextSetup.getPom().getProgramPage().getDisplayedEntries();
+        Assert.assertEquals(actualTotalPrograms,actualDisplayedEntries,"not navigated to lastpage");
+	}
+
+@Given("Admin is on the Program table on any page except the first page")
+public void admin_is_on_the_program_table_on_any_page_except_the_first_page() {
+	TestContextSetup.getPom().getHomePage().prgmNavgationBarClick();
+	TestContextSetup.getPom().getProgramPage().dismissOverlay();
+	TestContextSetup.getPom().getProgramPage().nextarrowclick();
+}
+@When("Admin clicks the previous page option \\(<) in the pagination control")
+public void admin_clicks_the_previous_page_option_in_the_pagination_control() {
+	TestContextSetup.getPom().getProgramPage().prearrowclick();
+	
+}
+@Then("Admin should see the previous page record on the table")
+public void admin_should_see_the_previous_page_record_on_the_table() {
+	 String selectedPage = TestContextSetup.getPom().getProgramPage().getslectednumb();
+     int expectedPage = Integer.parseInt(selectedPage) - 1;
+	    String actualPage = TestContextSetup.getPom().getProgramPage().getaprearrowclk();
+     Assert.assertEquals(Integer.parseInt(actualPage),expectedPage,"Page is not navigated to next page");
+}
+
+@Given("Admin is on any page except the first page of Program table")
+public void admin_is_on_any_page_except_the_first_page_of_program_table() {
+	TestContextSetup.getPom().getHomePage().prgmNavgationBarClick();
+	TestContextSetup.getPom().getProgramPage().dismissOverlay();
+	TestContextSetup.getPom().getProgramPage().nextarrowclick();
+}
+@When("Admin clicks the first page option \\(<<) in the pagination control")
+public void admin_clicks_the_first_page_option_in_the_pagination_control() {
+	TestContextSetup.getPom().getProgramPage().firstarrowclick();
+}
+@Then("Admin should see the very first page record on the table")
+public void admin_should_see_the_very_first_page_record_on_the_table() {
+	int actual = TestContextSetup.getPom().getProgramPage().getFirstNumber();
+	Assert.assertEquals(actual, 1, "First number is not matching");
+}
+
+
+	
 
 }
