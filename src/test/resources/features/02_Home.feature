@@ -4,7 +4,7 @@ Feature: Home
     Given Admin is on home page after Login
     
     
-Scenario: Title of the LMS 	
+		Scenario: Title of the LMS 	
     Then Admin should see LMS -Learning management system as title
 
 		Scenario: Title alignment 

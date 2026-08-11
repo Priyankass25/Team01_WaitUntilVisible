@@ -31,8 +31,7 @@ public class LoginPage {
 	public By loginmsg = By.xpath("//p[contains(text(),'Please login to LMS application')]");
 	public By usertext = By.xpath("//span[contains(text(),'User')]");
 	public By pwdtext = By.xpath("//span[contains(text(),'Password')]");
-	public By userasterik = By.xpath(
-			"//span[contains(text(),'User')]/following::span[@class='mat-placeholder-required mat-form-field-required-marker ng-tns-c159-14 ng-star-inserted']");
+	public By userasterik = By.xpath("//span[contains(text(),'User')]/following::span[@class='mat-placeholder-required mat-form-field-required-marker ng-tns-c159-14 ng-star-inserted']");
 	public By pwdasterik = By.xpath("//span[contains(text(),'Password')]/following::span[contains(text(), ' *')][1]");
 	public By selecttext = By.xpath("//span[@class='ng-tns-c159-16 ng-star-inserted']");
 	public By Optionstaff = By.xpath("//mat-option//span[normalize-space()=' Staff ']");

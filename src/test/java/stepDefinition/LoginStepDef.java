@@ -25,14 +25,11 @@ public class LoginStepDef {
 
 		String username = loginData.get("Username");
 		String password = loginData.get("Password");
-		System.out.println("USERNAME FROM EXCEL = [" + username + "]");
-		System.out.println("PASSWORD FROM EXCEL = [" + password + "]");
-
 		TestContextSetup.getPom().getLoginPage().enterUser(username);
 		TestContextSetup.getPom().getLoginPage().enterPassword(password);
 		TestContextSetup.getPom().getLoginPage().selectRole();
 		TestContextSetup.getPom().getLoginPage().clickLoginBtn();
-		// LoggerLoad.info("Admin has entered login details");
+		 LoggerLoad.info("Admin has entered login details");
 	}
 
 	@Then("LMS page should be launched")
