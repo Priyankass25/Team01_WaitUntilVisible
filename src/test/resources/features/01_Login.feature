@@ -1,7 +1,5 @@
 @Login
 Feature:Login
-  @Login
-Feature:Login
     Scenario: Login page navigation (valid URL)  	
     When User enters the url "https://lms-frontend-hackathon-6dcccb9dd0fa.herokuapp.com/login"
     Then LMS page should be launched
