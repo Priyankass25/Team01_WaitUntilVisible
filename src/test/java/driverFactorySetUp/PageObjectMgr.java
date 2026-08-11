@@ -11,7 +11,9 @@ import pageObjects.HomePage;
 import pageObjects.LoginPage;
 import pageObjects.LogoutPage;
 import pageObjects.ProgramPage;
+
 import utilities.CommonMethods;
+
 
 public class PageObjectMgr {
 	
@@ -24,7 +26,6 @@ public class PageObjectMgr {
 	private HomePage homePage;
 	private ProgramPage programPage;
 	private LogoutPage logoutPage;
-
 	private BatchPage batchPage;
 
 	
@@ -75,6 +76,7 @@ public class PageObjectMgr {
 		}
 		return logoutPage;
 	}
+
 }
 
 
