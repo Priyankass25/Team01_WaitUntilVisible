@@ -20,7 +20,7 @@ import io.cucumber.testng.CucumberOptions;
     publish = true,
     dryRun = false,
 //    tags = "@Program",
-    features = {"src/test/resources/features/04_Batch.feature"},
+    features = {"src/test/resources/features/03_Program.feature"},
     glue = {"stepDefinition", "hooks"}
 )
 

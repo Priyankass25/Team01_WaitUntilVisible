@@ -11,11 +11,9 @@ import pageObjects.HomePage;
 import pageObjects.LoginPage;
 import pageObjects.LogoutPage;
 import pageObjects.ProgramPage;
-<<<<<<< HEAD
-import pageObjects.ProgramPage2;
-=======
+
 import utilities.CommonMethods;
->>>>>>> main
+
 
 public class PageObjectMgr {
 	
