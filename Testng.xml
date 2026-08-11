@@ -14,10 +14,4 @@
 	           <class name="failedTestRunner.TestRunner"/>
 	       </classes>
 	   </test> 
-		<test name="FirefoxTest">	
-	   <parameter name="browser" value="firefox"/>	
-	      <classes>
-	         <class name="runner.TestRunner"/>
-	      </classes>	
-	</test>
 </suite>
