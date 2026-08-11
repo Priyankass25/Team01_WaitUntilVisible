@@ -1,20 +1,38 @@
 package stepDefinition;
 
 import context.TestContextSetup;
+import utilities.TestDataManager;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import java.util.List;
+import java.util.Map;
 import utilities.LoggerLoad;
 
 public class LoginStepDef {
+	TestDataManager testDataManager;
+
+	public LoginStepDef() {
+		this.testDataManager = new TestDataManager();
+
+	}
 
 	// Scenario#1
 	@When("User enters the url {string}")
 	public void user_enters_the_url(String string) {
-		TestContextSetup.getPom().getLoginPage().enterUser("Lmshackathon@gmail.com");
-		TestContextSetup.getPom().getLoginPage().enterPassword("lmsAug@2026");
+		List<Map<String, String>> data = testDataManager.getTestData("Sheet1");
+
+		Map<String, String> loginData = data.get(0);
+
+		String username = loginData.get("Username");
+		String password = loginData.get("Password");
+		System.out.println("USERNAME FROM EXCEL = [" + username + "]");
+		System.out.println("PASSWORD FROM EXCEL = [" + password + "]");
+
+		TestContextSetup.getPom().getLoginPage().enterUser(username);
+		TestContextSetup.getPom().getLoginPage().enterPassword(password);
 		TestContextSetup.getPom().getLoginPage().selectRole();
 		TestContextSetup.getPom().getLoginPage().clickLoginBtn();
-		LoggerLoad.info("Admin has entered login details");
+		// LoggerLoad.info("Admin has entered login details");
 	}
 
 	@Then("LMS page should be launched")
@@ -78,7 +96,7 @@ public class LoginStepDef {
 		TestContextSetup.getPom().getLoginPage().textfieldPresence();
 	}
 
-	//Scenario#9
+	// Scenario#9
 	@Then("One dropdown with values such as Admin, Staff, Student should be displayed")
 	public void one_dropdown_with_values_such_as_admin_staff_student_should_be_displayed() {
 		TestContextSetup.getPom().getLoginPage().roledropdown();

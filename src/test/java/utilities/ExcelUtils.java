@@ -16,17 +16,17 @@ public class ExcelUtils {
 
 	private String filePath;
 
-	public ExcelUtils(String filePath) {
+	public ExcelUtils() {
 		this.filePath = ConfigReader.getProperty("test_data_path");
 	}
 
 	public List<Map<String, String>> getDataAll(String sheetName) {
 		List<Map<String, String>> sheetData = new ArrayList<>();
 
-		try (FileInputStream fis = new FileInputStream(filePath); Workbook workbook = WorkbookFactory.create(fis)) {
-
-			Sheet sheet = workbook.getSheet(sheetName);
-			Row headerRow = sheet.getRow(0);
+		try (FileInputStream fis = new FileInputStream(filePath); 
+				Workbook workbook = WorkbookFactory.create(fis)) {
+				Sheet sheet = workbook.getSheet(sheetName);
+				Row headerRow = sheet.getRow(0);
 
 			for (int i = 1; i <= sheet.getLastRowNum(); i++) {
 				Map<String, String> rowData = new LinkedHashMap<>();
@@ -50,19 +50,21 @@ public class ExcelUtils {
 		return sheetData;
 	}
 
-	public Map<String, String> getRowDataByScenario(String sheetName, String scenarioName) {
-
-		List<Map<String, String>> allData = getDataAll(sheetName);
-
-		for (Map<String, String> row : allData) {
-
-			if (row.containsKey("Scenario") && row.get("Scenario").equalsIgnoreCase(scenarioName)) {
-
-				return row;
-			}
-		}
-
-		throw new RuntimeException("No data found in Excel for scenario: " + scenarioName);
-	}
+	/*
+	 * public Map<String, String> getRowDataByScenario(String sheetName, String
+	 * scenarioName) {
+	 * 
+	 * List<Map<String, String>> allData = getDataAll(sheetName);
+	 * 
+	 * for (Map<String, String> row : allData) {
+	 * 
+	 * if (row.containsKey("Scenario") &&
+	 * row.get("Scenario").equalsIgnoreCase(scenarioName)) {
+	 * 
+	 * return row; } }
+	 * 
+	 * throw new RuntimeException("No data found in Excel for scenario: " +
+	 * scenarioName); }
+	 */
 
 }
