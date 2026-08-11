@@ -24,7 +24,6 @@ public class LoginPage {
 	public LoginPage(WebDriver driver) {
 		this.driver = driver;
 		this.common = new CommonMethods(driver);
-//	        this.excel = new ExcelUtils(ConfigReader.getProperty("test_data_path"));
 	}
 	    
 	    public By user = By.id("username");
@@ -32,8 +31,6 @@ public class LoginPage {
 	    public By selectRoleDropdown = By.id("mat-select-0");
 	    public By loginBtn = By.id("login");
 	    public By adminOption = By.xpath("//mat-option//span[normalize-space()='Admin']");
-
-
 	public By user = By.id("username");
 	public By password = By.id("password");
 	public By selectRoleDropdown = By.id("mat-select-0");
@@ -108,7 +105,6 @@ public class LoginPage {
 	public void enterinvalidurl() {
 		String invalid_url = ConfigReader.getProperty("invalid_url");
 		driver.get(invalid_url);
-		// LoggerLoad.info("Create Program Name is " +programName);
 
 	}
 
@@ -160,7 +156,7 @@ public class LoginPage {
 		common.isDisplayed(userasterik);
 		
 	}
-=======
+
 		
 	}
 	public void textnameasterisk() {
