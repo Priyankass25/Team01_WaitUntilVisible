@@ -13,6 +13,8 @@
 		public class LoginStepDef {
 			@When("User enters the url {string}")
 			public void user_enters_the_url(String string) {
+				//TestDataManager testDataManager;
+
 				List<Map<String, String>> data = testDataManager.getTestData("Sheet1");
 				Map<String, String> loginData = data.get(0);
 				String username = loginData.get("Username");

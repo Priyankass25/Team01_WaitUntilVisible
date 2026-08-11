@@ -15,12 +15,14 @@ import driverFactorySetUp.DriverFactory;
 public class CommonMethods {
 	public static WebDriver driver;
 	public static WebDriverWait wait;
-
-	ExcelUtils excel;
+	//ExcelUtils excel = new ExcelUtils(driver);
+	//ExcelUtils excel;
 
 	public CommonMethods(WebDriver driver) {
 		this.driver = driver;
 		this.wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+		//ExcelUtils excel = new ExcelUtils(driver);
+
 	}
 
 
@@ -68,19 +70,14 @@ public class CommonMethods {
 
 	}
 
-	public WebElement waitForVisibility(By locator) {
 
-		System.out.println("Username from Excel: " + username);
-		System.out.println("Password from Excel: " + password);
-		System.out.println("Current URL: " + driver.getCurrentUrl());
-	}
 
 	public void loginFromOnBoarding2() {
 
 	    ConfigReader.loadProperties();
 
-	    ExcelUtils excel =
-	            new ExcelUtils(ConfigReader.getProperty("test_data_path"));
+		ExcelUtils excel = new ExcelUtils(ConfigReader.getProperty("test_data_path"));
+
 
 	    List<Map<String, String>> data =
 	            excel.getDataAll("Login");
