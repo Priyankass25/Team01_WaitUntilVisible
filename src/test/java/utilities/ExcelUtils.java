@@ -27,27 +27,7 @@ public class ExcelUtils {
 
 			Sheet sheet = workbook.getSheet(sheetName);
 			Row headerRow = sheet.getRow(0);
-			/*System.out.println("=================================");//add
-	        System.out.println("Excel file: " + filePath);//add
-	        System.out.println("Requested sheet: [" + sheetName + "]");//add
 
-	        System.out.println("Available sheets:");//add
-	        for (int i = 0; i < workbook.getNumberOfSheets(); i++) {//add
-	            System.out.println(
-	                    "[" + workbook.getSheetName(i) + "]");//add
-	        }
-
-	        System.out.println("=================================");//add
-
-	        Sheet sheet = workbook.getSheet(sheetName);//add
-
-	        if (sheet == null) {//add
-	            throw new RuntimeException(
-	                    "Sheet [" + sheetName + "] was not found in Excel file."
-	            );
-	        }
-
-	        Row headerRow = sheet.getRow(0);//add*/
 			for (int i = 1; i <= sheet.getLastRowNum(); i++) {//git
 				Map<String, String> rowData = new LinkedHashMap<>();
 				Row row = sheet.getRow(i);
@@ -69,20 +49,5 @@ public class ExcelUtils {
 		}
 		return sheetData;
 	}
-
-	/*public Map<String, String> getRowDataByScenario(String sheetName, String scenarioName) {
-
-		List<Map<String, String>> allData = getDataAll(sheetName);
-
-		for (Map<String, String> row : allData) {
-
-			if (row.containsKey("Scenario") && row.get("Scenario").equalsIgnoreCase(scenarioName)) {
-
-				return row;
-			}
-		}
-
-		throw new RuntimeException("No data found in Excel for scenario: " + scenarioName);
-	}*/
 
 }

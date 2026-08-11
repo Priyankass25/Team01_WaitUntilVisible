@@ -105,13 +105,13 @@
 				}
 
 			//Scenario#12
-				@Then("Admin should see asterisk mark\\(*) symbol next to text for user field")
+				@Then("Admin should see asterisk mark symbol next to text for user field")
 				public void admin_should_see_asterisk_mark_symbol_next_to_text_for_user_field() {
 					TestContextSetup.getPom().getLoginPage().textnameasterisk();
 				}
 
 			//Scenario#13
-				@Then("Admin should see asterisk mark\\(*) symbol next to text for pwd field")
+				@Then("Admin should see asterisk mark symbol next to text for pwd field")
 				public void admin_should_see_asterisk_mark_symbol_next_to_text_for_pwd_field() {
 					TestContextSetup.getPom().getLoginPage().pwdnameasterisk();
 				}

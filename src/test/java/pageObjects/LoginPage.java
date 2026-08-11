@@ -181,7 +181,7 @@ public class LoginPage {
 		
 	}
 	public void validLoginCredentials() {
-		common.loginFromOnBoarding2();
+		common.validLogin();
 	}
 	public String getErrorMessage() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));

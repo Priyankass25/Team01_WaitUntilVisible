@@ -1,8 +1,6 @@
 package pageObjects;
 
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -25,7 +23,6 @@ public class ProgramPage {
 
 	}
 	
-//	private String programName ="RYLgBEgiLI";
 	private String programName;
 	
 	public By manageProgmHeading = By.xpath("//div[contains(text() ,'Manage Program')]");
@@ -45,11 +42,9 @@ public class ProgramPage {
 	public By addProgramBtn = By.xpath("//div[@class = 'cdk-overlay-pane']//button[contains(@class,'mat-focus-indicator')]");
 	public By programDetailsTitle = By.xpath("//div[contains(@class, 'p-dialog-header')]//span");
 	public By asteriskName = By.xpath("//label[contains(text(), 'Name')]//span");
-//	public By prgmName = By.xpath("//div//label[text()='Name']");
 	public By prgmNameid = By.id("programName");
 	public By asteriskStatus = By.xpath("//lable[contains(text(), 'Status')]//span");
 	public By prgmDesc = By.xpath("//div//label[text()='Description']");
-//	public By prgmStatus = By.xpath("//div//lable[text()='Status']");
 	public By statusRadioBtns = By.xpath("//div//p-radiobutton");
 	public By overlayBackdrop = By.cssSelector("div.cdk-overlay-backdrop.cdk-overlay-backdrop-showing");
 	public By savePrgmBtn = By.id("saveProgram");
@@ -228,7 +223,6 @@ public class ProgramPage {
 
 	public void selectActiveStatus() {
 		common.click(activeStatusCheckbox);
-//		driver.findElement(activeStatusCheckbox).click();
 	}
 	
 	public void enterNumericProgramNameSendKeys() {
@@ -241,7 +235,6 @@ public class ProgramPage {
 	}
 	
 	public boolean isSuccessMsgDisplayed() {
-//		String actualResult = driver.findElement(successMsgAddPrgm).getText().trim();
 		String actualResult = common.getText(successMsgAddPrgm);
 		if (actualResult.contains("Program Created Successfully")) {
 	    return true;}
