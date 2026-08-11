@@ -8,6 +8,7 @@ import context.TestContextSetup;
 import utilities.CommonMethods;
 import utilities.ConfigReader;
 
+
 public class LoginPage {
 
 	WebDriver driver;
@@ -17,7 +18,6 @@ public class LoginPage {
 	public LoginPage(WebDriver driver) {
 		this.driver = driver;
 		this.common = new CommonMethods(driver);
-//	        this.excel = new ExcelUtils(ConfigReader.getProperty("test_data_path"));
 	}
 
 	public By user = By.id("username");
