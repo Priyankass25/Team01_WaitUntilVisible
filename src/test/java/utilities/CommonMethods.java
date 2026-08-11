@@ -48,6 +48,10 @@ public class CommonMethods {
 	public WebElement waitForPresence(By locator) {
 		return wait.until(ExpectedConditions.presenceOfElementLocated(locator));
 	}
+	
+	public boolean waitForElementToDisappear(By locator) {
+	    return wait.until(ExpectedConditions.invisibilityOfElementLocated(locator));
+	}
 
 	public String generateRandomString() {
 		String CHARSET = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
@@ -79,6 +83,10 @@ public class CommonMethods {
 
 	public void click(By locator) {
 		waitForClickable(locator).click();
+	}
+	
+	public String getText(By locator) {
+		return waitForVisibility(locator).getText();
 	}
 
 	/*public static boolean webClickByLocator(By locator) {
@@ -168,14 +176,14 @@ public class CommonMethods {
 
 	}*/
 
-	/*public WebElement randomCheckboxSelection(By locator) {
+	public WebElement randomCheckboxSelection(By locator) {
 		List<WebElement> checkboxesNew = driver.findElements(locator);
 
 		Random random = new Random();
 		int randomIndex = random.nextInt(checkboxesNew.size());
 		WebElement randomCheckbox = checkboxesNew.get(randomIndex);
 		return randomCheckbox;
-	}*/
+	}
 
 	/*public void scrollIntoView(WebElement element) {
 		((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", element);

@@ -12,6 +12,7 @@
 	   <parameter name="browser" value="firefox"/>	
 	      <classes>
 	         <class name="runner.TestRunner"/>
+	         <class name="failedTestRunner.TestRunner"/>
 	      </classes>	
 	</test>    
     
@@ -19,6 +20,7 @@
 	   <parameter name="browser" value="chrome"/>	
 	       <classes>
 	           <class name="runner.TestRunner"/>
+	           <class name="failedTestRunner.TestRunner"/>
 	       </classes>
 	   </test>    
 </suite>
