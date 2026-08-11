@@ -63,8 +63,6 @@ public class CommonMethods {
 
 	}
 
-
-
 	/*public void loginFromOnBoarding2() {
 
 	    ConfigReader.loadProperties();

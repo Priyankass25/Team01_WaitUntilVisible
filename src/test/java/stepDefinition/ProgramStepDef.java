@@ -416,12 +416,12 @@ public class ProgramStepDef {
 	}
 
 	@Given("Admin is on Confirmation form")
-	public void admin_is_on_confirmation_form() throws InterruptedException {
+	public void admin_is_on_confirmation_form()  {
 		TestContextSetup.getPom().getHomePage().prgmNavgationBarClick();
 		TestContextSetup.getPom().getProgramPage().dismissOverlay();	
 		TestContextSetup.getPom().getProgramPage().selectMultipleProgramCheckboxes();
 		TestContextSetup.getPom().getProgramPage().topDeleteButtonClick();	
-		Thread.sleep(1000);
+		
 		LoggerLoad.info("Admin is on multiple delete confirmation page");
 	}
 

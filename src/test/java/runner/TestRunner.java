@@ -20,7 +20,7 @@ import io.cucumber.testng.CucumberOptions;
     publish = true,
     dryRun = false,
 //    tags = "@Program",
-    features = {"src/test/resources/features/03_Program.feature"},
+    features = {"src/test/resources/features/"},
     glue = {"stepDefinition", "hooks"}
 )
 
@@ -38,7 +38,7 @@ public class TestRunner extends AbstractTestNGCucumberTests {
       }
 
     @Override
-    @DataProvider(name = "scenarios", parallel = false)//false- non parallel
+    @DataProvider(name = "scenarios", parallel = true)//false- non parallel
     public Object[][] scenarios() {
         return super.scenarios();
     }
