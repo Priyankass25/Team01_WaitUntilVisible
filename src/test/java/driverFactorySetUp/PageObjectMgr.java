@@ -3,6 +3,10 @@ package driverFactorySetUp;
 import org.openqa.selenium.WebDriver;
 
 import context.TestContextSetup;
+
+
+import pageObjects.BatchPage;
+
 import pageObjects.HomePage;
 import pageObjects.LoginPage;
 import pageObjects.LogoutPage;
@@ -17,6 +21,9 @@ public class PageObjectMgr {
 	private HomePage homePage;
 	private ProgramPage programPage;
 	private LogoutPage logoutPage;
+
+	private BatchPage batchPage;
+
 	
 	public PageObjectMgr(WebDriver driver, TestContextSetup context) {
 		this.driver = driver;
@@ -36,13 +43,22 @@ public class PageObjectMgr {
 		}
 		return homePage;
 	}
+
 	public ProgramPage getProgramPage() {
 		if(programPage == null) {
 			programPage = new ProgramPage(driver, context);
-		}
-		return programPage;
+		}return programPage;
 	}
 	
+	public BatchPage getBatchPage() {
+		if(batchPage == null) {
+			batchPage= new BatchPage(driver);
+
+		}
+		return batchPage;
+	}
+	
+
 	public LogoutPage getLogoutPage() {
 		if(logoutPage == null) {
 			logoutPage = new LogoutPage(driver);
@@ -50,3 +66,7 @@ public class PageObjectMgr {
 		return logoutPage;
 	}
 }
+
+
+
+

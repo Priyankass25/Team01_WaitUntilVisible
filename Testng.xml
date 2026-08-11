@@ -8,6 +8,7 @@
 	    <listener class-name="io.qameta.allure.testng.AllureTestNg"/>
 	  </listeners>
 
+
 	<test name="FirefoxTest">	
 	   <parameter name="browser" value="firefox"/>	
 	      <classes>
@@ -15,6 +16,7 @@
 	         <class name="failedTestRunner.TestRunner"/>
 	      </classes>	
 	</test>    
+
     
 	<test name="ChromeTest">
 	   <parameter name="browser" value="chrome"/>	
@@ -22,5 +24,11 @@
 	           <class name="runner.TestRunner"/>
 	           <class name="failedTestRunner.TestRunner"/>
 	       </classes>
-	   </test>    
+	   </test> 
+		<test name="FirefoxTest">	
+	   <parameter name="browser" value="firefox"/>	
+	      <classes>
+	         <class name="runner.TestRunner"/>
+	      </classes>	
+	</test>
 </suite>

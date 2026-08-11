@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
@@ -14,29 +15,124 @@ import driverFactorySetUp.DriverFactory;
 public class CommonMethods {
 	public static WebDriver driver;
 	public static WebDriverWait wait;
-
-	ExcelUtils excel;
+	//ExcelUtils excel = new ExcelUtils(driver);
+	//ExcelUtils excel;
 
 	public CommonMethods(WebDriver driver) {
 		this.driver = driver;
 		this.wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+		//ExcelUtils excel = new ExcelUtils(driver);
+
 	}
 
-	/*public By usernameTextbox = By.xpath("//input[@name='username']");
-	public By passwordTextbox = By.xpath("//input[@name='password']");
-	public By loginButtonUI = By.xpath("//button[@type='submit']");
+	public By usernameTextbox = By.id("username");
+	public By passwordTextbox = By.id("password");
+    public By selectTheRole=By.xpath("//span[text()='Select the role']");
+    public By Admin=By.id("mat-option-0");
+    public By dropdownClose=By.tagName("body");
+	public By loginButtonUI = By.xpath("//span[text()='Login']");
 
-	public void loginFromOnBoarding() {
+
+	/*public void loginFromOnBoarding() {
 		ConfigReader.loadProperties();
 		ExcelUtils excel = new ExcelUtils(ConfigReader.getProperty("test_data_path"));
-		String username = excel.getDataAll("onBoarding").get(0).get("UserName");
-		String password = excel.getDataAll("onBoarding").get(0).get("Password");
+		String username = excel.getDataAll("Login").get(0).get("User");
+		String password = excel.getDataAll("Login").get(0).get("Password");
+		
+		driver.findElement(selectTheRole).click();
+		driver.findElement(Admin).click();
+		driver.findElement(dropdownClose).click();
+
+
+		driver.findElement(loginButtonUI).click();
+	
+	}*/
+	public void loginFromOnBoarding1() {
+		ConfigReader.loadProperties();
+		ExcelUtils excel = new ExcelUtils(ConfigReader.getProperty("test_data_path"));
+		List<Map<String, String>> data =
+		        excel.getDataAll("Login");
+	    Map<String, String> row = data.get(0);
+	    String username = row.get("User");
+	    String password = row.get("Password");
+
+		
 		driver.findElement(usernameTextbox).sendKeys(username);
 		driver.findElement(passwordTextbox).sendKeys(password);
+		driver.findElement(selectTheRole).click();
+		driver.findElement(Admin).click();
+		driver.findElement(dropdownClose).click();
+
+
 		driver.findElement(loginButtonUI).click();
+
+	}
+
+
+
+	/*public void loginFromOnBoarding2() {
+
+	    ConfigReader.loadProperties();
+
+		ExcelUtils excel = new ExcelUtils(ConfigReader.getProperty("test_data_path"));
+
+	    List<Map<String, String>> data =
+	            excel.getDataAll("Login");
+
+	    Map<String, String> row = data.get(0);
+
+	    String username = row.get("User");
+	    String password = row.get("Password");
+
+	    System.out.println("=================================");
+	    System.out.println("Current URL: " + driver.getCurrentUrl());
+	    System.out.println("Page Title: " + driver.getTitle());
+	    System.out.println("=================================");
+
+	    // Wait for username field
+	   /* WebElement usernameField = wait.until(
+	            ExpectedConditions.visibilityOfElementLocated(usernameTextbox)
+	    );
+
+	    usernameField.clear();
+	    usernameField.sendKeys(username);
+
+	    // Wait for password field
+	    WebElement passwordField = wait.until(
+	            ExpectedConditions.visibilityOfElementLocated(passwordTextbox)
+	    );
+
+	    passwordField.clear();
+	    passwordField.sendKeys(password);*/
+	    /*waitForVisibility(usernameTextbox).sendKeys(username);
+	    waitForVisibility(passwordTextbox).sendKeys(password);
+
+	    // Select role
+	    wait.until(
+	            ExpectedConditions.elementToBeClickable(selectTheRole)
+	    ).click();
+
+	    wait.until(
+	            ExpectedConditions.elementToBeClickable(Admin)
+	    ).click();
+
+	    // Close role dropdown
+	    wait.until(
+	            ExpectedConditions.elementToBeClickable(dropdownClose)
+	    ).click();
+
+	    // Login
+	    wait.until(
+	            ExpectedConditions.elementToBeClickable(loginButtonUI)
+	    ).click();
+
+	    System.out.println("Login username: " + username);
+	    System.out.println("Login completed");
 	}*/
 
-	public WebElement waitForVisibility(By locator) {
+
+	public static WebElement waitForVisibility(By locator) {
+
 		return wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
 	}
 
@@ -71,6 +167,8 @@ public class CommonMethods {
 			return false;
 		}
 	}
+	
+
 
 
 	public boolean isEnabled(By locator) {
@@ -88,6 +186,10 @@ public class CommonMethods {
 	public String getText(By locator) {
 		return waitForVisibility(locator).getText();
 	}
+
+//	public String getText(By locator) {
+//		return driver.findElement(locator).getText();
+//		}
 
 	/*public static boolean webClickByLocator(By locator) {
 		Wait<WebDriver> fluentWait = new FluentWait<>(driver).withTimeout(Duration.ofSeconds(15))
@@ -175,8 +277,8 @@ public class CommonMethods {
 		}
 
 	}*/
-
-	public WebElement randomCheckboxSelection(By locator) {
+	
+	/*public WebElement randomCheckboxSelection(By locator) {
 		List<WebElement> checkboxesNew = driver.findElements(locator);
 
 		Random random = new Random();
