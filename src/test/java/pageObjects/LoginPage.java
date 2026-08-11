@@ -4,12 +4,18 @@ import org.testng.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
+import org.testng.Assert;
+import context.TestContextSetup;
+import utilities.CommonMethods;
+import utilities.ConfigReader;
 import org.openqa.selenium.WebElement;
+
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -27,9 +33,9 @@ public class LoginPage {
 	public LoginPage(WebDriver driver) {
 		this.driver = driver;
 		this.common = new CommonMethods(driver);
-//	        this.excel = new ExcelUtils(ConfigReader.getProperty("test_data_path"));
-	}
 
+	}
+	    
 	public By user = By.id("username");
 	public By password = By.id("password");
 	public By selectRoleDropdown = By.id("mat-select-0");
@@ -71,6 +77,7 @@ public class LoginPage {
 	    select.selectByVisibleText(role);
 	}
 
+
 	public boolean isLoginPageLoaded() {
 		return driver.getCurrentUrl().contains("login");
 	}
@@ -89,7 +96,10 @@ public class LoginPage {
 		driver.findElement(selectRoleDropdown).click();
 		driver.findElement(adminOption).click();
 	}
-	
+
+
+
+
 	public void clickLoginBtn() {
 		driver.findElement(loginBtn).click();
 	}
@@ -101,7 +111,7 @@ public class LoginPage {
 	public void enterinvalidurl() {
 		String invalid_url = ConfigReader.getProperty("invalid_url");
 		driver.get(invalid_url);
-		// LoggerLoad.info("Create Program Name is " +programName);
+
 
 	}
 
@@ -149,10 +159,12 @@ public class LoginPage {
 		common.isDisplayed(pwdtext);
 		
 	}
+
 	public void textnameasterisk() {
 		common.isDisplayed(userasterik);
 		
 	}
+
 	public void pwdnameasterisk() {
 		common.isDisplayed(pwdasterik);
 		
@@ -255,6 +267,11 @@ public class LoginPage {
 	}
 		
 
+
 }
+
+
+
+
 
 

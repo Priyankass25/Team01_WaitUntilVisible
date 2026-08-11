@@ -16,7 +16,7 @@ public class ExcelUtils {
 
 	private String filePath;
 
-	public ExcelUtils(String filePath) {
+	public ExcelUtils() {
 		this.filePath = ConfigReader.getProperty("test_data_path");
 	}
 
@@ -70,7 +70,7 @@ public class ExcelUtils {
 		return sheetData;
 	}
 
-	public Map<String, String> getRowDataByScenario(String sheetName, String scenarioName) {
+	/*public Map<String, String> getRowDataByScenario(String sheetName, String scenarioName) {
 
 		List<Map<String, String>> allData = getDataAll(sheetName);
 
@@ -83,6 +83,6 @@ public class ExcelUtils {
 		}
 
 		throw new RuntimeException("No data found in Excel for scenario: " + scenarioName);
-	}
+	}*/
 
 }

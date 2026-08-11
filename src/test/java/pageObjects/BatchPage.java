@@ -25,6 +25,7 @@ import java.time.Duration;
 import java.util.List;
 import java.util.Map;
 
+
 public class BatchPage {
 	private static Logger logger = LogManager.getLogger();
 
@@ -557,6 +558,7 @@ public void verifyDeleteButton() {
     if (isDisplayed) {
         System.out.println("PASS: Delete button is displayed");
     }
+
 }
 public void verifyBatchCheckbox() {
 

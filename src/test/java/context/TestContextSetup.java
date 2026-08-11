@@ -10,6 +10,15 @@ import driverFactorySetUp.PageObjectMgr;
 public class TestContextSetup {
 	public final static String PROGRAM_NAME = "pName";
 	private Map<String, Object> sharedData = new HashMap<>();
+<<<<<<< HEAD
+
+	private static ThreadLocal<WebDriver> driver = new ThreadLocal<>();
+	private static ThreadLocal<PageObjectMgr> pom = new ThreadLocal<>();
+
+	public static void setDriver(WebDriver driverInstance, TestContextSetup context) {
+		driver.set(driverInstance);
+		pom.set(new PageObjectMgr(driverInstance, context));
+=======
 	
 	private static ThreadLocal<WebDriver> driver = new ThreadLocal<>();
     private static ThreadLocal<PageObjectMgr> pom = new ThreadLocal<>();
@@ -17,6 +26,7 @@ public class TestContextSetup {
 	public static void setDriver(WebDriver driverInstance,TestContextSetup context) {
 		driver.set(driverInstance);
 		pom.set(new PageObjectMgr(driverInstance,context));
+>>>>>>> Ravali
 	}
 	
 	public static WebDriver getDriver() {
@@ -35,9 +45,17 @@ public class TestContextSetup {
 	public void setScenarioData(String key, Object value) {
 		sharedData.put(key, value);
 	}
+<<<<<<< HEAD
+
+	public Object getScenarioData(String key) {
+		return sharedData.get(key);
+	}
+	
+=======
 
 	public Object getScenarioData(String key) {
 		return sharedData.get(key);
 	}
 
+>>>>>>> Ravali
 }
