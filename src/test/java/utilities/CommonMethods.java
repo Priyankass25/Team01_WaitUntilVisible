@@ -36,9 +36,7 @@ public class CommonMethods {
 		ExcelUtils excel = new ExcelUtils(ConfigReader.getProperty("test_data_path"));
 		String username = excel.getDataAll("Login").get(0).get("User");
 		String password = excel.getDataAll("Login").get(0).get("Password");
-		//driver.findElement(usernameTextbox).sendKeys(username);
-		//driver.findElement(passwordTextbox).sendKeys(password);
-		//driver.findElement(loginButtonUI).click();
+		
 		driver.findElement(selectTheRole).click();
 		driver.findElement(Admin).click();
 		driver.findElement(dropdownClose).click();
@@ -56,12 +54,7 @@ public class CommonMethods {
 	    String username = row.get("User");
 	    String password = row.get("Password");
 
-		//String username = data.get("User");
-	    //String password = data.get("Password");
-	    //List<Map<String, String>> data = excel.getDataAll("onBoarding");
-
-		//String username = excel.getDataAll("onBoarding").get(0).get("Username");
-		//String password = excel.getDataAll("onBoarding").get(0).get("Password");
+		
 		driver.findElement(usernameTextbox).sendKeys(username);
 		driver.findElement(passwordTextbox).sendKeys(password);
 		driver.findElement(selectTheRole).click();

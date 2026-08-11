@@ -169,7 +169,7 @@ public class LoginPage {
 		
 	}
 	public void validLoginCredentials() {
-		common.loginFromOnBoarding1();
+		common.loginFromOnBoarding2();
 	}
 	public String getErrorMessage() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
@@ -253,7 +253,7 @@ public class LoginPage {
 	            ExpectedConditions.visibilityOfElementLocated(dashboardText)
 	    ).isDisplayed();
 	}
-	
+		
 
 }
 

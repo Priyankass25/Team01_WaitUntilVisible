@@ -3,7 +3,7 @@ Feature: Batch Page Navigation
 
     Background:
       Given Admin is logged in to LMS Portal and landed on home page
- # Rule: Admin can navigate to the Manage Batch page
+  Rule: Admin can navigate to the Manage Batch page
 
     Scenario: Navigate to Manage Batch page
       When Admin clicks the "Batch" on the navigation bar

@@ -12,7 +12,7 @@ import io.cucumber.testng.CucumberOptions;
 		"json:target/cucumber-reports/Team01_Selenium_Titans.json", "io.qameta.allure.cucumber7jvm.AllureCucumber7Jvm",
 		"rerun:target/failed_scenarios.txt" }, monochrome = false, publish = true, dryRun = false,
 		 //tags = "@Program",
-		features = { "src/test/resources/features/04_Branch.feature" }, glue = { "stepDefinition","hooks"})
+		features = { "src/test/resources/features/01_Login.feature" }, glue = { "stepDefinition","hooks"})
 
 
 public class TestRunner extends AbstractTestNGCucumberTests {

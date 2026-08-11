@@ -114,6 +114,44 @@ public class BatchPage {
     		    "and .//span[contains(@class,'pi-trash')] " +
     		    "and not(@disabled)]"
     		);
+        
+        By sortIcons = By.cssSelector("thead.p-datatable-thead th i.p-sortable-column-icon");
+        private By batchNameField =
+	            By.xpath("//input[contains(@placeholder,'Batch Name')]");
+
+	    private By numberOfClassesField =
+	            By.xpath("//input[contains(@placeholder,'Number of Classes')]");
+
+	    private By descriptionField =
+	            By.xpath("//textarea[contains(@placeholder,'Description')]");
+
+	    private By programDropdown =
+	            By.xpath("//mat-select");
+
+	    private By statusRadioButtons =
+	            By.xpath("//input[@type='radio']");
+
+	    private By saveButton =
+	            By.xpath("//button[normalize-space()='Save']");
+
+	    private By cancelButton =
+	            By.xpath("//button[normalize-space()='Cancel']");
+
+	    private By closeButton2 =
+	            By.xpath("//button[contains(@aria-label,'close') or contains(@class,'close')]");
+
+	    private By successMessage1 =
+	            By.xpath("//*[contains(text(),'success') or contains(text(),'Success')]");
+
+	    private By mandatoryError =
+	            By.xpath("//mat-error[@role='alert']");
+
+	    private By batchNameSuffixError =
+	            By.xpath("//mat-error[@role='alert']");
+
+	    private By batchDetailsPopup =
+	            By.xpath("//mat-dialog-container");
+        
         public void clickAddNewBatch1() {
     	    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
 
@@ -163,19 +201,6 @@ public class BatchPage {
             return driver.findElement(successMessage).isDisplayed();
         }
         private By activePage = By.cssSelector("button.p-paginator-page.p-highlight"); 
-
-    
-
-
-    
-
-    
-    
-    
-    
-    
-   
-    By sortIcons = By.cssSelector("thead.p-datatable-thead th i.p-sortable-column-icon");
 
     public void verifySortIcons() {
         List<WebElement> icons = driver.findElements(sortIcons);
@@ -294,11 +319,6 @@ String actualHeading = driver.findElement(Batch3).getText();
     }
     public void DeleteEN_DIS() {
 		 WebDriver driver = TestContextSetup.getDriver();
-
-    	//driver.findElement(DeleteDIs).click();
-    	
-
-
     	    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
     	   /* By deleteButtonLocator = By.xpath(
@@ -324,7 +344,6 @@ String actualHeading = driver.findElement(Batch3).getText();
     
     public void TitleBatch(String Batch) {
     	driver.findElement(Batch3).click();
-    	//driver.findElement(BatchManage).click();
     	String actualHeading = driver.findElement(Batch3).getText();
     	
 
@@ -336,21 +355,17 @@ String actualHeading = driver.findElement(Batch3).getText();
                 "Manage Batch page is not displayed"
         );
     }
-    	//driver.findElement(BatchManage).click();
+    	
    
 
-        public void TitleBatch1(String batch) {
+     public void TitleBatch1(String batch) {
 
             WebDriver driver = TestContextSetup.getDriver();
-          	
-
             driver.findElement(
                 By.xpath("//button[.//span[normalize-space()='Batch']]")
             ).click();
             
-String actualHeading = driver.findElement(Batch3).getText();
-        	
-
+            String actualHeading = driver.findElement(Batch3).getText();
             String expectedHeading = "Batch";
 
             Assert.assertEquals(
@@ -363,9 +378,7 @@ String actualHeading = driver.findElement(Batch3).getText();
         public void TitleManageBatch() {
 
             WebDriver driver = TestContextSetup.getDriver();
-
             WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-
             WebElement manageBatch = wait.until(
                 ExpectedConditions.visibilityOfElementLocated(
                     By.xpath("//*[normalize-space()='Manage Batch']")
@@ -383,8 +396,8 @@ String actualHeading = driver.findElement(Batch3).getText();
         }
 
         public void AddNewBatch() {
+        	
             WebDriver driver = TestContextSetup.getDriver();
-
         	driver.findElement(Batch3).click();
         	WebElement Add=driver.findElement(addNewBatch);
         	Add.click();
@@ -399,10 +412,9 @@ String actualHeading = driver.findElement(Batch3).getText();
         }
        
         public void Addassertions(String addNewBatch) {
+        	
         	 WebDriver driver = TestContextSetup.getDriver();
-
              WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-
              WebElement submenu = wait.until(
                  ExpectedConditions.visibilityOfElementLocated(
                      By.xpath("//*[normalize-space()='" + addNewBatch + "']")
@@ -980,52 +992,8 @@ public void verifyBatchTableHeaders(List<String> expectedHeaders) {
 						    
 						}
 					   
-					  // private By batchMenu =
-					        //    By.xpath("//*[normalize-space()='Batch']");
-
-					    //private By addNewBatch =
-					      //      By.xpath("//*[normalize-space()='Add New Batch']");
-
-					    private By batchNameField =
-					            By.xpath("//input[contains(@placeholder,'Batch Name')]");
-
-					    private By numberOfClassesField =
-					            By.xpath("//input[contains(@placeholder,'Number of Classes')]");
-
-					    private By descriptionField =
-					            By.xpath("//textarea[contains(@placeholder,'Description')]");
-
-					    private By programDropdown =
-					            By.xpath("//mat-select");
-
-					    private By statusRadioButtons =
-					            By.xpath("//input[@type='radio']");
-
-					    private By saveButton =
-					            By.xpath("//button[normalize-space()='Save']");
-
-					    private By cancelButton =
-					            By.xpath("//button[normalize-space()='Cancel']");
-
-					    private By closeButton2 =
-					            By.xpath("//button[contains(@aria-label,'close') or contains(@class,'close')]");
-
-					    private By successMessage1 =
-					            By.xpath("//*[contains(text(),'success') or contains(text(),'Success')]");
-
-					    private By mandatoryError =
-					            By.xpath("//mat-error[@role='alert']");
-
-					    private By batchNameSuffixError =
-					            By.xpath("//mat-error[@role='alert']");
-
-					    private By batchDetailsPopup =
-					            By.xpath("//mat-dialog-container");
-
-
-					    // ---------------- BATCH MENU ----------------
-
 					  
+					    
 
 
 					    // ---------------- VERIFY FIELDS ----------------
