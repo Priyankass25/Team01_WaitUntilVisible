@@ -27,6 +27,7 @@ import utilities.CommonMethods;
 import utilities.ConfigReader;
 import utilities.ExcelUtils;
 import utilities.LoggerLoad;
+import utilities.TestDataManager;
 
 public class Batch {
 	
@@ -35,41 +36,28 @@ public class Batch {
 
 	private static ThreadLocal<PageObjectMgr> pom = new ThreadLocal<>();
 
-	  WebDriver driver;
-	   
+	    WebDriver driver;	   
 	    BatchPage Batch = new BatchPage(DriverFactory.getDriver());
-
-		//BatchPage Batch= new BatchPage(driver);
-		//private BatchPage batchPage = new BatchPage(driver);
-		//Batch = new BatchPage(TestContextSetup.getDriver());
 
 	    public Batch() {
 	    	Batch = new BatchPage(TestContextSetup.getDriver());
-
 	        this.driver = DriverFactory.getDriver();
 	        this.common = new CommonMethods(driver);
-
-
 	}
-//        this.common = new CommonMethods(driver);
-//        this.excel = new ExcelUtils(ConfigReader.getProperty("test_data_path"));
-    
-    
-
-  // HomePage loginPage = new HomePage();
-  //  ExcelUtils excel = new ExcelUtils(ConfigReader.getProperty("test_data_path"));
-
-
  
 	@Given("Admin is logged in to LMS Portal and landed on home page")
 	public void admin_is_logged_in_to_lms_portal_and_landed_on_home_page() {
-		common.loginFromOnBoarding2();
+		//TestContextSetup.getPom().getLoginPage().validLoginCredentials();
+
+		common.loginFromOnBoarding1();
 		
 	}
 	
 	@When("Admin clicks the {string} on the navigation bar")
 	public void admin_clicks_the_on_the_navigation_bar(String batch) {
 		Batch.TitleBatch1(batch);
+		/*String actualTitle =Batch.getPageTitle();
+        Assert.assertEquals(batch ,actualTitle);*/
 		
 	}
 	
@@ -79,7 +67,6 @@ public class Batch {
     
     //Batch.AddNewBatch();
 		
-		
 	}
 
 	@Then("Admin should see the submenu option {string}")
@@ -87,11 +74,7 @@ public class Batch {
 		//Batch.TitleBatch1(addNewBatch);
 		Batch.batchSelect();
         Batch.Addassertions(addNewBatch);
-		//Batch.AddNewBatch();
-       
-            
-        
-		
+		//Batch.AddNewBatch();	
 	    
 	}
 
@@ -138,8 +121,8 @@ public class Batch {
 	@Then("Admin should see the following batch table headers:")
 	public void admin_should_see_the_following_batch_table_headers(DataTable expectedHeaders) {
 		TestContextSetup.getPom().getBatchPage().TitleBatchAll();
-List<String> headers = expectedHeaders.asList(String.class);
-TestContextSetup.getPom().getBatchPage().verifyBatchTableHeaders(headers);
+        List<String> headers = expectedHeaders.asList(String.class);
+        TestContextSetup.getPom().getBatchPage().verifyBatchTableHeaders(headers);
 	}
 
 	@Then("Admin should see sort icons next to all batch table headers")

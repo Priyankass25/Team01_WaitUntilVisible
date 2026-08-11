@@ -25,8 +25,6 @@ public class CommonMethods {
 
 	}
 
-
-
 	public By usernameTextbox = By.id("username");
 	public By passwordTextbox = By.id("password");
     public By selectTheRole=By.xpath("//span[text()='Select the role']");
@@ -77,7 +75,6 @@ public class CommonMethods {
 	    ConfigReader.loadProperties();
 
 		ExcelUtils excel = new ExcelUtils(ConfigReader.getProperty("test_data_path"));
-
 
 	    List<Map<String, String>> data =
 	            excel.getDataAll("Login");
@@ -167,13 +164,7 @@ public class CommonMethods {
 		}
 	}
 	
-	public String getText(By locator) {
-		try {
-			return driver.findElement(locator).getText();
-		} catch (Exception e) {
-			return toString();
-		}
-	}
+
 
 
 	public boolean isEnabled(By locator) {

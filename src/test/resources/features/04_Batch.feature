@@ -3,12 +3,11 @@ Feature: Batch Page Navigation
 
     Background:
       Given Admin is logged in to LMS Portal and landed on home page
-  Rule: Admin can navigate to the Manage Batch page
+  #Rule: Admin can navigate to the Manage Batch page
 
     Scenario: Navigate to Manage Batch page
       When Admin clicks the "Batch" on the navigation bar
       Then Admin should be redirected to the Manage Batch Page
-#Rule: Admin can navigate to the Manage Batch page
     Scenario: Verify Batch submenu options
       Then Admin should see the submenu option "Add New Batch"
 

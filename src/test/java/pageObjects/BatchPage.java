@@ -15,7 +15,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
 import context.TestContextSetup;
-import io.cucumber.datatable.DataTable;
 import utilities.CommonMethods;
 import utilities.ExcelUtils;
 import utilities.ConfigReader;
@@ -28,30 +27,21 @@ import java.util.Map;
 
 public class BatchPage {
 	private static Logger logger = LogManager.getLogger();
-
-   // WebDriver driver;
     CommonMethods common;
-    ExcelUtils excel;
-    
-        private WebDriver driver;
-
-        
-
+    ExcelUtils excel; 
+     private WebDriver driver;
     public BatchPage(WebDriver driver){
+    	
         this.driver = driver;
-       // this.common = new CommonMethods(driver);
-        //this.excel = new ExcelUtils(ConfigReader.getProperty("test_data_path"));
+    
     }
-
-
 	By nextPage = By.xpath("//button[contains(@class,'p-paginator-next')]");
-
     public By password=By.id("password");
     public By username=By.id("username");
     public By selectTheRole=By.xpath("//span[text()='Select the role']");
     public By Admin=By.xpath("//span[text()=' Admin ']");
     public By dropdownClose=By.tagName("body");
-    private By Batch3 =
+    private By Batch =
     	    By.xpath("//button[.//span[normalize-space()='Batch']]");
 
     	private By BatchManage1 =
@@ -101,7 +91,6 @@ public class BatchPage {
             "//*[contains(@class,'p-toast-message-success')]"
         );
         By close=By.tagName("Body");
-        private By batchPageHeader = By.xpath("//h1[contains(text(),'Batch')]"); // PrimeNG pagination
         private By pagination = By.cssSelector("div.p-paginator"); 
         private By firstPage = By.cssSelector("button.p-paginator-first"); 
         private By previousPage = By.cssSelector("button.p-paginator-prev");
@@ -115,7 +104,8 @@ public class BatchPage {
     		    "and .//span[contains(@class,'pi-trash')] " +
     		    "and not(@disabled)]"
     		);
-        
+        private By activePage = By.cssSelector("button.p-paginator-page.p-highlight"); 
+
         By sortIcons = By.cssSelector("thead.p-datatable-thead th i.p-sortable-column-icon");
         private By batchNameField =
 	            By.xpath("//input[contains(@placeholder,'Batch Name')]");
@@ -141,9 +131,6 @@ public class BatchPage {
 	    private By closeButton2 =
 	            By.xpath("//button[contains(@aria-label,'close') or contains(@class,'close')]");
 
-	    private By successMessage1 =
-	            By.xpath("//*[contains(text(),'success') or contains(text(),'Success')]");
-
 	    private By mandatoryError =
 	            By.xpath("//mat-error[@role='alert']");
 
@@ -152,7 +139,13 @@ public class BatchPage {
 
 	    private By batchDetailsPopup =
 	            By.xpath("//mat-dialog-container");
-        
+	    private By batchCheckbox=By.xpath("//div[@role='checkbox' and contains(@class,'p-checkbox-box')]");  
+	    
+	    public String getPageTitle() {
+	        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+
+    	    return driver.getTitle();   // get the page title
+    	}
         public void clickAddNewBatch1() {
     	    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
 
@@ -163,9 +156,6 @@ public class BatchPage {
         public boolean isFirstPageDisabled1() {
             return isDisabled(firstPage);
         }
-
-        
-            
 
         public boolean isPreviousPageDisabled() {
             return isDisabled(previousPage);
@@ -201,9 +191,8 @@ public class BatchPage {
         public boolean isSuccessMessageDisplayed() {
             return driver.findElement(successMessage).isDisplayed();
         }
-        private By activePage = By.cssSelector("button.p-paginator-page.p-highlight"); 
 
-    public void verifySortIcons() {
+        public void verifySortIcons() {
         List<WebElement> icons = driver.findElements(sortIcons);
 
         Assert.assertTrue(icons.size() > 0, "No sort icons are displayed");
@@ -258,13 +247,12 @@ public class BatchPage {
     }
     
     public void batchSelect() {
+    	
     WebDriver driver = TestContextSetup.getDriver();
-  	
-
     driver.findElement(
-        By.xpath("//button[.//span[normalize-space()='Batch']]")
+        Batch
     ).click();
-String actualHeading = driver.findElement(Batch3).getText();
+    String actualHeading = driver.findElement(Batch).getText();
 	
 
     String expectedHeading = "Batch";
@@ -319,7 +307,7 @@ String actualHeading = driver.findElement(Batch3).getText();
     	driver.findElement(dropdownClose).click();
     }
     public void DeleteEN_DIS() {
-		 WebDriver driver = TestContextSetup.getDriver();
+		    WebDriver driver = TestContextSetup.getDriver();
     	    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
     	   /* By deleteButtonLocator = By.xpath(
@@ -343,9 +331,9 @@ String actualHeading = driver.findElement(Batch3).getText();
     	    );
     	}
     
-    public void TitleBatch(String Batch) {
-    	driver.findElement(Batch3).click();
-    	String actualHeading = driver.findElement(Batch3).getText();
+    public void TitleBatch(String Batch1) {
+    	driver.findElement(Batch).click();
+    	String actualHeading = driver.findElement(Batch).getText();
     	
 
         String expectedHeading = " Manage Batch";
@@ -363,10 +351,10 @@ String actualHeading = driver.findElement(Batch3).getText();
 
             WebDriver driver = TestContextSetup.getDriver();
             driver.findElement(
-                By.xpath("//button[.//span[normalize-space()='Batch']]")
-            ).click();
+            		Batch)
+            .click();
             
-            String actualHeading = driver.findElement(Batch3).getText();
+            String actualHeading = driver.findElement(Batch).getText();
             String expectedHeading = "Batch";
 
             Assert.assertEquals(
@@ -399,7 +387,7 @@ String actualHeading = driver.findElement(Batch3).getText();
         public void AddNewBatch() {
         	
             WebDriver driver = TestContextSetup.getDriver();
-        	driver.findElement(Batch3).click();
+        	driver.findElement(Batch).click();
         	WebElement Add=driver.findElement(addNewBatch);
         	Add.click();
         	String actualHeading = Add.getText().trim();
@@ -448,9 +436,7 @@ String actualHeading = driver.findElement(Batch3).getText();
  	            WebDriver driver = TestContextSetup.getDriver();
  	          	
 
- 	            driver.findElement(
- 	                By.xpath("//button[.//span[normalize-space()='Batch']]")
- 	            ).click();
+ 	            driver.findElement(Batch).click();
  	           driver.findElement(close).click();
  	            
  		    }
@@ -502,7 +488,6 @@ String actualHeading = driver.findElement(Batch3).getText();
 
  			}
  		
- 			
  				public void EditBatch() {
 
  				    WebDriver driver = TestContextSetup.getDriver();
@@ -567,11 +552,7 @@ public void verifyBatchCheckbox() {
     WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
     WebElement checkbox = wait.until(
-        ExpectedConditions.visibilityOfElementLocated(
-            By.xpath("//div[@role='checkbox' and contains(@class,'p-checkbox-box')]")
-        )
-    );
-
+        ExpectedConditions.visibilityOfElementLocated(batchCheckbox));
     Assert.assertTrue(
         checkbox.isDisplayed(),
         "Checkbox is not displayed"
@@ -580,6 +561,7 @@ public void verifyBatchCheckbox() {
     System.out.println("PASS: Checkbox is displayed");
 }
 public void verifyBatchTableHeaders(List<String> expectedHeaders) {
+	
     WebDriver driver = TestContextSetup.getDriver();
 
     List<WebElement> headers = driver.findElements(
@@ -639,7 +621,6 @@ public void verifyBatchTableHeaders(List<String> expectedHeaders) {
 
 	    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
-	    // Close the open Angular Material menu
 		    List<WebElement> backdrop = driver.findElements(
 		        By.cssSelector(".cdk-overlay-backdrop.cdk-overlay-backdrop-showing")
 		    );
@@ -653,16 +634,8 @@ public void verifyBatchTableHeaders(List<String> expectedHeaders) {
 		            By.cssSelector(".cdk-overlay-backdrop.cdk-overlay-backdrop-showing")
 		        ));
 
-	    // Now click delete
-	    WebElement deleteButton = wait.until(
-	            ExpectedConditions.visibilityOfElementLocated(
-	                By.xpath("//button[contains(@class,'p-button-danger') and .//span[contains(@class,'pi-trash')]]")
-	            )
-	        );
-
-	    deleteButton.click();
-	}}
-	
+		    }}
+	    
 	public void clickDeleteIcon() {
 
 	    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
@@ -746,9 +719,7 @@ public void verifyBatchTableHeaders(List<String> expectedHeaders) {
 		    wait.until(ExpectedConditions.elementToBeClickable(delete)).click();
 		}
 		
-		private By deleteButton10 = By.xpath(
-			    "//button[contains(@class,'p-button-danger') and .//span[contains(@class,'pi-trash')] ]"
-			);
+		
 
 			private By overlay = By.cssSelector(
 			    ".cdk-overlay-backdrop"
@@ -766,26 +737,26 @@ public void verifyBatchTableHeaders(List<String> expectedHeaders) {
 			        ExpectedConditions.elementToBeClickable(deleteButton)
 			    );
 
-			    delete.click();
-			}
-			private By enabledDeleteButton = By.xpath(
-				    "//button[contains(@class,'p-button-danger') " +
-				    "and not(@disabled) " +
-				    "and .//span[contains(@class,'pi-trash')]]"
-				);
+			          delete.click();
+			           }
+			           /* private By enabledDeleteButton = By.xpath(
+				        "//button[contains(@class,'p-button-danger') " +
+				        "and not(@disabled) " +
+				        "and .//span[contains(@class,'pi-trash')]]"
+				        );
 			
 
-				private By deleteButton2 = By.xpath(
+				        private By deleteButton2 = By.xpath(
 					    "//button[contains(@class,'p-button-danger') " +
 					    "and not(@disabled) " +
 					    "and .//span[contains(@class,'pi-trash')]"
-					);
+					    );
 
-					private By overlay1 = By.cssSelector(
+					    private By overlay1 = By.cssSelector(
 					    "div.cdk-overlay-backdrop.cdk-overlay-backdrop-showing"
-					);
+					    );*/
 
-					public void clickDeleteIcon9() {
+					    public void clickDeleteIcon9() {
 
 					    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
@@ -804,8 +775,8 @@ public void verifyBatchTableHeaders(List<String> expectedHeaders) {
 					    );
 
 					    delete.click();
-					}
-					public void clickDeleteIconD() {
+					   }
+					   public void clickDeleteIconD() {
 
 					    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
@@ -880,7 +851,7 @@ public void verifyBatchTableHeaders(List<String> expectedHeaders) {
 					    	    "//div[@role='checkbox' and contains(@class,'p-checkbox-box') and @aria-checked='false']"
 					    	);
 
-					    	public void selectMultipleBatches() {
+					    public void selectMultipleBatches() {
 
 					    	    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
@@ -895,7 +866,7 @@ public void verifyBatchTableHeaders(List<String> expectedHeaders) {
 					    	    checkboxes.get(0).click();
 					    	    checkboxes.get(1).click();
 					    	}
-					    	public boolean areMultipleBatchesSelected() {
+					    public boolean areMultipleBatchesSelected() {
 
 					    	    By selectedCheckboxes = By.xpath(
 					    	        "//div[@role='checkbox' and @aria-checked='true']"
@@ -903,13 +874,13 @@ public void verifyBatchTableHeaders(List<String> expectedHeaders) {
 
 					    	    return driver.findElements(selectedCheckboxes).size() >= 2;
 					    	}
-					    	public void multipleDelete() {
+					    public void multipleDelete() {
 					    		driver.findElement(multipleDeleteButton).click();
 					    		
 					    	
 
 					    	}
-					    	public boolean isDeleteConfirmationDialogDisplayed() {
+					    public boolean isDeleteConfirmationDialogDisplayed() {
 					    	    try {
 					    	        return new WebDriverWait(driver, Duration.ofSeconds(10))
 					    	                .until(ExpectedConditions.visibilityOfElementLocated(confirmationDialog))
@@ -918,12 +889,13 @@ public void verifyBatchTableHeaders(List<String> expectedHeaders) {
 					    	        return false;
 					    	    }
 					    	}
-					    	public void clickNextPage() {
+					    	
+					    public void clickNextPage() {
 					    	    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
 					    	    wait.until(ExpectedConditions.elementToBeClickable(nextPage)).click();
 					    	}
-					    	public boolean isNextPageDisplayed() { 
+					    public boolean isNextPageDisplayed() { 
 					    	    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
 					    		WebElement activePage = wait.until( ExpectedConditions.visibilityOfElementLocated( By.cssSelector("button.p-paginator-page.p-highlight") ) );
@@ -931,12 +903,12 @@ public void verifyBatchTableHeaders(List<String> expectedHeaders) {
 					    	return activePage.getText().equals("2"); 
 					    	}
 					    	
-					    	public void clicklastPage() {
+					   public void clicklastPage() {
 					    	    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
 					    	    wait.until(ExpectedConditions.elementToBeClickable(lastPage)).click();
 					    	}
-					    	public String isLastPageDisplayed() { 
+					   public String isLastPageDisplayed() { 
 					    	    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
 					    		WebElement activePage = wait.until( ExpectedConditions.visibilityOfElementLocated( By.cssSelector("button.p-paginator-page.p-highlight") ) );
@@ -946,13 +918,13 @@ public void verifyBatchTableHeaders(List<String> expectedHeaders) {
 
 					    	return activePage.getText(); 
 					    	}
-					    	public void clickFIRSTPage() {
+					   public void clickFIRSTPage() {
 					    	    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
 					    	    wait.until(ExpectedConditions.elementToBeClickable(firstPage)).click();
 					    	}
 					    	
-					    	public void clickprevPage() {
+					   public void clickprevPage() {
 					    	    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
 					    	    wait.until(ExpectedConditions.elementToBeClickable(previousPage)).click();
@@ -964,6 +936,7 @@ public void verifyBatchTableHeaders(List<String> expectedHeaders) {
 						   WebElement page = wait.until( ExpectedConditions.visibilityOfElementLocated(activePage) );
 						   return page.getText().trim(); 
 						   }
+					   
 					   public boolean isFirstPageDisplayed() { 
 						   return getActivePageNumber().equals("1"); 
 						   }
@@ -974,7 +947,8 @@ public void verifyBatchTableHeaders(List<String> expectedHeaders) {
 						    return wait.until(
 						        ExpectedConditions.visibilityOfElementLocated(BatchManage)
 						    ).isDisplayed();
-						}
+						   }
+					   
 					   private boolean isDisabled(By locator) {
 				    	    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
@@ -983,7 +957,8 @@ public void verifyBatchTableHeaders(List<String> expectedHeaders) {
 						    );
 
 						    return element.getAttribute("class").contains("p-disabled");
-						}
+						   }
+					   
 					   public void isFirstPageDisabled() {
 				    	    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
@@ -992,7 +967,7 @@ public void verifyBatchTableHeaders(List<String> expectedHeaders) {
 						    );
 
 						    
-						}
+						   }
 					   
 					  
 					    
