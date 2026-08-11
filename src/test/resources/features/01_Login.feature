@@ -2,8 +2,8 @@
 Feature: HerBalance Login Page UI Verification
 
   Background:
-    Given User is on the HerBalance launch page
-    When User clicks log in button
+   # Given User is on the HerBalance launch page
+    #When User clicks log in button
 
   Scenario: HerBalance logo visibility
     Then HerBalance logo should be visible on the top-left corner
@@ -51,4 +51,52 @@ Feature: HerBalance Login Page UI Verification
 
   Scenario: Radio button for show password
     Then Radio button for show password
+    
+   ###########################Login Page - Functional Verification########################
 
+  Scenario: Successful login with valid credentials
+   
+    When Admin enters valid username, valid password, selects valid role and clicks login button
+    Then Admin should land on home page
+
+
+  Scenario: Login with special character in username
+    When Admin enters special character in username, valid password, selects valid role and clicks login button
+    Then Admin should see invalid credential error
+
+
+  Scenario: Login attempt with empty username
+    When Admin enters valid password, selects valid role and clicks login button without entering username
+    Then Admin should see empty username error
+
+
+  Scenario: Login attempt with empty password
+    When Admin enters valid username, selects valid role and clicks login button without entering password
+    Then Admin should see empty password error
+
+
+  Scenario: Login attempt with wrong password
+    When Admin enters valid username, wrong password, selects valid role and clicks login button
+    Then Admin should see invalid credential error on login page
+
+
+  Scenario: Login attempt without selecting any role
+    When Admin enters valid username and valid password and clicks login button without selecting role
+    Then Admin should see no role selected error
+
+
+  Scenario: Login attempt with invalid role
+    When Admin enters valid username, valid password, selects invalid role and clicks login button
+    Then Admin should see invalid role error
+
+
+ Scenario: Login attempt using keyboard
+    When Admin enters valid credentials, selects valid role and submits login using keyboard
+    Then Admin should land on the home page
+
+
+  Scenario: Login attempt using mous e
+    When Admin enters valid credentials, selects valid role and submits login using mouse
+    
+
+ 

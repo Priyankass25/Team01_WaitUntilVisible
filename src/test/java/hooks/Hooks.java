@@ -32,7 +32,7 @@ public class Hooks {
 
 		if (!isExcelDownloaded) {
 
-			String fileId = "1EoabtMzSHkckM33lWEhj-7crq78AJsjl";
+//			String fileId = "1EoabtMzSHkckM33lWEhj-7crq78AJsjl";
 			String localPath = ConfigReader.getProperty("test_data_path");
 			try {
 //				GoogleDriveDownloader.downloadExcelFromDrive(fileId, localPath);
@@ -48,23 +48,18 @@ public class Hooks {
 	@Before
 	public void setUp(Scenario scenario) {
 
-		logger.info("Executing scenario: " + scenario.getName());
-		System.out.println("Set browser type from before setup:" + DriverFactory.getBrowser());
-		DriverFactory.getDriver();
-	    TestContextSetup.setDriver(DriverFactory.getDriver());
-		DriverFactory.setupBrowser();
-		DriverFactory.getDriver().manage().deleteAllCookies();
-		// Default URL for ALL scenarios
-		String url = ConfigReader.getProperty("url");
-		// Override ONLY for UI login/signup validations
-		if (scenario.getSourceTagNames().contains("@ui")) {
-			url = ConfigReader.getProperty("ui_url");
-			logger.info("UI scenario detected → Navigating to UI URL");
-		} else {
-			logger.info("Functional scenario detected → Navigating to Functional URL");
-		}
-		DriverFactory.getDriver().get(url);
-	}
+		logger.info("Executing scenario: "+ scenario.getName());
+        String browser = DriverFactory.getBrowser();
+        logger.info("Browser for this scenario: " + browser);
+        WebDriver driver = DriverFactory.getDriver();
+        TestContextSetup context = new TestContextSetup();
+        TestContextSetup.setDriver( driver, context);
+        DriverFactory.setupBrowser();
+        String url = ConfigReader.getProperty("url");
+        driver.get(url);
+        logger.info("Navigated to URL: " + url);    }
+		
+	
 
 	@AfterStep
 	public void afterStep(Scenario scenario) {

@@ -81,10 +81,14 @@ public class DriverFactory {
 	}
 
 	public static void setupBrowser() {
-		WebDriver localDriver = driver.get();
+	    WebDriver localDriver = getDriver();
 		localDriver.manage().deleteAllCookies();
-//		localDriver.get(ConfigReader.getProperty("url"));
 		localDriver.manage().window().maximize();
+		if (!isHeadless()) {
+            localDriver.manage()
+                    .window()
+                    .maximize();
+        }
 		localDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 
 	}
