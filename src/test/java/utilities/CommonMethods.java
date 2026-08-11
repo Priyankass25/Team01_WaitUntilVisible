@@ -33,7 +33,7 @@ public class CommonMethods {
 	public By loginButtonUI = By.xpath("//span[text()='Login']");
 
 
-	public void loginFromOnBoarding() {
+	/*public void loginFromOnBoarding() {
 		ConfigReader.loadProperties();
 		ExcelUtils excel = new ExcelUtils(ConfigReader.getProperty("test_data_path"));
 		String username = excel.getDataAll("Login").get(0).get("User");
@@ -46,7 +46,7 @@ public class CommonMethods {
 
 		driver.findElement(loginButtonUI).click();
 	
-	}
+	}*/
 	public void loginFromOnBoarding1() {
 		ConfigReader.loadProperties();
 		ExcelUtils excel = new ExcelUtils(ConfigReader.getProperty("test_data_path"));
@@ -70,7 +70,7 @@ public class CommonMethods {
 
 
 
-	public void loginFromOnBoarding2() {
+	/*public void loginFromOnBoarding2() {
 
 	    ConfigReader.loadProperties();
 
@@ -104,7 +104,7 @@ public class CommonMethods {
 
 	    passwordField.clear();
 	    passwordField.sendKeys(password);*/
-	    waitForVisibility(usernameTextbox).sendKeys(username);
+	    /*waitForVisibility(usernameTextbox).sendKeys(username);
 	    waitForVisibility(passwordTextbox).sendKeys(password);
 
 	    // Select role
@@ -128,7 +128,7 @@ public class CommonMethods {
 
 	    System.out.println("Login username: " + username);
 	    System.out.println("Login completed");
-	}
+	}*/
 
 
 	public static WebElement waitForVisibility(By locator) {
@@ -143,6 +143,10 @@ public class CommonMethods {
 
 	public WebElement waitForPresence(By locator) {
 		return wait.until(ExpectedConditions.presenceOfElementLocated(locator));
+	}
+	
+	public boolean waitForElementToDisappear(By locator) {
+	    return wait.until(ExpectedConditions.invisibilityOfElementLocated(locator));
 	}
 
 	public String generateRandomString() {
@@ -178,10 +182,14 @@ public class CommonMethods {
 	public void click(By locator) {
 		waitForClickable(locator).click();
 	}
-
+	
 	public String getText(By locator) {
-		return driver.findElement(locator).getText();
-		}
+		return waitForVisibility(locator).getText();
+	}
+
+//	public String getText(By locator) {
+//		return driver.findElement(locator).getText();
+//		}
 
 	/*public static boolean webClickByLocator(By locator) {
 		Wait<WebDriver> fluentWait = new FluentWait<>(driver).withTimeout(Duration.ofSeconds(15))
@@ -246,7 +254,29 @@ public class CommonMethods {
 		return new Random().nextInt(1000);
 	}
 
-	
+	/*public static double extractNumber(String text) {
+		return Double.parseDouble(text.replaceAll("[^0-9.]", ""));
+	}*/
+
+	/*public String getAlertMsg(By locator) {
+		try {
+			WebElement element = driver.findElement(locator);
+
+			JavascriptExecutor js = (JavascriptExecutor) driver;
+			String validationMsg = (String) js.executeScript("return arguments[0].validationMessage;", element);
+
+			if (validationMsg == null || validationMsg.trim().isEmpty()) {
+				throw new RuntimeException("Failed: Validation message is empty for locator: " + locator.toString());
+			}
+			LoggerLoad.info("Alert Message Found: " + validationMsg);
+			return validationMsg;
+		} catch (NoSuchElementException e) {
+			throw new RuntimeException("Failed: Unable to find the input element: " + locator.toString());
+		} catch (Exception e) {
+			throw new RuntimeException("Failed to retrieve alert message: " + e.getMessage());
+		}
+
+	}*/
 	
 	/*public WebElement randomCheckboxSelection(By locator) {
 		List<WebElement> checkboxesNew = driver.findElements(locator);
@@ -255,7 +285,7 @@ public class CommonMethods {
 		int randomIndex = random.nextInt(checkboxesNew.size());
 		WebElement randomCheckbox = checkboxesNew.get(randomIndex);
 		return randomCheckbox;
-	}*/
+	}
 
 	/*public void scrollIntoView(WebElement element) {
 		((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", element);
