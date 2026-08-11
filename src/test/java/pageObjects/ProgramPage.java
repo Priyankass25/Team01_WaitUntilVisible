@@ -201,18 +201,14 @@ public class ProgramPage {
 				return true;
 			}			
 		}
-		
-		return false;
+				return false;
 	}
 
-	//searchTextBox
 	 public void searchboxenter() {
-       wait.until(ExpectedConditions.visibilityOfElementLocated(searchTextBox))
-           .sendKeys("Python");
+       wait.until(ExpectedConditions.visibilityOfElementLocated(searchTextBox)).sendKeys("Python");
    }
    public void searchboxdes() {
-   wait.until(ExpectedConditions.visibilityOfElementLocated(searchTextBox))
-       .sendKeys("Coding Details");
+   wait.until(ExpectedConditions.visibilityOfElementLocated(searchTextBox)).sendKeys("Coding Details");
 }
 	 public boolean progname() {
        return wait.until(ExpectedConditions.visibilityOfElementLocated(textp)).isDisplayed();
@@ -224,31 +220,21 @@ public boolean progstatus() {
    return wait.until(ExpectedConditions.visibilityOfElementLocated(progst)).isDisplayed();
 }
 public void searchboxnotex() {
-wait.until(ExpectedConditions.visibilityOfElementLocated(searchTextBox))
-  .sendKeys("Java Script");
+wait.until(ExpectedConditions.visibilityOfElementLocated(searchTextBox)).sendKeys("Java Script");
 }
 public String entries() {
 return "0";
 }
 public String zeroentries() {
-return wait.until(ExpectedConditions.visibilityOfElementLocated(zeroent))
-         .getText();
+return wait.until(ExpectedConditions.visibilityOfElementLocated(zeroent)).getText();
 }
 public void searchboxpar() {
-wait.until(ExpectedConditions.visibilityOfElementLocated(searchTextBox))
-  .sendKeys("Py");
+wait.until(ExpectedConditions.visibilityOfElementLocated(searchTextBox)).sendKeys("Py");
 }
 public void clickprogramname() {
 	 wait.until(ExpectedConditions.invisibilityOfElementLocated(overlay));
-
-	    // Wait for sort icon and click
-	    WebElement sortIcon = wait.until(
-	            ExpectedConditions.elementToBeClickable(programname));
-
+	    WebElement sortIcon = wait.until(ExpectedConditions.elementToBeClickable(programname));
 	    sortIcon.click();
-	
-	//wait.until(ExpectedConditions.invisibilityOfElementLocated(overlay));
-  //  wait.until(ExpectedConditions.elementToBeClickable(programname)).click();
 }
 public List<String> getProgramNames() {
 
@@ -304,50 +290,36 @@ public void nextarrowclick() {
 	
 }
 public String getslectednum() {
-   String txt= wait.until(
-        ExpectedConditions.visibilityOfElementLocated(selectnumb)
-    ).getText().trim();
+   String txt= wait.until(ExpectedConditions.visibilityOfElementLocated(selectnumb)).getText().trim();
    int number = Integer.parseInt(txt);
    return String.valueOf(number);
 }
 public String getslectednumb() {
 	   String txt= wait.until(
-	        ExpectedConditions.visibilityOfElementLocated(selectnumbr)
-	    ).getText().trim();
+	        ExpectedConditions.visibilityOfElementLocated(selectnumbr)).getText().trim();
 	   int number = Integer.parseInt(txt);
 	   return String.valueOf(number);
 	}
 public String getafterarrowclk() {
     String text = wait.until(
-        ExpectedConditions.visibilityOfElementLocated(selectnumb)
-    ).getText().trim();
-
+        ExpectedConditions.visibilityOfElementLocated(selectnumb)).getText().trim();
     int number = Integer.parseInt(text);
-
     return String.valueOf(number + 1);
 }
 public String getaprearrowclk() {
     String text = wait.until(
-        ExpectedConditions.visibilityOfElementLocated(selectnumbr)
-    ).getText().trim();
-
+        ExpectedConditions.visibilityOfElementLocated(selectnumbr)).getText().trim();
     int number = Integer.parseInt(text);
-
     return String.valueOf(number - 1);
 }
 public List<String> getProgramDescriptions() {
 
-    List<WebElement> elements =
-            wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(tablelist));
-
+    List<WebElement> elements =wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(tablelist));
     List<String> descriptions = new ArrayList<>();
-
     for (WebElement element : elements) {
-
         String description = element.getText().trim();
-
         if (!description.isEmpty()) {
-            descriptions.add(description);
+        descriptions.add(description);
         }
     }
     System.out.println(descriptions);
@@ -357,35 +329,23 @@ public List<String> getProgramDescriptions() {
 public boolean isProgramDescriptionSortedAscending() {
 
     List<String> actual = getProgramDescriptions();
-
     List<String> expected = new ArrayList<>(actual);
-
     expected.sort(String.CASE_INSENSITIVE_ORDER);
-
     return actual.equals(expected);
 }
 public boolean isProgramDescriptionSortedDescending() {
-
     List<String> actual = getProgramDescriptions();
-
     List<String> expected = new ArrayList<>(actual);
-
     expected.sort(String.CASE_INSENSITIVE_ORDER.reversed());
-
-    return actual.equals(expected);
+   return actual.equals(expected);
     
 }
 public List<String> getProgramstatus() {
 
-    List<WebElement> elements =
-            wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(tablelist));
-
+    List<WebElement> elements =wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(tablelist));
     List<String> descriptions = new ArrayList<>();
-
     for (WebElement element : elements) {
-
         String description = element.getText().trim();
-
         if (!description.isEmpty()) {
             descriptions.add(description);
         }
@@ -397,59 +357,34 @@ public List<String> getProgramstatus() {
 public boolean isProgramstatusSortedAscending() {
 
     List<String> actual = getProgramDescriptions();
-
     List<String> expected = new ArrayList<>(actual);
-
     expected.sort(String.CASE_INSENSITIVE_ORDER);
-
     return actual.equals(expected);
 }
 public boolean isProgramstatusSortedDescending() {
 
     List<String> actual = getProgramDescriptions();
-
     List<String> expected = new ArrayList<>(actual);
-
-    expected.sort(String.CASE_INSENSITIVE_ORDER.reversed());
-
-    return actual.equals(expected);
+ expected.sort(String.CASE_INSENSITIVE_ORDER.reversed());
+     return actual.equals(expected);
 }
 
 public int getTotalPrograms() {
 
-	String text = wait.until(
-	        ExpectedConditions.visibilityOfElementLocated(infototal)
-	    ).getText().trim();
-
-	    String[] numbers = text.replaceAll("[^0-9 ]", " ")
-	                           .trim()
-	                           .split("\\s+");
-
+	String text = wait.until(ExpectedConditions.visibilityOfElementLocated(infototal)).getText().trim();
+String[] numbers = text.replaceAll("[^0-9 ]", " ").trim().split("\\s+");
 	    return Integer.parseInt(numbers[2]);
 	
 }
 public int getDisplayedEntries() {
 
-    String text = wait.until(
-        ExpectedConditions.visibilityOfElementLocated(infototal)
-    ).getText().trim();
-
-    String[] numbers = text.replaceAll("[^0-9 ]", " ")
-                           .trim()
-                           .split("\\s+");
-
-    return Integer.parseInt(numbers[1]);
+    String text = wait.until(ExpectedConditions.visibilityOfElementLocated(infototal)).getText().trim();
+String[] numbers = text.replaceAll("[^0-9 ]", " ").trim().split("\\s+");
+return Integer.parseInt(numbers[1]);
 }
 public int getFirstNumber() {
-
-    String text = wait.until(
-        ExpectedConditions.visibilityOfElementLocated(infototal)
-    ).getText().trim();
-
-    String[] numbers = text.replaceAll("[^0-9 ]", " ")
-                           .trim()
-                           .split("\\s+");
-
+ String text = wait.until(ExpectedConditions.visibilityOfElementLocated(infototal)).getText().trim();
+    String[] numbers = text.replaceAll("[^0-9 ]", " ").trim().split("\\s+");
     return Integer.parseInt(numbers[0]);
 }
 
