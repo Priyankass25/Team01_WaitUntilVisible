@@ -120,7 +120,7 @@ public class ProgramStepDef {
 	}
 
 	@Given("Admin is on Program page")
-	public void admin_is_on_program_page() {
+	public void admin_is_on_program_page(){
 		 TestContextSetup.getPom().getHomePage().prgmNavgationBarClick();
 		    LoggerLoad.info("Admin clicked on program navigation bar");
 	}
@@ -307,5 +307,251 @@ public class ProgramStepDef {
 	public void admin_can_see_programs_are_still_selected_and_not_deleted() {
 
 	}
+ 
+	@When("Admin enters the program name in search box")
+	public void admin_enters_the_program_name_in_search_box() {
+	
+			TestContextSetup.getPom().getProgramPage().searchboxenter();
+			
+		}
+	
+	
+	@Then("Admin should see {string} for searched program name")
+	public void admin_should_see_for_searched_program_name(String field) {
+     switch (field.toLowerCase()) {
+     case "program name":Assert.assertTrue(TestContextSetup.getPom().getProgramPage().progname(),"Program name is not displayed");
+	 break;
+     case "description":Assert.assertTrue(TestContextSetup.getPom().getProgramPage().progdes(),"Program description is not displayed");
+	 break;
+     case "status":Assert.assertTrue(TestContextSetup.getPom().getProgramPage().progstatus(),"Program status is not displayed");
+	 break;
+     default:
+	 Assert.fail("Invalid field: " + field);}
+	}
+	
+	@When("Admin enters the program description in search box")
+	public void admin_enters_the_program_description_in_search_box() {
+		TestContextSetup.getPom().getProgramPage().dismissOverlay();
+		TestContextSetup.getPom().getProgramPage().searchboxdes();
+	}
+
+	@Then("Admin should see {string} for searched program description")
+	public void admin_should_see_for_searched_program_description(String field) {
+    switch (field.toLowerCase()) {
+    case "program name":Assert.assertTrue(TestContextSetup.getPom().getProgramPage().progname(),"Program name is not displayed");
+	break;
+    case "description":Assert.assertTrue(TestContextSetup.getPom().getProgramPage().progdes(),"Program description is not displayed");
+	break;
+    case "status":Assert.assertTrue(TestContextSetup.getPom().getProgramPage().progstatus(),"Program status is not displayed");
+	break;
+	default:Assert.fail("Invalid field: " + field);
+	    }
+	}
+	
+	@When("Admin enters the program that does not exist in search box")
+	public void admin_enters_the_program_that_does_not_exist_in_search_box() {
+		TestContextSetup.getPom().getProgramPage().searchboxnotex();
+	}
+
+	@Then("There should be zero results .")
+	public void there_should_be_zero_results_() {
+		String expout=TestContextSetup.getPom().getProgramPage().entries();
+        String actout=TestContextSetup.getPom().getProgramPage().zeroentries();
+        Assert.assertEquals(actout,expout, "entries not showing 0");
+
+
+}
+	@When("Admin enters the partial name of program in search box")
+	public void admin_enters_the_partial_name_of_program_in_search_box() {
+		TestContextSetup.getPom().getProgramPage().searchboxpar();
+	}
+
+	@Then("Admin should be able to see {string} for searched program name")
+	public void admin_should_be_able_to_see_for_searched_program_name(String field) {
+    switch (field.toLowerCase()) {  
+    case "program name":
+    Assert.assertTrue(TestContextSetup.getPom().getProgramPage().progname(),"Program name is not displayed");
+	break;
+    case "description":
+    Assert.assertTrue(TestContextSetup.getPom().getProgramPage().progdes(),"Program description is not displayed");
+	break;
+	case "status":
+    Assert.assertTrue(TestContextSetup.getPom().getProgramPage().progstatus(),"Program status is not displayed");
+	break;
+    default:Assert.fail("Invalid field: " + field);
+	    }
+	}
+	
+	@When("Admin clicks on Arrow next to program Name")
+	public void admin_clicks_on_arrow_next_to_program_name() {
+		TestContextSetup.getPom().getProgramPage().dismissOverlay();
+		TestContextSetup.getPom().getProgramPage().clickprogramname();
+	//	TestContextSetup.getPom().getProgramPage().clickprogramname();
+	}
+	
+	@Then("Admin should  See the Program Name is sorted in Ascending order")
+	public void admin_should_see_the_program_name_is_sorted_in_ascending_order() {
+      boolean actual = TestContextSetup.getPom().getProgramPage().isProgramNameSortedAscending();
+   Assert.assertTrue(actual,"Program names are not sorted in ascending order");
+   }
+
+	@Given("Admin is in program page where Program names are sorted in ascending order")
+	public void admin_is_in_program_page_where_program_names_are_sorted_in_ascending_order() {
+		TestContextSetup.getPom().getHomePage().prgmNavgationBarClick();
+	    LoggerLoad.info("Admin clicked on program navigation bar");
+	    TestContextSetup.getPom().getProgramPage().dismissOverlay();
+		TestContextSetup.getPom().getProgramPage().clickprogramname();
+		
+	}
+	
+	@When("Admin clicks on Arrow next to program Name.")
+	public void admin_clicks_on_arrow_next_to_program_name_() {
+		//TestContextSetup.getPom().getProgramPage().dismissOverlay();
+		TestContextSetup.getPom().getProgramPage().clickprogramname();	
+	}
+	@When("Admin clicks on Arrow next to Program Description")
+		 public void admin_clicks_on_arrow_next_to_program_description() {
+		TestContextSetup.getPom().getProgramPage().dismissOverlay();
+			 TestContextSetup.getPom().getProgramPage().programdescriptionclick();
+		 }
+		 @Then("Admin should See the program Description is sorted in Ascending order")
+		 public void admin_should_see_the_program_description_is_sorted_in_ascending_order() {
+			 boolean actual = TestContextSetup.getPom()
+			            .getProgramPage()
+			            .isProgramDescriptionSortedAscending();
+
+			    Assert.assertTrue(
+			            actual,
+			            "Program Description is not sorted in ascending order"
+			    );
+		 }	
+	
+	@Then("Admin should See the Program Name is sorted in Descending order")
+	public void admin_should_see_the_program_name_is_sorted_in_descending_order() {
+		boolean actual = TestContextSetup.getPom().getProgramPage().isProgramNameSortedDescending();
+     Assert.assertTrue(actual,"Program names are not sorted in descending order");
+	}
+	@Given("Admin is in program page where Program description are sorted in ascending order")
+	public void admin_is_in_program_page_where_program_description_are_sorted_in_ascending_order() {
+		TestContextSetup.getPom().getHomePage().prgmNavgationBarClick();
+	    LoggerLoad.info("Admin clicked on program navigation bar");
+	    TestContextSetup.getPom().getProgramPage().dismissOverlay();
+	    TestContextSetup.getPom().getProgramPage().programdescriptionclick();
+	}
+	@When("Admin clicks on Arrow next to Program Description.")
+	public void admin_clicks_on_arrow_next_to_program_description_() {
+	//TestContextSetup.getPom().getProgramPage().dismissOverlay();
+		 TestContextSetup.getPom().getProgramPage().programdescriptionclick();
+	 }
+	@Then("Admin  should See the program Description is sorted in Descending order")
+	public void admin_should_see_the_program_description_is_sorted_in_descending_order() {
+		 boolean actual = TestContextSetup.getPom()
+		            .getProgramPage()
+		            .isProgramDescriptionSortedDescending();
+
+		    Assert.assertTrue(
+		            actual,
+		            "Program Description is not sorted in descending order"
+		    );
+	}
+	@When("Admin clicks on Arrow next to Program status")
+	public void admin_clicks_on_arrow_next_to_program_status() {
+		TestContextSetup.getPom().getProgramPage().dismissOverlay();
+		 TestContextSetup.getPom().getProgramPage().programstatusclick();
+	}
+	@Then("Admin should see the Program status sorted in Ascending order")
+	public void admin_should_see_the_program_status_sorted_in_ascending_order() {
+		 boolean actual = TestContextSetup.getPom()
+		            .getProgramPage()
+		            .isProgramstatusSortedAscending();
+
+		    Assert.assertTrue(
+		            actual,
+		            "Program status is not sorted in descending order"
+		    );
+	}
+	@Given("Admin is in program page where Program status are sorted in ascending order")
+	public void admin_is_in_program_page_where_program_status_are_sorted_in_ascending_order() {
+		 TestContextSetup.getPom().getHomePage().prgmNavgationBarClick();
+	}
+	@Then("Admin should see the Program status sorted in Descending order")
+	public void admin_should_see_the_program_status_sorted_in_descending_order() {
+		 boolean actual = TestContextSetup.getPom().getProgramPage()
+		            .isProgramstatusSortedAscending();
+		    Assert.assertTrue(actual,"Program status is not sorted in descending order");
+	}
+	@Given("Admin is on Program page with multiple program records")
+	public void admin_is_on_program_page_with_multiple_program_records() {
+		 TestContextSetup.getPom().getHomePage().prgmNavgationBarClick();
+	}
+	@When("Admin clicks the next page option \\(>) in the pagination control")
+	public void admin_clicks_the_next_page_option_in_the_pagination_control() {
+		TestContextSetup.getPom().getProgramPage().dismissOverlay();
+		TestContextSetup.getPom().getProgramPage().nextarrowclick();
+	}
+	@Then("Admin should navigate to the next page and see the next set of program records")
+	public void admin_should_navigate_to_the_next_page_and_see_the_next_set_of_program_records() {
+		  String selectedPage = TestContextSetup.getPom().getProgramPage().getslectednum();
+         int expectedPage = Integer.parseInt(selectedPage) + 1;
+		    String actualPage = TestContextSetup.getPom().getProgramPage().getafterarrowclk();
+         Assert.assertEquals(Integer.parseInt(actualPage),expectedPage,"Page is not navigated to next page");
+	}
+	@Given("Admin is on any page except the last page of Program table")
+	public void admin_is_on_any_page_except_the_last_page_of_program_table() {
+		TestContextSetup.getPom().getHomePage().prgmNavgationBarClick();
+	}
+	@When("Admin clicks the last page option \\(>>) in the pagination control")
+	public void admin_clicks_the_last_page_option_in_the_pagination_control() {
+		TestContextSetup.getPom().getProgramPage().dismissOverlay();
+		TestContextSetup.getPom().getProgramPage().lastarrowclick();
+	}
+	@Then("Admin should see the last page record on the table")
+	public void admin_should_see_the_last_page_record_on_the_table() {
+		int actualTotalPrograms = TestContextSetup.getPom().getProgramPage().getTotalPrograms();
+		int actualDisplayedEntries = TestContextSetup.getPom().getProgramPage().getDisplayedEntries();
+        Assert.assertEquals(actualTotalPrograms,actualDisplayedEntries,"not navigated to lastpage");
+	}
+
+@Given("Admin is on the Program table on any page except the first page")
+public void admin_is_on_the_program_table_on_any_page_except_the_first_page() {
+	TestContextSetup.getPom().getHomePage().prgmNavgationBarClick();
+	TestContextSetup.getPom().getProgramPage().dismissOverlay();
+	TestContextSetup.getPom().getProgramPage().nextarrowclick();
+}
+@When("Admin clicks the previous page option \\(<) in the pagination control")
+public void admin_clicks_the_previous_page_option_in_the_pagination_control() {
+	//TestContextSetup.getPom().getProgramPage().dismissOverlay();
+	TestContextSetup.getPom().getProgramPage().prearrowclick();
+	
+}
+@Then("Admin should see the previous page record on the table")
+public void admin_should_see_the_previous_page_record_on_the_table() {
+	 String selectedPage = TestContextSetup.getPom().getProgramPage().getslectednumb();
+     int expectedPage = Integer.parseInt(selectedPage) - 1;
+	    String actualPage = TestContextSetup.getPom().getProgramPage().getaprearrowclk();
+     Assert.assertEquals(Integer.parseInt(actualPage),expectedPage,"Page is not navigated to next page");
+}
+
+@Given("Admin is on any page except the first page of Program table")
+public void admin_is_on_any_page_except_the_first_page_of_program_table() {
+	TestContextSetup.getPom().getHomePage().prgmNavgationBarClick();
+	TestContextSetup.getPom().getProgramPage().dismissOverlay();
+	TestContextSetup.getPom().getProgramPage().nextarrowclick();
+}
+@When("Admin clicks the first page option \\(<<) in the pagination control")
+public void admin_clicks_the_first_page_option_in_the_pagination_control() {
+	TestContextSetup.getPom().getProgramPage().firstarrowclick();
+}
+@Then("Admin should see the very first page record on the table")
+public void admin_should_see_the_very_first_page_record_on_the_table() {
+	int actual = TestContextSetup.getPom()
+	        .getProgramPage()
+	        .getFirstNumber();
+
+	Assert.assertEquals(actual, 1, "First number is not matching");
+}
+
+
+	
 
 }
