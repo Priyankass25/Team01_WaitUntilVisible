@@ -17,11 +17,8 @@ public class ProgramStepDef {
 	String deletedPrgmName1;
 	
 	@Given("Admin is on home page after Login")
-	public void admin_is_on_home_page_after_login() {
-		TestContextSetup.getPom().getLoginPage().enterUser("Lmshackathon@gmail.com");
-		TestContextSetup.getPom().getLoginPage().enterPassword("lmsAug@2026");
-		TestContextSetup.getPom().getLoginPage().selectRole();
-		TestContextSetup.getPom().getLoginPage().clickLoginBtn();
+	public void admin_is_on_home_page_after_login() {		
+		TestContextSetup.getPom().getCommon().validLogin();
 		LoggerLoad.info("Admin is on home page after login");
 	}
 	

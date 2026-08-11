@@ -1,16 +1,11 @@
 package utilities;
 
 import java.time.Duration;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import org.openqa.selenium.*;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.*;
-import driverFactorySetUp.DriverFactory;
 
 public class CommonMethods {
 	public static WebDriver driver;
@@ -47,7 +42,7 @@ public class CommonMethods {
 		driver.findElement(loginButtonUI).click();
 	
 	}*/
-	public void loginFromOnBoarding1() {
+	public void validLogin() {
 		ConfigReader.loadProperties();
 		ExcelUtils excel = new ExcelUtils(ConfigReader.getProperty("test_data_path"));
 		List<Map<String, String>> data =
@@ -278,7 +273,7 @@ public class CommonMethods {
 
 	}*/
 	
-	/*public WebElement randomCheckboxSelection(By locator) {
+	public WebElement randomCheckboxSelection(By locator) {
 		List<WebElement> checkboxesNew = driver.findElements(locator);
 
 		Random random = new Random();

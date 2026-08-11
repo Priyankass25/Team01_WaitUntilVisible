@@ -11,11 +11,14 @@ import pageObjects.HomePage;
 import pageObjects.LoginPage;
 import pageObjects.LogoutPage;
 import pageObjects.ProgramPage;
+import utilities.CommonMethods;
 
 public class PageObjectMgr {
 	
 	private WebDriver driver;
 	private TestContextSetup context;
+
+    private CommonMethods common;
 
 	private LoginPage loginPage;
 	private HomePage homePage;
@@ -29,6 +32,13 @@ public class PageObjectMgr {
 		this.driver = driver;
 		this.context = context;
 	}
+	
+	public CommonMethods getCommon() {
+	     if (common == null) {
+	          common = new CommonMethods(driver);
+	        }
+	        return common;
+	    }
 	
 	public LoginPage getLoginPage() {
 		if(loginPage == null) {
