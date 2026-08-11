@@ -1,11 +1,19 @@
 package pageObjects;
 
+import org.testng.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import context.TestContextSetup;
 import utilities.CommonMethods;
 import utilities.ConfigReader;
+import org.openqa.selenium.WebElement;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import context.TestContextSetup;
+import utilities.CommonMethods;
+import utilities.ConfigReader;
+import utilities.LoggerLoad;
 
 public class LoginPage {
 
@@ -24,6 +32,13 @@ public class LoginPage {
 	    public By selectRoleDropdown = By.id("mat-select-0");
 	    public By loginBtn = By.id("login");
 	    public By adminOption = By.xpath("//mat-option//span[normalize-space()='Admin']");
+
+
+	public By user = By.id("username");
+	public By password = By.id("password");
+	public By selectRoleDropdown = By.id("mat-select-0");
+	public By loginBtn = By.id("login");
+	public By adminOption = By.xpath("//mat-option//span[normalize-space()='Admin']");
 	public By Dashboard = By.name(" Dashboard");
 	public By LMStext = By.xpath("//img[@src='assets/img/LMS-logo.jpg']");
 	public By logo = By.xpath("//img[contains(@src, 'logo')]");
@@ -35,6 +50,7 @@ public class LoginPage {
 	public By selecttext = By.xpath("//span[@class='ng-tns-c159-16 ng-star-inserted']");
 	public By Optionstaff = By.xpath("//mat-option//span[normalize-space()=' Staff ']");
 	public By Optionstu = By.xpath("//mat-option//span[normalize-space()=' Student ']");
+
 
 	    public boolean isLoginPageLoaded() {
 	    	return driver.getCurrentUrl().contains("login");
@@ -60,6 +76,32 @@ public class LoginPage {
 			driver.findElement(loginBtn).click();		
 		}
 		public boolean isDashboardTextDisplayed() {
+
+	
+	public boolean isLoginPageLoaded() {
+		return driver.getCurrentUrl().contains("login");
+	}
+
+	public void enterUser(String username) {
+		driver.findElement(user).clear();
+		driver.findElement(user).sendKeys(username);
+	}
+
+	public void enterPassword(String pwd) {
+		driver.findElement(password).clear();
+		driver.findElement(password).sendKeys(pwd);
+	}
+
+	public void selectRole() {
+		driver.findElement(selectRoleDropdown).click();
+		driver.findElement(adminOption).click();
+	}
+
+	public void clickLoginBtn() {
+		driver.findElement(loginBtn).click();
+	}
+
+	public boolean isDashboardTextDisplayed() {
 		return common.isDisplayed(Dashboard);
 	}
 
@@ -118,6 +160,14 @@ public class LoginPage {
 		common.isDisplayed(userasterik);
 		
 	}
+=======
+		
+	}
+	public void textnameasterisk() {
+		common.isDisplayed(userasterik);
+		
+	}
+
 	public void pwdnameasterisk() {
 		common.isDisplayed(pwdasterik);
 		
@@ -133,6 +183,10 @@ public class LoginPage {
 		common.isDisplayed(Optionstu);
 		
 	}
-}
 
 }
+
+
+
+
+
