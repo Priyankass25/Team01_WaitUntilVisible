@@ -1,11 +1,15 @@
 package pageObjects;
 
 import java.awt.Dimension;
+import java.time.Duration;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import utilities.CommonMethods;
 
@@ -13,10 +17,13 @@ public class ProgramPage {
 
 	WebDriver driver;
 	CommonMethods common;
+  WebDriverWait wait;
+
 
 	public ProgramPage(WebDriver driver) {
 		this.driver = driver;
 		this.common = new CommonMethods(driver);
+		this.wait = new WebDriverWait(driver, Duration.ofSeconds(30));
 	}
 	
 	public By manageProgmHeading = By.xpath("//div[contains(text() ,'Manage Program')]");
@@ -43,7 +50,29 @@ public class ProgramPage {
 	public By statusRadioBtns = By.xpath("//div//p-radiobutton");
 	public By overlayBackdrop = By.cssSelector("div.cdk-overlay-backdrop.cdk-overlay-backdrop-showing");
 	
-	
+//sowmya
+	 By textp = By.xpath("//tbody[contains(@class,'p-datatable-tbody')]/tr[1]/td[2]");
+	 By progde = By.xpath("//tbody[contains(@class,'p-datatable-tbody')]/tr[1]/td[3]");
+   By progst = By.xpath("//tbody[contains(@class,'p-datatable-tbody')]/tr[1]/td[4]");
+   By zeroent = By.xpath("//*[text()='1']");
+   By programname = By.xpath("//*[@psortablecolumn='programName']");
+   By tablelist = By.xpath("//*[@class='p-datatable-wrapper ng-star-inserted']");
+   By overlay = By.cssSelector("div.cdk-overlay-backdrop.cdk-overlay-backdrop-showing");
+   By programdescription = By.xpath("//*[@psortablecolumn='programDescription']");
+   By programstatus = By.xpath("//*[@psortablecolumn='programStatus']");
+   By nextarrow = By.xpath("//*[@class='p-paginator-icon pi pi-angle-right']");
+   By selectnumb=By.xpath("//*[text()='1']");
+   By selectnumbr=By.xpath("//*[text()='2']");
+   By lastarrow=By.xpath(" //*[@class='p-paginator-icon pi pi-angle-double-right']");
+   By totalPrograms = By.xpath("//*[text()=' In total there are 99 programs. ']");
+   By infototal= By.xpath("//*[@class='p-paginator-current ng-star-inserted']");
+   By prearrow= By.xpath("//*[@ng-reflect-ng-class=\"p-paginator p-component\"]/button[2]");
+   By firstarrow= By.xpath("/html/body/app-root/app-program/div/mat-card/mat-card-content/p-table/div/p-paginator/div/button[1]");
+		 
+		
+
+
+
 
 	public boolean isManageProgramHeadingDisplayed() {
 		return common.isDisplayed(manageProgmHeading);
@@ -175,6 +204,253 @@ public class ProgramPage {
 		
 		return false;
 	}
+
+	//searchTextBox
+	 public void searchboxenter() {
+       wait.until(ExpectedConditions.visibilityOfElementLocated(searchTextBox))
+           .sendKeys("Python");
+   }
+   public void searchboxdes() {
+   wait.until(ExpectedConditions.visibilityOfElementLocated(searchTextBox))
+       .sendKeys("Coding Details");
+}
+	 public boolean progname() {
+       return wait.until(ExpectedConditions.visibilityOfElementLocated(textp)).isDisplayed();
+   }
+	     public boolean progdes() {
+   return wait.until(ExpectedConditions.visibilityOfElementLocated(progde)).isDisplayed();
+}
+public boolean progstatus() {
+   return wait.until(ExpectedConditions.visibilityOfElementLocated(progst)).isDisplayed();
+}
+public void searchboxnotex() {
+wait.until(ExpectedConditions.visibilityOfElementLocated(searchTextBox))
+  .sendKeys("Java Script");
+}
+public String entries() {
+return "0";
+}
+public String zeroentries() {
+return wait.until(ExpectedConditions.visibilityOfElementLocated(zeroent))
+         .getText();
+}
+public void searchboxpar() {
+wait.until(ExpectedConditions.visibilityOfElementLocated(searchTextBox))
+  .sendKeys("Py");
+}
+public void clickprogramname() {
+	 wait.until(ExpectedConditions.invisibilityOfElementLocated(overlay));
+
+	    // Wait for sort icon and click
+	    WebElement sortIcon = wait.until(
+	            ExpectedConditions.elementToBeClickable(programname));
+
+	    sortIcon.click();
 	
+	//wait.until(ExpectedConditions.invisibilityOfElementLocated(overlay));
+  //  wait.until(ExpectedConditions.elementToBeClickable(programname)).click();
+}
+public List<String> getProgramNames() {
+
+    List<WebElement> elements = wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(tablelist));
+    List<String> programNames = new ArrayList<>();
+    for (WebElement element : elements)
+    { String name = element.getText().trim();
+       if (!name.isEmpty()) {
+        programNames.add(name);
+        } }
+//System.out.println(programNames);
+    return programNames;
+}
+public boolean isProgramNameSortedAscending() {
+
+    List<String> actual = getProgramNames();
+    List<String> expected = new ArrayList<>(actual);
+ expected.sort(String.CASE_INSENSITIVE_ORDER);
+ //  System.out.println("Actual   : " + actual);
+   // System.out.println("Expected : " + expected);
+    return actual.equals(expected);
+   
+}
+public boolean isProgramNameSortedDescending() {
+
+    List<String> actual = getProgramNames();
+ List<String> expected = new ArrayList<>(actual);
+    expected.sort(String.CASE_INSENSITIVE_ORDER.reversed());
+    return actual.equals(expected);
+}
+public void programdescriptionclick() {
+	wait.until(ExpectedConditions.elementToBeClickable(programdescription)).click();
+	
+}
+public void lastarrowclick() {
+	wait.until(ExpectedConditions.elementToBeClickable(lastarrow)).click();
+	
+}
+public void prearrowclick() {
+	wait.until(ExpectedConditions.elementToBeClickable(prearrow)).click();
+	
+}
+public void firstarrowclick() {
+	wait.until(ExpectedConditions.elementToBeClickable(firstarrow)).click();
+	
+}
+public void programstatusclick() {
+	wait.until(ExpectedConditions.elementToBeClickable(programstatus)).click();
+	
+}
+public void nextarrowclick() {
+	wait.until(ExpectedConditions.elementToBeClickable(nextarrow)).click();
+	
+}
+public String getslectednum() {
+   String txt= wait.until(
+        ExpectedConditions.visibilityOfElementLocated(selectnumb)
+    ).getText().trim();
+   int number = Integer.parseInt(txt);
+   return String.valueOf(number);
+}
+public String getslectednumb() {
+	   String txt= wait.until(
+	        ExpectedConditions.visibilityOfElementLocated(selectnumbr)
+	    ).getText().trim();
+	   int number = Integer.parseInt(txt);
+	   return String.valueOf(number);
+	}
+public String getafterarrowclk() {
+    String text = wait.until(
+        ExpectedConditions.visibilityOfElementLocated(selectnumb)
+    ).getText().trim();
+
+    int number = Integer.parseInt(text);
+
+    return String.valueOf(number + 1);
+}
+public String getaprearrowclk() {
+    String text = wait.until(
+        ExpectedConditions.visibilityOfElementLocated(selectnumbr)
+    ).getText().trim();
+
+    int number = Integer.parseInt(text);
+
+    return String.valueOf(number - 1);
+}
+public List<String> getProgramDescriptions() {
+
+    List<WebElement> elements =
+            wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(tablelist));
+
+    List<String> descriptions = new ArrayList<>();
+
+    for (WebElement element : elements) {
+
+        String description = element.getText().trim();
+
+        if (!description.isEmpty()) {
+            descriptions.add(description);
+        }
+    }
+    System.out.println(descriptions);
+    return descriptions;
+    
+}
+public boolean isProgramDescriptionSortedAscending() {
+
+    List<String> actual = getProgramDescriptions();
+
+    List<String> expected = new ArrayList<>(actual);
+
+    expected.sort(String.CASE_INSENSITIVE_ORDER);
+
+    return actual.equals(expected);
+}
+public boolean isProgramDescriptionSortedDescending() {
+
+    List<String> actual = getProgramDescriptions();
+
+    List<String> expected = new ArrayList<>(actual);
+
+    expected.sort(String.CASE_INSENSITIVE_ORDER.reversed());
+
+    return actual.equals(expected);
+    
+}
+public List<String> getProgramstatus() {
+
+    List<WebElement> elements =
+            wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(tablelist));
+
+    List<String> descriptions = new ArrayList<>();
+
+    for (WebElement element : elements) {
+
+        String description = element.getText().trim();
+
+        if (!description.isEmpty()) {
+            descriptions.add(description);
+        }
+    }
+    System.out.println(descriptions);
+    return descriptions;
+    
+}
+public boolean isProgramstatusSortedAscending() {
+
+    List<String> actual = getProgramDescriptions();
+
+    List<String> expected = new ArrayList<>(actual);
+
+    expected.sort(String.CASE_INSENSITIVE_ORDER);
+
+    return actual.equals(expected);
+}
+public boolean isProgramstatusSortedDescending() {
+
+    List<String> actual = getProgramDescriptions();
+
+    List<String> expected = new ArrayList<>(actual);
+
+    expected.sort(String.CASE_INSENSITIVE_ORDER.reversed());
+
+    return actual.equals(expected);
+}
+
+public int getTotalPrograms() {
+
+	String text = wait.until(
+	        ExpectedConditions.visibilityOfElementLocated(infototal)
+	    ).getText().trim();
+
+	    String[] numbers = text.replaceAll("[^0-9 ]", " ")
+	                           .trim()
+	                           .split("\\s+");
+
+	    return Integer.parseInt(numbers[2]);
+	
+}
+public int getDisplayedEntries() {
+
+    String text = wait.until(
+        ExpectedConditions.visibilityOfElementLocated(infototal)
+    ).getText().trim();
+
+    String[] numbers = text.replaceAll("[^0-9 ]", " ")
+                           .trim()
+                           .split("\\s+");
+
+    return Integer.parseInt(numbers[1]);
+}
+public int getFirstNumber() {
+
+    String text = wait.until(
+        ExpectedConditions.visibilityOfElementLocated(infototal)
+    ).getText().trim();
+
+    String[] numbers = text.replaceAll("[^0-9 ]", " ")
+                           .trim()
+                           .split("\\s+");
+
+    return Integer.parseInt(numbers[0]);
+}
 
 }
