@@ -10,8 +10,12 @@ public class LoginStepDef {
 	// Scenario#1
 	@When("User enters the url {string}")
 	public void user_enters_the_url(String string) {
-		TestContextSetup.getPom().getLoginPage().enterUser("Lmshackathon@gmail.com");
-		TestContextSetup.getPom().getLoginPage().enterPassword("lmsAug@2026");
+		List<Map<String, String>> data = testDataManager.getTestData("Sheet1");
+		Map<String, String> loginData = data.get(0);
+		String username = loginData.get("Username");
+		String password = loginData.get("Password");
+		TestContextSetup.getPom().getLoginPage().enterUser(username);
+		TestContextSetup.getPom().getLoginPage().enterPassword(password);
 		TestContextSetup.getPom().getLoginPage().selectRole();
 		TestContextSetup.getPom().getLoginPage().clickLoginBtn();
 		LoggerLoad.info("Admin has entered login details");
