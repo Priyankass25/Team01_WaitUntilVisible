@@ -271,7 +271,7 @@ Scenario Outline: Search by partial program name
      Then Admin should  See the Program Name is sorted in Ascending order
      
      
-    @ManageProgram-Sorting
+    @ManageProgram-Sorting1
     Scenario: Sorting of  Program name in Descending order
     Given Admin is in program page where Program names are sorted in ascending order
     When Admin clicks on Arrow next to program Name.

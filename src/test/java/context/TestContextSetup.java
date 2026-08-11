@@ -1,17 +1,27 @@
 package context;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.openqa.selenium.WebDriver;
 import driverFactorySetUp.PageObjectMgr;
 
 
 public class TestContextSetup {
+	public final static String PROGRAM_NAME = "pName";
+	private Map<String, Object> sharedData = new HashMap<>();
+
 
 	private static ThreadLocal<WebDriver> driver = new ThreadLocal<>();
 	private static ThreadLocal<PageObjectMgr> pom = new ThreadLocal<>();
 
-	public static void setDriver(WebDriver driverInstance) {
+	public static void setDriver(WebDriver driverInstance, TestContextSetup context) {
 		driver.set(driverInstance);
-		pom.set(new PageObjectMgr(driverInstance));
+		pom.set(new PageObjectMgr(driverInstance, context));
+
+	
+	
+
 	}
 	
 	public static WebDriver getDriver() {
@@ -27,36 +37,16 @@ public class TestContextSetup {
 	        pom.remove();
 	}
 
+	public void setScenarioData(String key, Object value) {
+		sharedData.put(key, value);
+	}
 
-//	private WebDriver driver;
-//	
-//	private CommonMethods commonMethods;
-//
-//
-//	public TestContextSetup() {
-//		this.driver = DriverFactory.getDriver();
-//
-//		this.commonMethods = new CommonMethods(driver);
-//		
-//	}
-//	public WebDriver getDriver() {
-//		return driver;
-//	}
-//
-//	public LoginPage dashboardPage() {
-//		return dashboardPage;
-//	}
-//
-//
-//	public CommonMethods commonMethods() {
-//		return commonMethods;
-//	}
-//
-//	public void setScenarioData(String key, Object value) {
-//		sharedData.put(key, value);
-//	}
-//
-//	public Object getScenarioData(String key) {
-//		return sharedData.get(key);
-//	}
+
+	public Object getScenarioData(String key) {
+		return sharedData.get(key);
+	}
+	
+
+
+
 }

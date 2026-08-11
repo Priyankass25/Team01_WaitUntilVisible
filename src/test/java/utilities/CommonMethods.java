@@ -1,72 +1,160 @@
 package utilities;
 
 import java.time.Duration;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
-import java.util.concurrent.ThreadLocalRandom;
 import org.openqa.selenium.*;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.*;
-import driverFactorySetUp.DriverFactory;
 
 public class CommonMethods {
 	public static WebDriver driver;
 	public static WebDriverWait wait;
-
-	ExcelUtils excel;
+	//ExcelUtils excel = new ExcelUtils(driver);
+	//ExcelUtils excel;
 
 	public CommonMethods(WebDriver driver) {
 		this.driver = driver;
 		this.wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+		//ExcelUtils excel = new ExcelUtils(driver);
+
 	}
 
-	public By usernameTextbox = By.xpath("//input[@name='username']");
-	public By passwordTextbox = By.xpath("//input[@name='password']");
-	public By loginButtonUI = By.xpath("//button[@type='submit']");
+	public By usernameTextbox = By.id("username");
+	public By passwordTextbox = By.id("password");
+    public By selectTheRole=By.xpath("//span[text()='Select the role']");
+    public By Admin=By.id("mat-option-0");
+    public By dropdownClose=By.tagName("body");
+	public By loginButtonUI = By.xpath("//span[text()='Login']");
 
-	public void loginFromOnBoarding() {
+
+	/*public void loginFromOnBoarding() {
 		ConfigReader.loadProperties();
 		ExcelUtils excel = new ExcelUtils(ConfigReader.getProperty("test_data_path"));
-		String username = excel.getDataAll("onBoarding").get(0).get("UserName");
-		String password = excel.getDataAll("onBoarding").get(0).get("Password");
+		String username = excel.getDataAll("Login").get(0).get("User");
+		String password = excel.getDataAll("Login").get(0).get("Password");
+		
+		driver.findElement(selectTheRole).click();
+		driver.findElement(Admin).click();
+		driver.findElement(dropdownClose).click();
+
+
+		driver.findElement(loginButtonUI).click();
+	
+	}*/
+	public void validLogin() {
+		ConfigReader.loadProperties();
+		ExcelUtils excel = new ExcelUtils(ConfigReader.getProperty("test_data_path"));
+		List<Map<String, String>> data =
+		        excel.getDataAll("Login");
+	    Map<String, String> row = data.get(0);
+	    String username = row.get("User");
+	    String password = row.get("Password");
+
+		
 		driver.findElement(usernameTextbox).sendKeys(username);
 		driver.findElement(passwordTextbox).sendKeys(password);
+		driver.findElement(selectTheRole).click();
+		driver.findElement(Admin).click();
+		driver.findElement(dropdownClose).click();
+
+
 		driver.findElement(loginButtonUI).click();
+
 	}
 
+
+
+	/*public void loginFromOnBoarding2() {
+
+	    ConfigReader.loadProperties();
+
+		ExcelUtils excel = new ExcelUtils(ConfigReader.getProperty("test_data_path"));
+
+	    List<Map<String, String>> data =
+	            excel.getDataAll("Login");
+
+	    Map<String, String> row = data.get(0);
+
+	    String username = row.get("User");
+	    String password = row.get("Password");
+
+	    System.out.println("=================================");
+	    System.out.println("Current URL: " + driver.getCurrentUrl());
+	    System.out.println("Page Title: " + driver.getTitle());
+	    System.out.println("=================================");
+
+	    // Wait for username field
+	   /* WebElement usernameField = wait.until(
+	            ExpectedConditions.visibilityOfElementLocated(usernameTextbox)
+	    );
+
+	    usernameField.clear();
+	    usernameField.sendKeys(username);
+
+	    // Wait for password field
+	    WebElement passwordField = wait.until(
+	            ExpectedConditions.visibilityOfElementLocated(passwordTextbox)
+	    );
+
+	    passwordField.clear();
+	    passwordField.sendKeys(password);*/
+	    /*waitForVisibility(usernameTextbox).sendKeys(username);
+	    waitForVisibility(passwordTextbox).sendKeys(password);
+
+	    // Select role
+	    wait.until(
+	            ExpectedConditions.elementToBeClickable(selectTheRole)
+	    ).click();
+
+	    wait.until(
+	            ExpectedConditions.elementToBeClickable(Admin)
+	    ).click();
+
+	    // Close role dropdown
+	    wait.until(
+	            ExpectedConditions.elementToBeClickable(dropdownClose)
+	    ).click();
+
+	    // Login
+	    wait.until(
+	            ExpectedConditions.elementToBeClickable(loginButtonUI)
+	    ).click();
+
+	    System.out.println("Login username: " + username);
+	    System.out.println("Login completed");
+	}*/
+
+
 	public static WebElement waitForVisibility(By locator) {
+
 		return wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
 	}
 
-	public static WebElement waitForVisibility(WebElement webElement) {
-		return wait.until(ExpectedConditions.visibilityOf(webElement));
-	}
 
 	public WebElement waitForClickable(By locator) {
 	    return wait.until(ExpectedConditions.elementToBeClickable(locator));
 	}
 
-	public WebElement waitForClickable(WebElement element) {
-		return wait.until(ExpectedConditions.elementToBeClickable(element));
-	}
-
 	public WebElement waitForPresence(By locator) {
 		return wait.until(ExpectedConditions.presenceOfElementLocated(locator));
 	}
+	
+	public boolean waitForElementToDisappear(By locator) {
+	    return wait.until(ExpectedConditions.invisibilityOfElementLocated(locator));
+	}
 
-	public static String generateRandomString() {
-		String CHARSET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+	public String generateRandomString() {
+		String CHARSET = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 		StringBuilder salt = new StringBuilder();
 		Random rnd = new Random();
-		while (salt.length() < 10) { 
+		while (salt.length() <10) { 
 			int index = rnd.nextInt(CHARSET.length());
 			salt.append(CHARSET.charAt(index));
 		}
 		return salt.toString();
 	}
+	
 	public boolean isDisplayed(By locator) {
 		try {
 			return waitForVisibility(locator).isDisplayed();
@@ -74,6 +162,9 @@ public class CommonMethods {
 			return false;
 		}
 	}
+	
+
+
 
 	public boolean isEnabled(By locator) {
 		try {
@@ -83,15 +174,19 @@ public class CommonMethods {
 		}
 	}
 
-	public String getText(By locator) {
-		return waitForVisibility(locator).getText().trim();
-	}
-
 	public void click(By locator) {
 		waitForClickable(locator).click();
 	}
+	
+	public String getText(By locator) {
+		return waitForVisibility(locator).getText();
+	}
 
-	public static boolean webClickByLocator(By locator) {
+//	public String getText(By locator) {
+//		return driver.findElement(locator).getText();
+//		}
+
+	/*public static boolean webClickByLocator(By locator) {
 		Wait<WebDriver> fluentWait = new FluentWait<>(driver).withTimeout(Duration.ofSeconds(15))
 				.pollingEvery(Duration.ofMillis(500)).ignoring(StaleElementReferenceException.class)
 				.ignoring(NoSuchElementException.class);
@@ -110,17 +205,17 @@ public class CommonMethods {
 			System.err.println("Failed to click element after Fluent Wait: " + locator);
 			return false;
 		}
-	}
+	}*/
   
-	public void waitForPopupToDisappear(By Locator) {
+	/*public void waitForPopupToDisappear(By Locator) {
 		try {
 			wait.until(ExpectedConditions.invisibilityOfElementLocated(Locator));
 		} catch (Exception e) {
 			LoggerLoad.info("Pop up cannot be closed");
 		}
-	}
+	}*/
 
-	public static String waitForDomAttribute(By locator, String attribute, int timeoutInSeconds) {
+	/*public static String waitForDomAttribute(By locator, String attribute, int timeoutInSeconds) {
 		try {
 			WebDriverWait wait = new WebDriverWait(DriverFactory.getDriver(), Duration.ofSeconds(timeoutInSeconds));
 			return wait.until(driver -> driver.findElement(locator).getDomAttribute(attribute));
@@ -129,13 +224,13 @@ public class CommonMethods {
 					+ e.getMessage());
 			return "";
 		}
-	}
+	}*/
        
-	public int getElementsCount(By locator) {
+	/*public int getElementsCount(By locator) {
 		return driver.findElements(locator).size();
-	}
+	}*/
 
-	public List<String> getElementsListText(By locator) {
+	/*public List<String> getElementsListText(By locator) {
 
 		List<WebElement> elements = driver.findElements(locator);
 		List<String> texts = new ArrayList<>();
@@ -148,16 +243,17 @@ public class CommonMethods {
 		}
 
 		return texts;
-	}
-	public static int generateRandomAge() {
-		return new Random().nextInt(83) + 18;
+	}*/
+	
+	public int generateRandomNumber() {
+		return new Random().nextInt(1000);
 	}
 
-	public static double extractNumber(String text) {
+	/*public static double extractNumber(String text) {
 		return Double.parseDouble(text.replaceAll("[^0-9.]", ""));
-	}
+	}*/
 
-	public String getAlertMsg(By locator) {
+	/*public String getAlertMsg(By locator) {
 		try {
 			WebElement element = driver.findElement(locator);
 
@@ -175,8 +271,8 @@ public class CommonMethods {
 			throw new RuntimeException("Failed to retrieve alert message: " + e.getMessage());
 		}
 
-	}
-
+	}*/
+	
 	public WebElement randomCheckboxSelection(By locator) {
 		List<WebElement> checkboxesNew = driver.findElements(locator);
 
@@ -186,58 +282,68 @@ public class CommonMethods {
 		return randomCheckbox;
 	}
 
-	public void scrollIntoView(WebElement element) {
+	/*public void scrollIntoView(WebElement element) {
 		((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", element);
 	}
 
 	public void scrollIntoView(By locator) {
 		WebElement element = wait.until(ExpectedConditions.presenceOfElementLocated(locator));
 		scrollIntoView(element);
+	}*/
+	
+	public void scrollIntoView(By locator) {
+
+	    WebElement element =
+	        wait.until(
+	            ExpectedConditions.visibilityOfElementLocated(locator)
+	        );
+
+	    ((JavascriptExecutor) driver).executeScript(
+	        "arguments[0].scrollIntoView({block:'center'});",
+	        element
+	    );
 	}
 
-	public String getAlertText() {
+	/*public String getAlertText() {
 		Alert alert = wait.until(ExpectedConditions.alertIsPresent());
 		return alert.getText();
-	}
+	}*/
 
-	public void enterTextAndAcceptAlert(String text) {
+	/*public void enterTextAndAcceptAlert(String text) {
 		Alert alert = wait.until(ExpectedConditions.alertIsPresent());
 		alert.sendKeys(text);
 		alert.accept();
-	}
+	}*/
 
-	public void dismissAlert() {
-		Alert alert = wait.until(ExpectedConditions.alertIsPresent());
-		alert.dismiss();
-	}
+//	public void dismissAlert() {
+//		Alert alert = wait.until(ExpectedConditions.alertIsPresent());
+//		alert.dismiss();
+//	}
 
-	public String getCurrentDate() {
+	/*public String getCurrentDate() {
 		return LocalDate.now().format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
-	}
+	}*/
 
-	public List<WebElement> getElements(By locator) {
-		return driver.findElements(locator);
-	}
+//	public List<WebElement> getElements(By locator) {
+//		return driver.findElements(locator);
+//	}
 
-	public static void sendKeys(By locator, String text) {
+	public void sendKeys(By locator, String text) {
 		WebElement element = waitForVisibility(locator);
 		element.clear();
 		element.sendKeys(text);
 	}
 
-	public void scrollIntoViewWait(WebElement element) {
+	/*public void scrollIntoViewWait(WebElement element) {
 		((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center', inline:'center'});",
 				element);
 		wait.until(ExpectedConditions.visibilityOf(element));
-	}
+	}*/
 
-       public static int generateRandomWeightHeight() {
-    	    return ThreadLocalRandom.current().nextInt(120, 250);
-    	}
-
-       public void scrollToBottomPage() {
-    	   JavascriptExecutor js = (JavascriptExecutor) driver;
-
-    	   js.executeScript("window.scrollTo(0, document.body.scrollHeight)");
-       }
+// 
+//       public void scrollToBottomPage() {
+//    	   JavascriptExecutor js = (JavascriptExecutor) driver;
+//
+//    	   js.executeScript("window.scrollTo(0, document.body.scrollHeight)");
+//       }
 }

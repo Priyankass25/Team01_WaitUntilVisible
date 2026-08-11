@@ -28,7 +28,7 @@ public class ExcelUtils {
 			Sheet sheet = workbook.getSheet(sheetName);
 			Row headerRow = sheet.getRow(0);
 
-			for (int i = 1; i <= sheet.getLastRowNum(); i++) {
+			for (int i = 1; i <= sheet.getLastRowNum(); i++) {//git
 				Map<String, String> rowData = new LinkedHashMap<>();
 				Row row = sheet.getRow(i);
 				if (row == null)
@@ -48,21 +48,6 @@ public class ExcelUtils {
 			e.printStackTrace();
 		}
 		return sheetData;
-	}
-
-	public Map<String, String> getRowDataByScenario(String sheetName, String scenarioName) {
-
-		List<Map<String, String>> allData = getDataAll(sheetName);
-
-		for (Map<String, String> row : allData) {
-
-			if (row.containsKey("Scenario") && row.get("Scenario").equalsIgnoreCase(scenarioName)) {
-
-				return row;
-			}
-		}
-
-		throw new RuntimeException("No data found in Excel for scenario: " + scenarioName);
 	}
 
 }

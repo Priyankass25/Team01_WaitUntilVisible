@@ -1,56 +1,58 @@
-@ui
-Feature: Launch Page in Her Balance
+@Home
+Feature: Home 
+ Background: 
+    Given Admin is on home page after Login
+    
+    
+Scenario: Title of the LMS 	
+    Then Admin should see LMS -Learning management system as title
 
-  Background: 
-    Given User is on the browser
-    When User enters the Her Balance application URL
-@tag
-  Scenario Outline: Verify launch page UI elements are visible
-    Then "<element>" should be visiblee
+		Scenario: Title alignment 
+    Then LMS title should be on the top left corner of page
+	
+	    Scenario: Navigation bar text spelling 
+  	When User enters Broken link "https://lms-frontend-hackathon-"
+    Then Admin should see correct spelling in navigation bar text
+	
+	 Scenario: LMS title - spelling and space
+    Then Admin should see correct spelling and space in LMS title  
+   
+   	Scenario: Navigation bar Alignment
+    Then Admin should see the navigation bar text on the top right side
 
-    Examples: 
-      | element                                |
-      | Login button                           |
-      | Sign Up button                         |
-      | Get Started Now button                 |
-      | Start Your Personalized Journey button |
+		Scenario: Navigation bar order - 1st home
+    Then Admin should see home in the 1st place
+   
+   	Scenario: Navigation bar order - 2nd Program
+    Then Admin should see program in the 2nd place
+	
+	Scenario: Navigation bar order  - 3rd  batch
+    Then Admin should see batch in the  3rd place
 
-  Scenario: Verify cycle phase information is displayed
-    Then Cycle phase cards should be displayed
-      | Menstrual Phase  |
-      | Follicular Phase |
-      | Ovulation Phase  |
-      | Luteal Phase     |
+  	Scenario: Navigation bar order - 4th logout
+    Then  Admin should see logout in the 4th place
 
-  Scenario: Verify layout and colors
-    Then Background color should be light purple
-    And Text content should be readable
+  	Scenario: Welcome Message is displayed 
+    Then Admin should see welcome message with user name and role
 
-  Scenario: Cycle tracking app information is visible
-    Then Details about the "Cycle Tracking App" and its features should be displayed
+  	Scenario: Bar chart presence
+    Then Admin should see bar chart for Active and inactive user
 
-  Scenario: Images in Sync your weight loss journey section are displayed
-    Then Images in "Sync your weight loss journey" section should be displayed
-
-  Scenario: Informational text under Empower weight loss section is displayed
-    Then Display information about hormonal shifts and metabolism during the menstrual cycle
-
-  Scenario: Login button is clickable
-    Given User is on Her Balance home page
-    When User clicks on Login button
-    Then User should be navigated to authentication page with Login tab selected
-
-  Scenario: Sign up button is clickable
-    Given User is on Her Balance home page
-    When User clicks on Sign Up button
-    Then User should be navigated to authentication page with Sign Up tab selected
-
-  Scenario: Get Started Now button is clickable
-    Given User is on Her Balance home page
-    When User clicks on Get Started Now button
-    Then User should be navigated to authentication page with Login tab selected
-
-  Scenario: Start Your Personalized Journey button is clickable
-    Given User is on Her Balance home page
-    When User clicks on Start Your Personalized Journey button
-    Then User should be navigated to authentication page with Login tab selected
+ 		Scenario: User count card presence
+    Then Admin should see user count 
+    
+    Scenario: Program count card presence
+    Then Admin should see Program count
+    
+    Scenario: Staff Count card presence
+    Then Admin should see Staff count
+    
+    Scenario: Batch count card presence
+    Then Admin should see batch  count  
+    
+    Scenario: Staff Table Presence
+    Then Admin should see the Staff Data table
+    
+    Scenario: Staff Table header Presence
+    Then Admin should see the headers First Name, Last Name, Phone in the Staff Data table
+    
