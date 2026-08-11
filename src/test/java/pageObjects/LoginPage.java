@@ -2,6 +2,10 @@ package pageObjects;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.testng.Assert;
+import context.TestContextSetup;
+import utilities.CommonMethods;
+import utilities.ConfigReader;
 
 public class LoginPage {
 
@@ -20,6 +24,7 @@ public class LoginPage {
 	    public By selectRoleDropdown = By.id("mat-select-0");
 	    public By loginBtn = By.id("login");
 	    public By adminOption = By.xpath("//mat-option//span[normalize-space()='Admin']");
+	public By Dashboard = By.name(" Dashboard");
 	public By LMStext = By.xpath("//img[@src='assets/img/LMS-logo.jpg']");
 	public By logo = By.xpath("//img[contains(@src, 'logo')]");
 	public By loginmsg = By.xpath("//p[contains(text(),'Please login to LMS application')]");
