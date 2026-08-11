@@ -85,7 +85,6 @@ public class LoginPage {
 	public void isCompanynameDisplayed() {
 		String text = common.getText(LMStext);
 		Assert.assertEquals(text, "Numpy Ninja");
-
 	}
 
 	public boolean isLogoDisplayed() {
