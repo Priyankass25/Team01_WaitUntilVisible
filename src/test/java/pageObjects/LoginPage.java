@@ -4,19 +4,14 @@ import org.testng.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
-import org.testng.Assert;
 import context.TestContextSetup;
 import utilities.CommonMethods;
 import utilities.ConfigReader;
 import org.openqa.selenium.WebElement;
-
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
 import java.time.Duration;
-
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import context.TestContextSetup;
@@ -35,7 +30,11 @@ public class LoginPage {
 		this.common = new CommonMethods(driver);
 
 	}
-	    
+
+
+
+	
+
 	public By user = By.id("username");
 	public By password = By.id("password");
 	public By selectRoleDropdown = By.id("mat-select-0");
@@ -63,8 +62,6 @@ public class LoginPage {
     public By dropdownClose=By.tagName("body");
     private final By dashboardText =
 	        By.xpath("//*[normalize-space()='Dashboard']");
-    
-    
 
 	public void selectRole1(String role) {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
@@ -76,6 +73,7 @@ public class LoginPage {
 	    Select select = new Select(dropdown);
 	    select.selectByVisibleText(role);
 	}
+
 
 
 	public boolean isLoginPageLoaded() {
@@ -96,8 +94,6 @@ public class LoginPage {
 		driver.findElement(selectRoleDropdown).click();
 		driver.findElement(adminOption).click();
 	}
-
-
 
 
 	public void clickLoginBtn() {
@@ -128,7 +124,6 @@ public class LoginPage {
 	public void isCompanynameDisplayed() {
 		String text = common.getText(LMStext);
 		Assert.assertEquals(text, "Numpy Ninja");
-
 	}
 
 	public boolean isLogoDisplayed() {
@@ -142,7 +137,7 @@ public class LoginPage {
 	}
 
 	public void textfieldPresence() {
-	        common.isDisplayed(user);
+		common.isDisplayed(user);
 	}
 
 	public void roledropdown() {
@@ -150,36 +145,39 @@ public class LoginPage {
 		common.waitForVisibility(adminOption);
 
 	}
-	
+
 	public void textname() {
 		common.isDisplayed(usertext);
-		
+
 	}
+
 	public void pwdname() {
 		common.isDisplayed(pwdtext);
-		
+
 	}
 
 	public void textnameasterisk() {
 		common.isDisplayed(userasterik);
-		
+
 	}
 
 	public void pwdnameasterisk() {
 		common.isDisplayed(pwdasterik);
-		
+
 	}
-	
+
 	public void selectPlaceholder() {
 		common.isDisplayed(selecttext);
-		
+
 	}
+
 	public void selectPlaceholdervalues() {
 		common.isDisplayed(adminOption);
 		common.isDisplayed(Optionstaff);
 		common.isDisplayed(Optionstu);
-		
+
 	}
+
 	public void validLoginCredentials() {
 		common.validLogin();
 	}
@@ -269,9 +267,3 @@ public class LoginPage {
 
 
 }
-
-
-
-
-
-

@@ -177,15 +177,12 @@ public class CommonMethods {
 	public void click(By locator) {
 		waitForClickable(locator).click();
 	}
+
 	
 	public String getText(By locator) {
-		return waitForVisibility(locator).getText();
-	}
-
-//	public String getText(By locator) {
-//		return driver.findElement(locator).getText();
-//		}
-
+		return driver.findElement(locator).getText();
+		}
+	
 	/*public static boolean webClickByLocator(By locator) {
 		Wait<WebDriver> fluentWait = new FluentWait<>(driver).withTimeout(Duration.ofSeconds(15))
 				.pollingEvery(Duration.ofMillis(500)).ignoring(StaleElementReferenceException.class)

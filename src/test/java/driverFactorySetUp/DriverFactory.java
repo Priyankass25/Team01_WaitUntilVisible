@@ -14,8 +14,12 @@ public class DriverFactory {
 	private static ThreadLocal<WebDriver> driver = new ThreadLocal<>();
 	private static ThreadLocal<String> browserName = new ThreadLocal<>();
 
+	
 	public static void inItBrowser() {
+		
+		 System.out.println("========== INIT BROWSER START ==========");
 		String browserName = getBrowser();
+		System.out.println("Browser from config: [" + browserName + "]");
 		boolean isHeadless = isHeadless();
 		if (browserName.equalsIgnoreCase("Edge")) {
 			EdgeOptions options = new EdgeOptions();
@@ -25,6 +29,7 @@ public class DriverFactory {
 			driver.set(new EdgeDriver(options));
 
 		} else if (browserName.equalsIgnoreCase("Chrome")) {
+			System.out.println("Creating ChromeDriver...");
 			ChromeOptions options = new ChromeOptions();
 			if (isHeadless) {
 				options.addArguments("--headless=new");

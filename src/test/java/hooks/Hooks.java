@@ -44,7 +44,7 @@ public class Hooks {
 			}
 		}
 	}
-	
+
 
 	@Before
 	public void setUp(Scenario scenario) {
@@ -59,7 +59,11 @@ public class Hooks {
         DriverFactory.setupBrowser();
         String url = ConfigReader.getProperty("url");
         driver.get(url);
-        logger.info("Navigated to URL: " + url);    }
+
+        logger.info("Navigated to URL: " + url);    
+        
+	}
+
 
 	@AfterStep
 	public void afterStep(Scenario scenario) {
@@ -72,11 +76,11 @@ public class Hooks {
 
 	@After
 	public void tearDown() {
-			logger.info("Closing WebDriver instance...");
-			if (DriverFactory.getDriver() != null) {
-		        DriverFactory.quitDriver();
-		    }
-		    TestContextSetup.clear();
+		logger.info("Closing WebDriver instance...");
+		if (DriverFactory.getDriver() != null) {
+			DriverFactory.quitDriver();
+		}
+		TestContextSetup.clear();
 	}
 
 }

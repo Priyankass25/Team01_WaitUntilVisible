@@ -1,5 +1,18 @@
 @Login
 Feature:Login
+<<<<<<< HEAD
+
+    Scenario: Login page navigation (valid URL)  	
+    When User enters the url "https://lms-frontend-hackathon-6dcccb9dd0fa.herokuapp.com/login"
+    Then LMS page should be launched
+      
+    Scenario: InValid Login 	
+   	When: User enters Invalid URL "https://lms-frontend-hackatho"
+    Then LMS Page should not open
+
+	  Scenario: Broken link 
+  	When: User enters Broken link "https://lms-frontend-hackathon-"
+=======
     Scenario: Login page navigation (valid URL)  	
     When User enters the url "https://lms-frontend-hackathon-6dcccb9dd0fa.herokuapp.com/login"
     Then LMS page should be launched
@@ -7,6 +20,7 @@ Feature:Login
 
 		Scenario: Invalid URL 
   	When User enters Invalid URL "https://www.google.com/"
+>>>>>>> main
     Then LMS Page should not open
 	
 	    Scenario: Broken URL 
@@ -40,7 +54,6 @@ Feature:Login
 
  		Scenario: Asterisk is displayed for user field
     Then Admin should see asterisk mark(*) symbol next to text for user field
-
 
  		Scenario: Asterisk is displayed for password field
     Then Admin should see asterisk mark(*) symbol next to text for pwd field
