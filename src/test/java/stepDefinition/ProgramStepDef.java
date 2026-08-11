@@ -386,7 +386,6 @@ public class ProgramStepDef {
 	public void admin_clicks_on_arrow_next_to_program_name() {
 		TestContextSetup.getPom().getProgramPage().dismissOverlay();
 		TestContextSetup.getPom().getProgramPage().clickprogramname();
-	//	TestContextSetup.getPom().getProgramPage().clickprogramname();
 	}
 	
 	@Then("Admin should  See the Program Name is sorted in Ascending order")
@@ -406,7 +405,6 @@ public class ProgramStepDef {
 	
 	@When("Admin clicks on Arrow next to program Name.")
 	public void admin_clicks_on_arrow_next_to_program_name_() {
-		//TestContextSetup.getPom().getProgramPage().dismissOverlay();
 		TestContextSetup.getPom().getProgramPage().clickprogramname();	
 	}
 	@When("Admin clicks on Arrow next to Program Description")
@@ -416,14 +414,8 @@ public class ProgramStepDef {
 		 }
 		 @Then("Admin should See the program Description is sorted in Ascending order")
 		 public void admin_should_see_the_program_description_is_sorted_in_ascending_order() {
-			 boolean actual = TestContextSetup.getPom()
-			            .getProgramPage()
-			            .isProgramDescriptionSortedAscending();
-
-			    Assert.assertTrue(
-			            actual,
-			            "Program Description is not sorted in ascending order"
-			    );
+			 boolean actual = TestContextSetup.getPom().getProgramPage().isProgramDescriptionSortedAscending();
+			    Assert.assertTrue(actual,"Program Description is not sorted in ascending order");
 		 }	
 	
 	@Then("Admin should See the Program Name is sorted in Descending order")
@@ -440,19 +432,12 @@ public class ProgramStepDef {
 	}
 	@When("Admin clicks on Arrow next to Program Description.")
 	public void admin_clicks_on_arrow_next_to_program_description_() {
-	//TestContextSetup.getPom().getProgramPage().dismissOverlay();
 		 TestContextSetup.getPom().getProgramPage().programdescriptionclick();
 	 }
 	@Then("Admin  should See the program Description is sorted in Descending order")
 	public void admin_should_see_the_program_description_is_sorted_in_descending_order() {
-		 boolean actual = TestContextSetup.getPom()
-		            .getProgramPage()
-		            .isProgramDescriptionSortedDescending();
-
-		    Assert.assertTrue(
-		            actual,
-		            "Program Description is not sorted in descending order"
-		    );
+		 boolean actual = TestContextSetup.getPom().getProgramPage().isProgramDescriptionSortedDescending();
+		 Assert.assertTrue(actual,"Program Description is not sorted in descending order");
 	}
 	@When("Admin clicks on Arrow next to Program status")
 	public void admin_clicks_on_arrow_next_to_program_status() {
@@ -461,14 +446,8 @@ public class ProgramStepDef {
 	}
 	@Then("Admin should see the Program status sorted in Ascending order")
 	public void admin_should_see_the_program_status_sorted_in_ascending_order() {
-		 boolean actual = TestContextSetup.getPom()
-		            .getProgramPage()
-		            .isProgramstatusSortedAscending();
-
-		    Assert.assertTrue(
-		            actual,
-		            "Program status is not sorted in descending order"
-		    );
+		 boolean actual = TestContextSetup.getPom().getProgramPage().isProgramstatusSortedAscending();
+        Assert.assertTrue(actual,"Program status is not sorted in descending order");
 	}
 	@Given("Admin is in program page where Program status are sorted in ascending order")
 	public void admin_is_in_program_page_where_program_status_are_sorted_in_ascending_order() {
@@ -476,8 +455,7 @@ public class ProgramStepDef {
 	}
 	@Then("Admin should see the Program status sorted in Descending order")
 	public void admin_should_see_the_program_status_sorted_in_descending_order() {
-		 boolean actual = TestContextSetup.getPom().getProgramPage()
-		            .isProgramstatusSortedAscending();
+		 boolean actual = TestContextSetup.getPom().getProgramPage().isProgramstatusSortedAscending();
 		    Assert.assertTrue(actual,"Program status is not sorted in descending order");
 	}
 	@Given("Admin is on Program page with multiple program records")
@@ -520,7 +498,6 @@ public void admin_is_on_the_program_table_on_any_page_except_the_first_page() {
 }
 @When("Admin clicks the previous page option \\(<) in the pagination control")
 public void admin_clicks_the_previous_page_option_in_the_pagination_control() {
-	//TestContextSetup.getPom().getProgramPage().dismissOverlay();
 	TestContextSetup.getPom().getProgramPage().prearrowclick();
 	
 }
@@ -544,10 +521,7 @@ public void admin_clicks_the_first_page_option_in_the_pagination_control() {
 }
 @Then("Admin should see the very first page record on the table")
 public void admin_should_see_the_very_first_page_record_on_the_table() {
-	int actual = TestContextSetup.getPom()
-	        .getProgramPage()
-	        .getFirstNumber();
-
+	int actual = TestContextSetup.getPom().getProgramPage().getFirstNumber();
 	Assert.assertEquals(actual, 1, "First number is not matching");
 }
 
